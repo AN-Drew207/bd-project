@@ -7,7 +7,7 @@ CREATE TABLE Arma (
     logitud INT NOT NULL,
     rareza INT NOT NULL,
     doble_filo BOOLEAN NOT NULL,
-    peso INT NOT NULL,
+    peso INT,
     tipo_punta VARCHAR(100) NOT NULL,
     material_cuerda VARCHAR(100) NOT NULL,
     tipo_magia VARCHAR(100) NOT NULL,
