@@ -1,11 +1,3 @@
-INSERT INTO Personaje VALUES ('Kamisato Ayaka', 'Comision Yashiro', 'Cryo', 'Jugable', 'Grus Nivis', 5, 'Espada Ligera', 26.63, 100, 61.03, 1001, 
-	'Inazuma', 'Espada de Favonius', 'Energy Recharge %', NULL, 'Cryo', 'Elegancia', ''   	
-);
-
-
-
-
-
 INSERT INTO Arma VALUES ('Espada de Madera', 4, 564, 'Espada Ligera', 60.5, 1, NULL, NULL, NULL, NULL, 1, 60),
 ('Aquila Favonia', 5, 674, 'Espada Ligera', 80.5, 1, NULL, NULL, NULL, NULL, 5, 20),
 ('Cortador de Jade Primordial', 5, 541, 'Espada Ligera', 80.2, 1, NULL, NULL, NULL, NULL, 7, 20);
@@ -30,7 +22,11 @@ INSERT INTO Efecto VALUES (1, '%Daño Pyro', 'Inflige daño de Fuego'),
 (4, '%Daño Cryo', 'Inflige daño Congelante'),
 (5, '%Daño Geo', 'Inflige daño Fisico'),
 (6, '%Daño Dendro', 'Inflige daño '),
-(7, '%Daño Anemo', 'Inflige daño de Viento');
+(7, '%Daño Anemo', 'Inflige daño de Viento'),
+(8, '%PROB. Critico', 'Mide la frecuencia con la que un personaje podrá infligir un crítico.'),
+(9, '%Maestria Elemental', 'Aumenta la potencia de las Reacciones elementales creadas por tu personaje.'),
+(10, '%Daño Critico', 'Determina cuánto daño adicional infligirá el héroe cuando se active un golpe crítico.'),
+(11, '%Recarga de Energia', 'Cada personaje tiene una estadística porcentual de Recarga de Energía. Ésta es inicialmente 100%, pero puede aumentar por medio de los artefactos, de un arma o como especialidad del personaje (en Shogun Raiden, Mona, Bennet, Venti, Kaeya y Yun Jin).');
 
 INSERT INTO Comida VALUES ('Carne de Mora', 1, 'Lyue'),
 ('Carne Frita', 1, 'Lyue'),
@@ -61,27 +57,16 @@ INSERT INTO Comida VALUES ('Carne de Mora', 1, 'Lyue'),
 ('Pollo “en vessie”', 4, 'Fontaine'),
 ('Érase una vez en Mondstadt', 3, 'Mondstadt'),
 ('Brotes de bambú hervidos', 2, 'Inazuma'),
-('');
+('Pescado mandarín agridulce', 3, 'Lyue'),
+('Pizza de champiñones especial', 3, 'Inazuma'),
+('Trucha con almendras', 1, 'Fontaine'),
+('Tortilla de papas de Mondstadt', 3, 'Mondstadt'),
+('Sopa de cebolla', 2, 'Fontaine'),
+('Pastelillo de luna', 4, 'Mondstadt'),
+('Pescado seco estofado', 1, 'Inazuma'),
+('Bolitas de harina de arroz', 1, 'Lyue'),
+('Caracolas de cristal', 3, 'Fontaine'),
+('Estofado de carne de Sabz', 3, 'Sumeru'),
+('Onigiri', 2, 'Inazuma');
 
-
-CREATE TABLE Comida (
-    nombre VARCHAR(50) PRIMARY KEY NOT NULL,
-    rareza INTEGER(5) NOT NULL,
-    nombre_region VARCHAR(100) NOT NULL,
-    FOREIGN KEY (nombre_region) REFERENCES Region(nombre)
-);
-
-CREATE TABLE Arma (
-    nombre VARCHAR(50) PRIMARY KEY NOT NULL,
-    rareza INT NOT NULL,
-    ataque_base FLOAT NOT NULL,
-    tipo VARCHAR(100) NOT NULL,
-    logitud INT NOT NULL,
-    doble_filo BOOLEAN NOT NULL,
-    peso INT NOT NULL,
-    tipo_punta VARCHAR(100) NOT NULL,
-    material_cuerda VARCHAR(100) NOT NULL,
-    tipo_magia VARCHAR(100) NOT NULL,
-    segundo_efecto VARCHAR(100) NOT NULL,
-    maginitud_segundo_efecto INT NOT NULL
-);
+INSERT INTO ConjuntoArtefactos VALUES ('');
