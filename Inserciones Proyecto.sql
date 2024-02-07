@@ -26,7 +26,11 @@ INSERT INTO Efecto VALUES (1, '%Daño Pyro', 'Inflige daño de Fuego'),
 (8, '%PROB. Critico', 'Mide la frecuencia con la que un personaje podrá infligir un crítico.'),
 (9, '%Maestria Elemental', 'Aumenta la potencia de las Reacciones elementales creadas por tu personaje.'),
 (10, '%Daño Critico', 'Determina cuánto daño adicional infligirá el héroe cuando se active un golpe crítico.'),
-(11, '%Recarga de Energia', 'Cada personaje tiene una estadística porcentual de Recarga de Energía. Ésta es inicialmente 100%, pero puede aumentar por medio de los artefactos, de un arma o como especialidad del personaje (en Shogun Raiden, Mona, Bennet, Venti, Kaeya y Yun Jin).');
+(11, '%Recarga de Energia', 'Cada personaje tiene una estadística porcentual de Recarga de Energía. Ésta es inicialmente 100%, pero puede aumentar por medio de los artefactos, de un arma o como especialidad del personaje (en Shogun Raiden, Mona, Bennet, Venti, Kaeya y Yun Jin).'),
+(12, '%ATQ', 'Hace un incremento al ataque normal por ciertos segundos, aumentando mas el porcentaje.'),
+(13, '%Daño Fisico', 'Es el daño estandard de las armas.');
+
+-- Ataque%, Vida%, Fisico%, Elemental%
 
 INSERT INTO Comida VALUES ('Carne de Mora', 1, 'Lyue'),
 ('Carne Frita', 1, 'Lyue'),
