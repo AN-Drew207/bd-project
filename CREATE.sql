@@ -1,16 +1,15 @@
 -- Creando la tabla Arma
 CREATE TABLE Arma (
     nombre VARCHAR(50) PRIMARY KEY NOT NULL,
-    rareza VARCHAR(70) NOT NULL,
-    ataque_base FLOAT NOT NULL,
+    rareza INTEGER(5) NOT NULL,
+    ataque_base INTEGER NOT NULL,
     tipo VARCHAR(100) NOT NULL,
-    logitud INT NOT NULL,
-    rareza INT NOT NULL,
-    doble_filo BOOLEAN NOT NULL,
-    peso INT,
-    tipo_punta VARCHAR(100) NOT NULL,
-    material_cuerda VARCHAR(100) NOT NULL,
-    tipo_magia VARCHAR(100) NOT NULL,
+    logitud FLOAT,
+    doble_filo BOOLEAN,
+    peso FLOAT,
+    tipo_punta VARCHAR(100),
+    material_cuerda VARCHAR(100),
+    tipo_magia VARCHAR(100),
     segundo_efecto VARCHAR(100) NOT NULL,
     maginitud_segundo_efecto INT NOT NULL
 );
@@ -25,7 +24,7 @@ CREATE TABLE Region (
     nombre VARCHAR(50) PRIMARY KEY NOT NULL,
     arconte VARCHAR(100) NOT NULL,
     descripcion TEXT NOT NULL,
-    elemento_origen VARCHAR(100) NOT NULL,
+    elemento_origen VARCHAR(20) NOT NULL,
     FOREIGN KEY (elemento_origen) REFERENCES Elemento(nombre)
 );
 
@@ -54,10 +53,10 @@ CREATE TABLE Habilidad (
 CREATE TABLE ConjuntoArtefactos (
     nombre VARCHAR(50) PRIMARY KEY NOT NULL,
     descripcion TEXT NOT NULL,
-	efecto VARCHAR(70) NOT NULL,
-    maginitud_efecto INT NOT NULL,
+	efecto INT NOT NULL,
+    magninitud_efecto INT NOT NULL,
     region_proveniencia VARCHAR(50) NOT NULL,
-    FOREIGN KEY (nombre_region) REFERENCES Efecto(nombre),
+    FOREIGN KEY (efecto) REFERENCES Efecto(id),
     FOREIGN KEY (region_proveniencia) REFERENCES Region(nombre)
 );
 
@@ -74,17 +73,17 @@ CREATE TABLE Piso (
     id_abismo_abisal INT PRIMARY KEY NOT NULL,
     tipo VARCHAR(100) NOT NULL,
 	prom_estrellas FLOAT NOT NULL,
-	efecto_dado VARCHAR(100) NOT NULL,
+	efecto_dado INT NOT NULL,
 	magnitud_efecto INT NOT NULL,
 	--EFECTO PK ES ID NO NOMBRE
-    FOREIGN KEY (efecto_dado) REFERENCES Efecto(nombre),
+    FOREIGN KEY (efecto_dado) REFERENCES Efecto(id),
     FOREIGN KEY (id_abismo_abisal) REFERENCES AbismoAbisal(id)
 );
 
 -- Creando la tabla Sala
 -- PDF NO TIENE NUMERO COMO PK
 CREATE TABLE Sala (
-    numero PRIMARY KEY INT NOT NULL,
+    numero INTEGER(10) PRIMARY KEY NOT NULL,
     id_piso INT NOT NULL,
     id_abismo_abisal INT NOT NULL,
     FOREIGN KEY (id_piso) REFERENCES Piso(id),
@@ -143,21 +142,20 @@ CREATE TABLE Personaje (
     cargo VARCHAR(70) NOT NULL,
     vision VARCHAR(70) NOT NULL,
     tipo VARCHAR(70) NOT NULL,
-    constelacion VARCHAR(70) NOT NULL,
-    rareza INT NOT NULL,
-    tipo_arma VARCHAR(70) NOT NULL,
-    ataque_base VARCHAR(70) NOT NULL,
-    vel_movimiento VARCHAR(70) NOT NULL,
-    defensa VARCHAR(70) NOT NULL,
-    constelacion VARCHAR(70) NOT NULL,
-    vida INT NOT NULL,
+    constelacion VARCHAR(70),
+    rareza INT,
+    tipo_arma VARCHAR(70),
+    ataque_base VARCHAR(70),
+    vel_movimiento VARCHAR(70),
+    defensa VARCHAR(70),
+    vida INT,
 	region_proveniencia VARCHAR(50) NOT NULL,
-    nombre_arma VARCHAR(50) NOT NULL,
-    efecto_secundario VARCHAR(50) NOT NULL,
-    maginitud_segundo_efecto INT NOT NULL,
-    habilidad_elemental VARCHAR(50) NOT NULL,
-    habilidad_definitiva VARCHAR(50) NOT NULL,
-    conjunto_artefactos VARCHAR(50) NOT NULL,
+    nombre_arma VARCHAR(50),
+    efecto_secundario VARCHAR(50),
+    maginitud_segundo_efecto INT,
+    habilidad_elemental VARCHAR(50),
+    habilidad_definitiva VARCHAR(50),
+    conjunto_artefactos VARCHAR(50),
     FOREIGN KEY (region_proveniencia) REFERENCES Region(nombre),
     FOREIGN KEY (habilidad_elemental) REFERENCES Arma(nombre),
     FOREIGN KEY (nombre_arma) REFERENCES Arma(nombre),

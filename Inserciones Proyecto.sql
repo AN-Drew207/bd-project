@@ -44,7 +44,24 @@ INSERT INTO Comida VALUES ('Carne de Mora', 1, 'Lyue'),
 ('Cangrejo mantequilla', 4, 'Inazuma'),
 ('Pesca extrema', 3, 'Mondstadt'),
 ('Tayín fuegoáureo', 3, 'Sumeru'),
-('Para Foçalors', 3, 'Fontaine');
+('Para Foçalors', 3, 'Fontaine'),
+('Cassoulet', 3, 'Fontaine'),
+('Arroz con anguila bañado en té', 3, 'Inazuma'),
+('Pollo rockero', 2, 'Lyue'),
+('Ensalada saludable', 2, 'Mondstadt'),
+('Fideos barba de dragón', 3, 'Lyue'),
+('Guoba de Jueyun', 3, 'Lyue'),
+('Jugo de gancho de lobo', 2, 'Mondstadt'),
+('Cien sabores', 3, 'Fontaine'),
+('Carne a la jardinera', 2, 'Mondstadt'),
+('Chop suey de Zhongyuan', 3, 'Lyue'),
+('Fish and chips', 3, 'Fontaine'),
+('Tulumba', 3, 'Sumeru'),
+('Carne estilo Eje Celestial', 4, 'Lyue'),
+('Pollo “en vessie”', 4, 'Fontaine'),
+('Érase una vez en Mondstadt', 3, 'Mondstadt'),
+('Brotes de bambú hervidos', 2, 'Inazuma'),
+('');
 
 
 CREATE TABLE Comida (
