@@ -21,7 +21,18 @@ INSERT INTO Arma VALUES ('Espada de Madera', 4, 564, 'Espada Ligera', 60.5, 0, N
 ('Lanza del Duelo', 4, 454, 'Lanza', NULL, NULL, NULL, 'Corcesca', NULL, NULL, 8, 36.7),
 ('La Captura', 4, 509, 'Lanza', NULL, NULL, NULL, 'Doble', NULL, NULL, 11, 45.9),
 ('Lanza de Espinadragón', 4, 454, 'Lanza', NULL, NULL, NULL, 'Colmillo', NULL, NULL, 13, 68.9),
-('Lanza Lítica', 4, 564, 'Lanza', NULL, NULL, NULL, 'Lítica');
+('Lanza Lítica', 4, 564, 'Lanza', NULL, NULL, NULL, 'Lítica', NULL, NULL, 12, 27.5),
+('Agitador del Relámpago', 5, 608, 'Arco', NULL, NULL, NULL, NULL, 'Crin de Caballo', NULL, 10, 66.1),
+('Arco de Favonius', 4, 454, 'Arco', NULL, NULL, NULL, NULL, 'Lino Encerado', NULL, 11, 61.2),
+('Arco de Cuervo', 3, 448, 'Arco', NULL, NULL, NULL, NULL, 'Catgut', NULL, 9, 93.0),
+('Senda de la Cazadora', 5, 541, 'Arco', NULL, NULL, NULL, NULL, 'Algodon', NULL, 8, 44.1),
+('Arco del Peñasco Oscuro', 4, 564, 'Arco', NULL, NULL, NULL, NULL, 'Catgut', NULL, 10, 36.7),
+('Arco Real', 4, 509, 'Arco', NULL, NULL, NULL, NULL, 'Sedas', NULL, 12, 41.3),
+('Vasalla del Rey', 4, 454, 'Arco', NULL, NULL, NULL, NULL, 'crin de caballo', NULL, 12, 55.1),
+('Mensajero', 3, 448, 'Arco', NULL, NULL, NULL, NULL, 'Catgut', NULL, 10, 31.2),
+('Ágata del Peñasco Oscuro', 4, 509, 'Catalizador', NULL, NULL, NULL, NULL, NULL, 'Brillo', 10, 55.1),
+('Anillo de Hakushin', 4, 564, 'Catalizador', NULL, NULL, NULL, NULL, NULL, 'Electrica', 11, 30.6),
+('Estrella Errabunda', 4, 509, 'Catalizador', NULL, NULL, NULL, NULL, NULL, 'Recarga', 9, 165);
 
 INSERT INTO Region VALUES ('Fontaine', 'Focalors', 'De las regiones de Teyvat, Fontaine se enorgullece de ser el centro de la cultura y las artes; o en palabras de Francis, un mercader ambulante de la región, la verdadera belleza y elegancia. El periódico «El Pájaro de Vapor» es el principal periódico de la Corte de Fontaine; Mona es columnista en él, lo que sugiere que tienen escritores de todo Teyvat.', 'Hydro'), 
 ('Lyue', 'Morax', 'Es una de las siete naciones de Teyvat. También es la ciudad-Estado que adora a Morax, el Arconte Geo.', 'Geo'), 
