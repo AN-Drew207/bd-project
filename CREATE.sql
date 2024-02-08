@@ -140,8 +140,8 @@ CREATE TABLE Aparece (
 CREATE TABLE Personaje (
     nombre VARCHAR(50) PRIMARY KEY NOT NULL,
     cargo VARCHAR(70) NOT NULL,
-    vision VARCHAR(70) NOT NULL,
-    tipo VARCHAR(70) NOT NULL,
+    vision VARCHAR(70),
+    tipo VARCHAR(70) ,
     constelacion VARCHAR(70),
     rareza INT,
     tipo_arma VARCHAR(70),
