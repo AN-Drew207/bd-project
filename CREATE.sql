@@ -11,7 +11,7 @@ CREATE TABLE Arma (
     material_cuerda VARCHAR(100),
     tipo_magia VARCHAR(100),
     segundo_efecto VARCHAR(100) NOT NULL,
-    maginitud_segundo_efecto INT NOT NULL
+    maginitud_segundo_efecto FLOAT NOT NULL
 );
 
 -- Creando la tabla Elemento

@@ -1,6 +1,19 @@
-INSERT INTO Arma VALUES ('Espada de Madera', 4, 564, 'Espada Ligera', 60.5, 1, NULL, NULL, NULL, NULL, 1, 60),
-('Aquila Favonia', 5, 674, 'Espada Ligera', 80.5, 1, NULL, NULL, NULL, NULL, 5, 20),
-('Cortador de Jade Primordial', 5, 541, 'Espada Ligera', 80.2, 1, NULL, NULL, NULL, NULL, 7, 20);
+INSERT INTO Arma VALUES ('Espada de Madera', 4, 564, 'Espada Ligera', 60.5, 0, NULL, NULL, NULL, NULL, 11, 30.6),
+('Aquila Favonia', 5, 674, 'Espada Ligera', 80.5, 0, NULL, NULL, NULL, NULL, 13, 41.3),
+('Cortador de Jade Primordial', 5, 541, 'Espada Ligera', 80.2, 0, NULL, NULL, NULL, NULL, 8, 44.1),
+('Deseo Ponzoñoso', 5, 509, 'Espada Ligera', 70.5, 1, NULL, NULL, NULL, NULL, 11, 45.9),
+('Espada del Alba', 3, 401, 'Espada Ligera', 80.1, 1, NULL, NULL, NULL, NULL, 10, 46.8),
+('Rompemontañas', 5, 608, 'Espada Ligera', 80.5, 1, NULL, NULL, NULL, NULL, 12, 49.6),
+('Rugido del León', 4, 509, 'Espada Ligera', 75.2, 1, NULL, NULL, NULL, NULL, 12, 41.3),
+('Luz Lunar de Xifos', 4, 509, 'Espada Ligera', 70.2, 1, NULL, NULL, NULL, NULL, 9, 165),
+('Argento Estelar de las Nieves', 4, 564, 'Mandoble', NULL, NULL, 5.6, NULL, NULL, NULL, 13, 34.4),
+('Espada del Tiempo', 4, 509, 'Mandoble', NULL, NULL, 5.0, NULL, NULL, NULL, 14, 41.3),
+('Májaira Aguamarina', 4, 509, 'Mandoble', NULL, NULL, 6.0, NULL, NULL, NULL, 9, 165.0),
+('Segadora de la Lluvia', 4, 509, 'Mandoble', NULL, NULL, 6.0, NULL, NULL, NULL, 9, 165.0),
+('Médula de la Serpiente Marina', 4, 509, 'Mandoble', NULL, NULL, 7.0, NULL, NULL, NULL, 8, 27.5),
+('Espada Real del Bosque', 4, 564, 'Mandoble', NULL, NULL, 8.0, NULL, NULL, NULL, 11, 30.6),
+('Espada de la Desidia', 5, 608, 'Mandoble', NULL, NULL, 7.5, NULL, NULL, NULL, 12, 49.6),
+('Emblema del Mar de Juncos', 5, 608, 'Mandoble', NULL, NULL, 8.0, NULL, NULL, NULL, 8, 33.0);
 
 INSERT INTO Region VALUES ('Fontaine', 'Focalors', 'De las regiones de Teyvat, Fontaine se enorgullece de ser el centro de la cultura y las artes; o en palabras de Francis, un mercader ambulante de la región, "la verdadera belleza y elegancia". El periódico «El Pájaro de Vapor» es el principal periódico de la Corte de Fontaine; Mona es columnista en él, lo que sugiere que tienen escritores de todo Teyvat.', 'Hydro'), 
 ('Lyue', 'Morax', 'Es una de las siete naciones de Teyvat. También es la ciudad-Estado que adora a Morax, el Arconte Geo.', 'Geo'), 
@@ -28,7 +41,9 @@ INSERT INTO Efecto VALUES (1, '%Daño Pyro', 'Inflige daño de Fuego'),
 (10, '%Daño Critico', 'Determina cuánto daño adicional infligirá el héroe cuando se active un golpe crítico.'),
 (11, '%Recarga de Energia', 'Cada personaje tiene una estadística porcentual de Recarga de Energía. Ésta es inicialmente 100%, pero puede aumentar por medio de los artefactos, de un arma o como especialidad del personaje (en Shogun Raiden, Mona, Bennet, Venti, Kaeya y Yun Jin).'),
 (12, '%ATQ', 'Hace un incremento al ataque normal por ciertos segundos, aumentando mas el porcentaje.'),
-(13, '%Daño Fisico', 'Es el daño estandard de las armas.');
+(13, '%Daño Fisico', 'Es el daño estandard de las armas.'),
+(14, '%Vida', 'Incremento de Vida'),
+(15, '%DEF', 'Incremento de defensa');
 
 -- Ataque%, Vida%, Fisico%, Elemental%
 
@@ -133,7 +148,7 @@ INSERT INTO Personaje VALUES ('Albedo','Jefe Alquimista','Geo','BODY_BOY','NULL'
 ('Kaveh','NULL','Dendro','BODY_MALE','NULL','4','WEAPON_CLAYMORE',19,2,62,1002,'Sumeru','Claymore','Elemental Mastery','NULL','Artistic Ingenuity','Painted Dome','NULL'),
 ('Keqing','NULL','Electro','BODY_GIRL','NULL','5','WEAPON_SWORD_ONE_HAND',25,1,62,1020,'Liyue','Sword','%Daño Crítico','NULL','Stellar Restoration','Starward Sword','NULL'),
 ('Kirara','NULL','Dendro','BODY_GIRL','NULL','4','WEAPON_SWORD_ONE_HAND',18,NULL,45,1021,'Inazuma','Sword','HP','NULL','Meow-teor Kick','Secret Art: Surprise Dispatch','NULL'),
-('Klee','NULL','Pyro','BODY_LOLI','NULL','5','WEAPON_CATALYST',24,2,47,800,'Mondstadt','Catalyst','%Daño Pyro','NULL','Jumpy Dumpty','Sparks 'n' Splash','NULL'),
+('Klee','NULL','Pyro','BODY_LOLI','NULL','5','WEAPON_CATALYST',24,2,47,800,'Mondstadt','Catalyst','%Daño Pyro','NULL','Jumpy Dumpty','Sparks n Splash','NULL'),
 ('Kujou Sara','NULL','Electro','BODY_LADY','NULL','4','WEAPON_BOW',16,2,52,802,'Inazuma','Bow','ATK','NULL','Tengu Stormcall','Subjugation: Koukou Sendou','NULL'),
 ('Kuki Shinobu','NULL','Electro','BODY_GIRL','NULL','4','WEAPON_SWORD_ONE_HAND',17,1,62,1030,'Inazuma','Sword','HP','NULL','Sanctifying Ring','Gyoei Narukami Kariyama Rite','NULL'),
 ('Layla','NULL','Cryo','BODY_GIRL','NULL','4','WEAPON_SWORD_ONE_HAND',18,1,54,930,'Sumeru','Sword','HP','NULL','Nights of Formal Focus','Dream of the Star-Stream Shaker','NULL'),
@@ -175,5 +190,6 @@ INSERT INTO Personaje VALUES ('Albedo','Jefe Alquimista','Geo','BODY_BOY','NULL'
 ('Yelan','NULL','Hydro','BODY_LADY','NULL','5','WEAPON_BOW',18,5,42,1124,'Liyue','Bow','CRIT Rate','NULL','Lingering Lifeline','Depth-Clarion Dice','NULL'),
 ('Yoimiya','NULL','Pyro','BODY_GIRL','NULL','5','WEAPON_BOW',25,3,47,791,'Inazuma','Bow','CRIT Rate','NULL','Niwabi Fire-Dance','Ryuukin Saxifrage','NULL'),
 ('Yun Jin','NULL','Geo','BODY_GIRL','NULL','4','WEAPON_POLE',16,2,61,893,'Liyue','Polearm','Energy Recharge','NULL','Opening Flourish','Cliffbreakers Banner','NULL'),
-('Zhongli','NULL','Geo','BODY_MALE','NULL','5','WEAPON_POLE',19,3,57,1143,'Liyue','Polearm','%Daño Geo','NULL','Dominus Lapidis','Planet Befall','NULL'),
+('Zhongli','NULL','Geo','BODY_MALE','NULL','5','WEAPON_POLE',19,3,57,1143,'Liyue','Polearm','%Daño Geo','NULL','Dominus Lapidis','Planet Befall','NULL');
+
 INSERT INTO ConjuntoArtefactos VALUES ('');
