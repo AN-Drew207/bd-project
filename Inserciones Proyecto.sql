@@ -3,8 +3,8 @@ INSERT INTO Arma VALUES ('Espada de Madera', 4, 564, 'Espada Ligera', 60.5, 0, N
 ('Cortador de Jade Primordial', 5, 541, 'Espada Ligera', 80.2, 0, NULL, NULL, NULL, NULL, 8, 44.1),
 ('Deseo Ponzoñoso', 5, 509, 'Espada Ligera', 70.5, 1, NULL, NULL, NULL, NULL, 11, 45.9),
 ('Espada del Alba', 3, 401, 'Espada Ligera', 80.1, 1, NULL, NULL, NULL, NULL, 10, 46.8),
-('Rompemontañas', 5, 608, 'Espada Ligera', 80.5, 1, NULL, NULL, NULL, NULL, 12, 49.6),
-('Rugido del León', 4, 509, 'Espada Ligera', 75.2, 1, NULL, NULL, NULL, NULL, 12, 41.3),
+('Rompemontañas', 5, 608, 'Espada Ligera', 80.5, 0, NULL, NULL, NULL, NULL, 12, 49.6),
+('Rugido del León', 4, 509, 'Espada Ligera', 75.2, 0, NULL, NULL, NULL, NULL, 12, 41.3),
 ('Luz Lunar de Xifos', 4, 509, 'Espada Ligera', 70.2, 1, NULL, NULL, NULL, NULL, 9, 165),
 ('Argento Estelar de las Nieves', 4, 564, 'Mandoble', NULL, NULL, 5.6, NULL, NULL, NULL, 13, 34.4),
 ('Espada del Tiempo', 4, 509, 'Mandoble', NULL, NULL, 5.0, NULL, NULL, NULL, 14, 41.3),
@@ -13,7 +13,15 @@ INSERT INTO Arma VALUES ('Espada de Madera', 4, 564, 'Espada Ligera', 60.5, 0, N
 ('Médula de la Serpiente Marina', 4, 509, 'Mandoble', NULL, NULL, 7.0, NULL, NULL, NULL, 8, 27.5),
 ('Espada Real del Bosque', 4, 564, 'Mandoble', NULL, NULL, 8.0, NULL, NULL, NULL, 11, 30.6),
 ('Espada de la Desidia', 5, 608, 'Mandoble', NULL, NULL, 7.5, NULL, NULL, NULL, 12, 49.6),
-('Emblema del Mar de Juncos', 5, 608, 'Mandoble', NULL, NULL, 8.0, NULL, NULL, NULL, 8, 33.0);
+('Emblema del Mar de Juncos', 5, 608, 'Mandoble', NULL, NULL, 8.0, NULL, NULL, NULL, 8, 33.0),
+('Borla Blanca', 3, 401, 'Lanza', NULL, NULL, NULL, 'Lis', NULL, NULL, 8, 23.4),
+('Alabarda', 3, 448, 'Lanza', NULL, NULL, NULL, 'Alemana', NULL, NULL, 12, 23.4),
+('Lanza de Caza Real', 4, 564, 'Lanza', NULL, NULL, NULL, 'Lis', NULL, NULL, 12, 27.5),
+('Púa Celestial', 5, 674, 'Lanza', NULL, NULL, NULL, 'Lis', NULL, NULL, 11, 36.7),
+('Lanza del Duelo', 4, 454, 'Lanza', NULL, NULL, NULL, 'Corcesca', NULL, NULL, 8, 36.7),
+('La Captura', 4, 509, 'Lanza', NULL, NULL, NULL, 'Doble', NULL, NULL, 11, 45.9),
+('Lanza de Espinadragón', 4, 454, 'Lanza', NULL, NULL, NULL, 'Colmillo', NULL, NULL, 13, 68.9),
+('Lanza Lítica', 4, 564, 'Lanza', NULL, NULL, NULL, 'Lítica');
 
 INSERT INTO Region VALUES ('Fontaine', 'Focalors', 'De las regiones de Teyvat, Fontaine se enorgullece de ser el centro de la cultura y las artes; o en palabras de Francis, un mercader ambulante de la región, la verdadera belleza y elegancia. El periódico «El Pájaro de Vapor» es el principal periódico de la Corte de Fontaine; Mona es columnista en él, lo que sugiere que tienen escritores de todo Teyvat.', 'Hydro'), 
 ('Lyue', 'Morax', 'Es una de las siete naciones de Teyvat. También es la ciudad-Estado que adora a Morax, el Arconte Geo.', 'Geo'), 
