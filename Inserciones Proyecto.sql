@@ -396,6 +396,57 @@ INSERT INTO Sala VALUES (1,1,1),
 (12,3,3);
 
 
+INSERT INTO Enemigo VALUES ('Fatui Pyro Agent', 'Enemigo de élite', 365, 300, 'Pyro'),
+('Treasure Hoarders: Crusher', 'Enemigo Normal', 146, 60, 'N/A'),
+('Hydro Hypostasis', 'Jefe', 656, 600, 'Hydro'),
+('Geo Hypostasis', 'Jefe', 510, 600, 'Geo'),
+('Thundercraven Rifthound', 'Enemigo de élite', 514, 180, 'Electro'),
+('Dendro Samachurl', 'Enemigo Normal', 73, 90, 'Dendro'),
+('Arithmetic Enhancer Mek', 'Enemigo Normal', 2790, 120, 'N/A'),
+('Cryo Abyss Mage', 'Enemigo Normal', 146, 150, 'Cryo'),
+('Abyss Herald: Frost Fall', 'Enemigo de élite', 583, 480, 'Cryo'),
+('Blazing Axe Mitachurl', 'Enemigo de élite', 219, 200, 'Pyro'),
+('Primal Construct: Reshaper', 'Enemigo de élite', 250, 360, 'N/A'),
+('Anemo Samachurl', 'Enemigo Normal', 73, 90, 'Anemo'),
+('Cryo Regisvine', 'Jefe', 510, 600, 'Cryo'),
+('Fatui Electro Cicin Mage', 'Enemigo de élite', 365, 240, 'Electro'),
+('Pyro Abyss Mage', 'Enemigo Normal', 146, 150, 'Pyro'),
+('Cryo Whopperflower', 'Enemigo Normal', 219, 120, 'Cryo'),
+('Electro Whopperflower', 'Enemigo Normal', 219, 120, 'Electro'),
+('Anemo Hypostasis', 'Jefe', 510, 600, 'Anemo'),
+('Large Geo Slime', 'Enemigo Normal', 146, 180, 'Geo'),
+('Millennial Pearl Seahorse', 'Jefe', 808, 720, 'Hydro'),
+('Ruin Guard', 'Enemigo de élite', 510, 240, 'N/A'),
+('Pyro Whopperflower', 'Enemigo Normal', 219, 120, 'Pyro'),
+('Ruin Drake: Skywatch', 'Enemigo de élite', 367, 300, 'Pyro'),
+('Cryo Samachurl', 'Enemigo Normal', 73, 90, 'Cryo'),
+('Large Pyro Slime', 'Enemigo Normal', 146, 180, 'Pyro'),
+('Hydro Samachurl', 'Enemigo Normal', 73, 90, 'Hydro'),
+('Geo Hypostasis', 'Jefe', 510, 600, 'Geo'),
+('Cryo Hilichurl Shooter', 'Enemigo Normal', 58, 90, 'Cryo'),
+('Electro Hilichurl Shooter', 'Enemigo Normal', 58, 90, 'Electro'),
+('Anemo Hilichurl Rogue', 'Enemigo de élite', 367, 180, 'Anemo'),
+('Treasure Hoarders: Pyro Potioneer', 'Enemigo Normal', 117, 60, 'Pyro'),
+('Electro Hypostasis', 'Jefe', 510, 600, 'Electro'),
+('Cryo Cicin', 'Enemigo Normal', 36, 120, 'Cryo'),
+('Thunderhelm Lawachurl', 'Enemigo de élite', 656, 210, 'Electro'),
+('Large Dendro Slime', 'Enemigo Normal', 8000, 180, 'Dendro'),
+('Ruin Grader', 'Enemigo de élite', 656, 270, 'N/A'),
+('Hydro Cicin', 'Enemigo Normal', 36, 120, 'Hydro'),
+('Wooden Shield Hilichurl Guard', 'Enemigo Normal', 73, 90, 'N/A'),
+('Dendro Hypostasis', 'Jefe', 656, 600, 'Dendro'),
+('Treasure Hoarders: Electro Potioneer', 'Enemigo Normal', 117, 60, 'Electro'),
+('Pyro Hilichurl Shooter', 'Enemigo Normal', 58, 90, 'Pyro');
+
+INSERT INTO Incluye VALUES ('')
+
+INSERT INTO Concede VALUES ('')
+
+INSERT INTO Ingiere VALUES ('')
 
 
 INSERT INTO ConjuntoArtefactos VALUES ('')
+
+
+
+-- Tablas Faltantes Concede, Ingiere, Enemigo, Aparece,Incluye
