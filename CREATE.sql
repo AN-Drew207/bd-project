@@ -16,7 +16,8 @@ CREATE TABLE Arma (
 
 -- Creando la tabla Elemento
 CREATE TABLE Elemento (
-    nombre VARCHAR(50) PRIMARY KEY NOT NULL,
+    nombre VARCHAR(50) PRIMARY KEY NOT NULL 
+    CONSTRAINT CHECK_NOMBRE CHECK (nombre IN ('Anemo', 'Pyro', 'Cryo', 'Geo', 'Dendro', 'Electro', 'Hydro', 'N/A'))
 );
 
 -- Creando la tabla Region
