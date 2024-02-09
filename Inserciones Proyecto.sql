@@ -57,8 +57,8 @@ INSERT INTO Efecto VALUES (1, '%Daño Pyro', 'Inflige daño de Fuego'),
 (2, '%Daño Electro', 'Inflige daño Electrico'), 
 (3, '%Daño Hydro', 'Inflige daño Acuatico'),
 (4, '%Daño Cryo', 'Inflige daño Congelante'),
-(5, '%Daño Geo', 'Inflige daño Fisico'),
-(6, '%Daño Dendro', 'Inflige daño '),
+(5, '%Daño Geo', 'Inflige daño con Rocas'),
+(6, '%Daño Dendro', 'Inflige daño con Plantas'),
 (7, '%Daño Anemo', 'Inflige daño de Viento'),
 (8, '%PROB. Critico', 'Mide la frecuencia con la que un personaje podrá infligir un crítico.'),
 (9, '%Maestria Elemental', 'Aumenta la potencia de las Reacciones elementales creadas por tu personaje.'),
@@ -72,7 +72,16 @@ INSERT INTO Efecto VALUES (1, '%Daño Pyro', 'Inflige daño de Fuego'),
 (17, 'ATQ Plano', 'Ataque normal'),
 (18, 'DEF plana', 'Defensa completa'),
 (19, 'AGT Stamina', 'Incremento de Resistencia y Destreza'),
-(20, 'N/A', 'Sin Efecto');
+(20, '%RES Pyro', 'Resistencia al Fuego'),
+(21, '%RES Electro', 'Resistencia Electrica'),
+(22, '%RES Hydro', 'Resistencia Acuatica'),
+(23, '%RES Cryo', 'Resistencia Congelante'),
+(24, '%RES Geo', 'Resistencia al las Rocas'),
+(25, '%RES Dendro', 'Resistencia al daño de Plantas'),
+(26, '%RES Anemo', 'Resistencia al Viento'),
+(27, '%Daño Elemental', 'Inflige daño Elemental'),
+(28, '%Curacion', 'Curacion'),
+(29, 'N/A', 'Sin Efecto');
 
 -- Ataque%, Vida%, Fisico%, Elemental%
 
@@ -778,7 +787,18 @@ INSERT INTO Ingiere VALUES ('')
 
 -- Tablas Faltantes Concede, Ingiere, Enemigo, Aparece,Incluye
 
-INSERT INTO ConjuntoArtefactos VALUES ('Afortunado', 'Aquel que es favorecido por la fortuna tiende a experimentar al menos una buena cantidad de milagros. El legendario trébol de cuatro hojas, por ejemplo, es un precioso encuentro que trae buena suerte a su portador.', 15, 99.9, 'Liyue'),
-('Instructor', 'Todos los discípulos sabían que el estricto Instructor era una persona muy formal. Pero uno o dos días a la semana se ponía una flor de color amarillo en el pecho. Esto siempre le sacaba una sonrisa, lo que suponía un alivio para los estudiantes.', 9, 80.0),
-('Berserker', 'Una vez, cuando el Berserker aún no se había vuelto loco, empezó a caminar titubeante en el jardín de rosas. Nunca tuvo una familia o amante, ni amigos en quien confiar. Cuando no estaba en el campo de batalla, se dedicaba a cuidar con gran esmero de las frágiles flores de su jardín, como si su color carmesí recubierto de espinas fuera el único calor al que pudiera aferrarse.', 10, 12.0),
+INSERT INTO ConjuntoArtefactos VALUES ('Afortunado', 'Un trébol de cuatro hojas que crece en la naturaleza. Fue arrancado porque se decía que traía suerte', 15, 99.9, 'Liyue'),
+('Instructor', 'Cuando el instructor llevaba puesto este broche, significaba que ese día no había entrenamiento.', 9, 80.0, 'Mondstadt'),
+('Ritual Antiguo de la Nobleza', 'Una flor satinada con un acabado brillante, apta para una reunión elegante. Todavía se ve tan distinguida como lo hizo el día en que fue desechada', 12, 20.0, 'Liyue'),
+('Artista Marcial', 'Solo este tipo de flor carmesí podía aliviar el dolor del Artista Marcial.', 17, 15.0, 'Liyue'),
+('Doncella Amada', 'Una delicada y orgullosa flor que nunca se ha marchitado. Sigue emitiendo una fraganca irresistible.', 16, 15.0, 'Mondstadt'),
+('Caballería Sanguinaria', 'Una flor seca, oscura, con manchas de sangre y dura como el acero. Es considerada una especie de souvenir.', 13, 25.0, 'Liyue'),
+('Domador de Truenos', 'Una flor que solo crece en zonas tormentosas. Da el coraje necesario para salir al exterior en días de tormenta extrema.', 2, 35.0, 'Mondstadt'),
+('Furia del Trueno', 'Una flor del trueno que sobrevivió al furioso pisoteo y a las llamas abrasadoras de una catástrofe destructiva del pasado.', 2, 15.0, 'Mondstadt'),
+('Corazón de las Profundidades', 'Un broche cuyo color y brillo se han atenuadoo, Su revestimiento dorado original se ha perdido debido a la erosión de la brisa marina.', 3, 15.0, 'Mondstadt'),
+('Petra Arcaica', 'Una flor que brota en las grietas de las rocas y los minerales. Sus pétalos se mecen con la brisá, tal y como una flor real.', 5, 15.0, 'Liyue'),
+('Virtuoso Corredor de Lava', 'Una flor que se abrió entre las llamas. Según la leyenda, los sabios de la antigüedad la llevaron consigo antes de cruzar el mar de fuego.', 20, 40.0, 'Liyue'),
+('Deceso del Cinabrio', 'Un objeto conmemorativo tan vivo como el ser que lo resguardó cientos de años atrás.', 12, 18.0, 'Liyue'),
+('Perla Oceánica', 'Una flor que se ha teñido de muchos de los colores del océano caprichoso y que reluce con hermosos reflejos bajo la luz de la luna.', 28, 15.0, 'Inazuma'),
+('Compañía Dorada', 'Una flor orgullosamente abierta y fabricada con almejas, madreperlas y pan de oro.', 27, 20.0, 'Fontaine'),
 ('');
