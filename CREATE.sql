@@ -1,7 +1,7 @@
 -- Creando la tabla Arma
 CREATE TABLE Arma (
     nombre VARCHAR(50) PRIMARY KEY NOT NULL,
-    rareza INTEGER(5) NOT NULL,
+    rareza INT NOT NULL,
     ataque_base INTEGER NOT NULL,
     tipo VARCHAR(100) NOT NULL,
     logitud FLOAT,
@@ -13,6 +13,10 @@ CREATE TABLE Arma (
     segundo_efecto VARCHAR(100) NOT NULL,
     maginitud_segundo_efecto FLOAT NOT NULL
 );
+
+ALTER TABLE Arma 
+ADD CONSTRAINT CHECK_ARMA CHECK (tipo IN ('Espada Ligera', 'Espada Pesada', 'Lanza', 'Arco', 'Catalizador') AND 
+tipo_magia IN ('Ofensiva', 'Defensiva', 'Soporte'));
 
 -- Creando la tabla Elemento
 CREATE TABLE Elemento (
@@ -48,14 +52,14 @@ CREATE TABLE Efecto (
 CREATE TABLE Habilidad (
     nombre VARCHAR(50) PRIMARY KEY NOT NULL,
     tipo  VARCHAR(50) NOT NULL,
-    bono_atq INT NOT NULL
+    bono_atq FLOAT NOT NULL
 );
 
 CREATE TABLE ConjuntoArtefactos (
     nombre VARCHAR(50) PRIMARY KEY NOT NULL,
     descripcion TEXT NOT NULL,
 	efecto INT NOT NULL,
-    magninitud_efecto INT NOT NULL,
+    magninitud_efecto FLOAT NOT NULL,
     region_proveniencia VARCHAR(50) NOT NULL,
     FOREIGN KEY (efecto) REFERENCES Efecto(id),
     FOREIGN KEY (region_proveniencia) REFERENCES Region(nombre)
@@ -115,7 +119,7 @@ CREATE TABLE Concede (
 -- Creando la tabla Comida
 CREATE TABLE Comida (
     nombre VARCHAR(50) PRIMARY KEY NOT NULL,
-    rareza VARCHAR(70) NOT NULL,
+    rareza INT NOT NULL,
     nombre_region VARCHAR(100) NOT NULL,
     FOREIGN KEY (nombre_region) REFERENCES Region(nombre)
 );
@@ -152,14 +156,14 @@ CREATE TABLE Personaje (
     vida INT,
 	region_proveniencia VARCHAR(50) NOT NULL,
     nombre_arma VARCHAR(50),
-    efecto_secundario VARCHAR(50),
-    maginitud_segundo_efecto INT,
+    efecto_secundario INT,
+    maginitud_segundo_efecto FLOAT,
     habilidad_elemental VARCHAR(50),
     habilidad_definitiva VARCHAR(50),
     conjunto_artefactos VARCHAR(50),
     FOREIGN KEY (region_proveniencia) REFERENCES Region(nombre),
     FOREIGN KEY (habilidad_elemental) REFERENCES Arma(nombre),
-    FOREIGN KEY (nombre_arma) REFERENCES Arma(nombre),
+    FOREIGN KEY (efecto_secundario) REFERENCES Efecto(id),
     FOREIGN KEY (habilidad_elemental) REFERENCES Habilidad(nombre),	
     FOREIGN KEY (habilidad_definitiva) REFERENCES Habilidad(nombre),	
     FOREIGN KEY (conjunto_artefactos) REFERENCES ConjuntoArtefactos(nombre)	
