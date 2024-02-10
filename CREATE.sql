@@ -1,17 +1,18 @@
 -- Creando la tabla Arma
+-- VER RAREZA
 CREATE TABLE Arma (
     nombre VARCHAR(50) PRIMARY KEY NOT NULL,
-    rareza INT NOT NULL,
-    ataque_base INTEGER NOT NULL,
+    rareza INTEGER NOT NULL ,
+    ataque_base INTEGER NOT NULL CHECK (ataque_base >= 1),
     tipo VARCHAR(100) NOT NULL,
-    logitud FLOAT,
+    logitud FLOAT CHECK (logitud >= 1 OR logitud = NULL),
     doble_filo BOOLEAN,
-    peso FLOAT,
+    peso FLOAT CHECK (peso >= 1 OR peso = NULL),
     tipo_punta VARCHAR(100),
     material_cuerda VARCHAR(100),
     tipo_magia VARCHAR(100),
-    segundo_efecto VARCHAR(100) NOT NULL,
-    maginitud_segundo_efecto FLOAT NOT NULL
+    segundo_efecto INTEGER NOT NULL CHECK (segundo_efecto >= 1),
+    maginitud_segundo_efecto FLOAT NOT NULL CHECK (maginitud_segundo_efecto != 0)
 );
 
 ALTER TABLE Arma 
@@ -21,8 +22,10 @@ tipo_magia IN ('Ofensiva', 'Defensiva', 'Soporte'));
 -- Creando la tabla Elemento
 CREATE TABLE Elemento (
     nombre VARCHAR(50) PRIMARY KEY NOT NULL 
-    CONSTRAINT CHECK_NOMBRE CHECK (nombre IN ('Anemo', 'Pyro', 'Cryo', 'Geo', 'Dendro', 'Electro', 'Hydro', 'N/A'))
 );
+
+ALTER TABLE Elemento 
+ADD CONSTRAINT CHECK_NOMBRE CHECK (nombre IN ('Anemo', 'Pyro', 'Cryo', 'Geo', 'Dendro', 'Electro', 'Hydro', 'N/A'));
 
 -- Creando la tabla Region
 CREATE TABLE Region (
@@ -42,7 +45,7 @@ CREATE TABLE RegionInpiradas (
 
 -- Creando la tabla Efecto
 CREATE TABLE Efecto (
-    id INT PRIMARY KEY NOT NULL,
+    id INTEGER PRIMARY KEY NOT NULL CHECK (id >= 1),
     nombre VARCHAR(50) NOT NULL,
     descripcion TEXT NOT NULL,
 );
@@ -52,14 +55,18 @@ CREATE TABLE Efecto (
 CREATE TABLE Habilidad (
     nombre VARCHAR(50) PRIMARY KEY NOT NULL,
     tipo  VARCHAR(50) NOT NULL,
-    bono_atq FLOAT NOT NULL
+    bono_atq FLOAT NOT NULL CHECK (bono_atq >= 1)
 );
+
+ALTER TABLE Habilidad 
+ADD CONSTRAINT CHECK_TIPO CHECK (tipo IN ('Definitiva', 'Elemental'));
+
 
 CREATE TABLE ConjuntoArtefactos (
     nombre VARCHAR(50) PRIMARY KEY NOT NULL,
     descripcion TEXT NOT NULL,
-	efecto INT NOT NULL,
-    magninitud_efecto FLOAT NOT NULL,
+	efecto INTEGER NOT NULL CHECK (efecto >= 1),
+    magninitud_efecto FLOAT NOT NULL CHECK (magnitud_efecto != 0),
     region_proveniencia VARCHAR(50) NOT NULL,
     FOREIGN KEY (efecto) REFERENCES Efecto(id),
     FOREIGN KEY (region_proveniencia) REFERENCES Region(nombre)
@@ -67,20 +74,20 @@ CREATE TABLE ConjuntoArtefactos (
 
 -- Creando la tabla AbismoAbisal
 CREATE TABLE AbismoAbisal (
-    id INT PRIMARY KEY NOT NULL,
+    id INTEGER PRIMARY KEY NOT NULL CHECK (id >= 1),
     FechaFin DATE NOT NULL
 );
 
 -- Creando la tabla Piso
 CREATE TABLE Piso (
 	-- CORREGIR PRIMARY Y AGREGAR FOREIGNS
-    id INT PRIMARY KEY NOT NULL,
-    id_abismo_abisal INT PRIMARY KEY NOT NULL,
+    id INTEGER NOT NULL CHECK (id >= 1),
+    id_abismo_abisal INTEGER NOT NULL CHECK (id_abismo_abisal >= 1),
     tipo VARCHAR(100) NOT NULL,
-	prom_estrellas FLOAT NOT NULL,
-	efecto_dado INT NOT NULL,
-	magnitud_efecto INT NOT NULL,
-	--EFECTO PK ES ID NO NOMBRE
+	prom_estrellas FLOAT NOT NULL CHECK (prom_estrellas >= 1),
+	efecto_dado INTEGER NOT NULL CHECK (efecto_dado >= 1),
+	magnitud_efecto INTEGER NOT NULL CHECK (magnitud_efecto != 0),
+    PRIMARY KEY(id,id_abismo_abisal),
     FOREIGN KEY (efecto_dado) REFERENCES Efecto(id),
     FOREIGN KEY (id_abismo_abisal) REFERENCES AbismoAbisal(id)
 );
@@ -88,9 +95,10 @@ CREATE TABLE Piso (
 -- Creando la tabla Sala
 -- PDF NO TIENE NUMERO COMO PK
 CREATE TABLE Sala (
-    numero INTEGER(10) PRIMARY KEY NOT NULL,
-    id_piso INT NOT NULL,
-    id_abismo_abisal INT NOT NULL,
+    numero INTEGER NOT NULL CHECK (numero >= 1 AND numero <=3),
+    id_piso INTEGER NOT NULL CHECK (id_piso >= 1 AND id_piso <=12),
+    id_abismo_abisal INTEGER NOT NULL CHECK (id_abismo_abisal >= 1),
+    PRIMARY KEY(numero,id_piso,id_abismo_abisal),
     FOREIGN KEY (id_piso) REFERENCES Piso(id),
     FOREIGN KEY (id_abismo_abisal) REFERENCES AbismoAbisal(id)
 );
@@ -98,10 +106,10 @@ CREATE TABLE Sala (
 -- Creando la tabla Incluye
 CREATE TABLE Incluye (
     nombre_enemigo VARCHAR(50) NOT NULL,
-    numero_sala INT NOT NULL,
-    id_piso INT NOT NULL,
-    id_abismo_abisal INT NOT NULL,
-    cantidad INT NOT NULL,
+    numero_sala INTEGER NOT NULL CHECK (numero_sala >= 1 AND numero_sala <=3),
+    id_piso INTEGER NOT NULL CHECK (id_piso >= 1 AND id_piso <=12),
+    id_abismo_abisal INTEGER NOT NULL CHECK (id_abismo_abisal >= 1),
+    cantidad INTEGER NOT NULL CHECK (cantidad >= 1),
 	PRIMARY KEY (nombre_enemigo,numero_sala,id_piso,id_abismo_abisal),
     FOREIGN KEY (nombre_enemigo) REFERENCES Enemigo(nombre),
     FOREIGN KEY (numero_sala) REFERENCES Sala(numero),
@@ -112,7 +120,7 @@ CREATE TABLE Incluye (
 -- Creando la tabla Concede
 CREATE TABLE Concede (
     nombre_comida VARCHAR(50) NOT NULL,
-    id_efecto INT PRIMARY KEY NOT NULL,
+    id_efecto INTEGER PRIMARY KEY NOT NULL CHECK (id_efecto >= 1),
     FOREIGN KEY (nombre_comida) REFERENCES Comida(nombre),
     FOREIGN KEY (id_efecto) REFERENCES Efecto(id)
 );
@@ -120,7 +128,7 @@ CREATE TABLE Concede (
 -- Creando la tabla Comida
 CREATE TABLE Comida (
     nombre VARCHAR(50) PRIMARY KEY NOT NULL,
-    rareza INT NOT NULL,
+    rareza INTEGER NOT NULL,
     nombre_region VARCHAR(100) NOT NULL,
     FOREIGN KEY (nombre_region) REFERENCES Region(nombre)
 );
@@ -128,8 +136,8 @@ CREATE TABLE Comida (
 CREATE TABLE Enemigo (
     nombre VARCHAR(50) PRIMARY KEY NOT NULL,
     tipo VARCHAR(70) NOT NULL,
-    vida INT NOT NULL,
-    tiempo_aparicion INT NOT NULL,
+    vida INTEGER NOT NULL,
+    tiempo_aparicion INTEGER NOT NULL,
     elemento_imbuimiento VARCHAR(50) NOT NULL,
     FOREIGN KEY (elemento_imbuimiento) REFERENCES Elemento(nombre)
 );
@@ -142,22 +150,23 @@ CREATE TABLE Aparece (
 );
 
 
--- Creando la tabla Personaje
+-- Creando la tabla Personaje con checks en las variables de rareza, vida, defensa, velocidad de movimiento y ataque base
+-- que se refieren a que los valores numericos no pueden ser menores a 1, aparte que la rareza va de 4 o 5 estrellas y puede ser null
 CREATE TABLE Personaje (
     nombre VARCHAR(50) PRIMARY KEY NOT NULL,
     cargo VARCHAR(70) NOT NULL,
     vision VARCHAR(70),
     tipo VARCHAR(70) ,
     constelacion VARCHAR(70),
-    rareza INT,
+    rareza INTEGER CHECK (rareza = 4 OR rareza = 5 OR rareza = NULL),
     tipo_arma VARCHAR(70),
-    ataque_base VARCHAR(70),
-    vel_movimiento VARCHAR(70),
-    defensa VARCHAR(70),
-    vida INT,
+    ataque_base FLOAT CHECK (ataque_base >= 1),
+    vel_movimiento FLOAT CHECK (vel_movimiento >= 1),
+    defensa FLOAT CHECK (defensa >= 1),
+    vida INTEGER CHECK (vida >= 1),
 	region_proveniencia VARCHAR(50) NOT NULL,
     nombre_arma VARCHAR(50),
-    efecto_secundario INT,
+    efecto_secundario INTEGER,
     maginitud_segundo_efecto FLOAT,
     habilidad_elemental VARCHAR(50),
     habilidad_definitiva VARCHAR(50),
@@ -169,6 +178,8 @@ CREATE TABLE Personaje (
     FOREIGN KEY (habilidad_definitiva) REFERENCES Habilidad(nombre),	
     FOREIGN KEY (conjunto_artefactos) REFERENCES ConjuntoArtefactos(nombre)	
 );
+
+
 
 
 -- Creando la tabla Ingiere
