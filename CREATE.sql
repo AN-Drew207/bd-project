@@ -236,7 +236,7 @@ CREATE TABLE Personaje (
     vida INTEGER CHECK (vida >= 1),
 	region_proveniencia VARCHAR(50) NOT NULL,
     nombre_arma VARCHAR(50),
-    efecto_secundario INTEGER CHECK (efecto_secundario >= 1 AND efecto_secundario <= 30),
+    efecto_secundario INTEGER CHECK (efecto_secundario >= 1),
     maginitud_segundo_efecto FLOAT,
     habilidad_elemental VARCHAR(50),
     habilidad_definitiva VARCHAR(50),
