@@ -101,6 +101,7 @@ CREATE TABLE Incluye (
     numero_sala INT NOT NULL,
     id_piso INT NOT NULL,
     id_abismo_abisal INT NOT NULL,
+    cantidad INT NOT NULL,
 	PRIMARY KEY (nombre_enemigo,numero_sala,id_piso,id_abismo_abisal),
     FOREIGN KEY (nombre_enemigo) REFERENCES Enemigo(nombre),
     FOREIGN KEY (numero_sala) REFERENCES Sala(numero),
