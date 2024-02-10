@@ -1,3 +1,72 @@
+/* Personaje(Nombre, Cargo, Vision, tipo, Constelación, Rareza, TipoArma, AtaqueBase,
+VelMovimiento, Defensa, Vida, regionProveniencia, nombreArma, efectoSecundario,
+magnitudEfectoSecundario, habilidadElemental, habilidadDefinitiva, conjuntoArtefactos)
+regionProveniencia es FK de región(nombre)
+nombreArma es FK de arma(nombre)
+efectoSecundario es FK de Efecto (id)
+habilidadElemental es FK de Habilidad(Nombre)
+habilidadDefinitiva es FK de Habilidad(Nombre)
+conjuntoArtefactos es FK de conjuntoArtefactos(Nombre)
+
+Arma( Nombre, Rareza, AtaqueBase, tipo, Longitud, DobleFilo, Peso, tipoPunta,
+materialCuerda, tipoMagia, segundoEfecto, magnitudSegundoEfecto)
+segundoEfecto es FK de Efecto (id)
+
+Comida( Nombre, Rareza, nombreRegión)
+nombreRegión es FK de Region(Nombre)
+
+Concede(NombreComida, idEfecto)
+NombreComida es FK de Comida(Nombre)
+idEfecto es FK de Efecto(id)
+
+Ingiere(nombrePersonaje, nombreComida)
+nombrePersonaje es FK de Personaje(Nombre)
+nombreComida es FK de Comida(Nombre)
+
+Efecto(Id, Nombre, Descripción)
+
+Enemigo(Nombre, Vida, tipo, tiempoAparición, elementoImbuimiento)
+elementoImbuimiento es FK de Elemento(Nombre)
+
+Aparece( nombreEnemigo, nombreRegion)
+nombreEnemigo es FK de Enemigo(Nombre)
+nombreRegion es Region(Nombre)
+
+Región( Nombre, Arconte, Descripción, elementoOrigen)
+elementoOrigen es FK de Elemento(Nombre)
+
+RegionesInspiradas( NombreRegion, NombrePaísReal)
+NombreRegion es FK de Region(Nombre)
+
+Habilidad( Nombre, Tipo, BonoATQ)
+
+ConjuntoArtefactos( Nombre, Descripcion, efecto, magnitudEfecto, regionProveniencia)
+Efecto es FK de Efecto(id)
+regionProveniencia es FK de Region(Nombre)
+
+Elemento (Nombre)
+
+AbismoAbisal(Id, FechaFin)
+
+Piso(Id,idAbismoAbisal, tipo, promEstrellas, efectoDado, magnitudEfecto)
+efectoDado es FK de Efecto(id)
+idAbismoAbisal es FK de AbismoAbisal(Id)
+
+Sala(Numero, idPiso, idAbismoAbisal)
+idPiso es FK de Piso(id)
+idAbismoAbisal es FK de AbismoAbisal(Id)
+
+Incluye(nombreEnemigo, numeroSala, idPiso, idAbismoAbisal)
+nombreEnemigo es FK de Enemigo(Nombre)
+numeroSala es FK de Sala(Numero)
+idPiso es FK de Piso(id)
+idAbismoAbisal es FK de AbismoAbisal(Id)
+
+Conoce(nombrePersonaje1, nombrePersonaje2, tipoRelacion)
+nombrePersonaje1 es FK de Personaje(Nombre)
+nombrePersonaje2 es FK de Personaje(Nombre) */
+
+
 -- Creando la tabla Arma
 -- VER RAREZA
 CREATE TABLE Arma (
