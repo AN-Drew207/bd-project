@@ -17,6 +17,7 @@ CREATE TABLE Arma (
 
 ALTER TABLE Arma 
 ADD CONSTRAINT CHECK_ARMA CHECK (tipo IN ('Espada Ligera', 'Espada Pesada', 'Lanza', 'Arco', 'Catalizador') AND 
+tipo_punta IN ('Alemana', 'Europea Funcional', 'Frámea Merovingia', 'Inglesa') AND
 tipo_magia IN ('Ofensiva', 'Defensiva', 'Soporte'));
 
 -- Creando la tabla Elemento
@@ -179,7 +180,8 @@ CREATE TABLE Personaje (
     FOREIGN KEY (conjunto_artefactos) REFERENCES ConjuntoArtefactos(nombre)	
 );
 
-
+ALTER TABLE Personaje
+ADD CONSTRAINT CHECK_PERSONAJE CHECK (vision IN ('Anemo', 'Pyro', 'Cryo', 'Geo', 'Dendro', 'Electro', 'Hydro', 'N/A'));
 
 
 -- Creando la tabla Ingiere
