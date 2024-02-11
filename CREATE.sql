@@ -117,7 +117,7 @@ CREATE TABLE RegionInpiradas (
 CREATE TABLE Efecto (
     id INTEGER PRIMARY KEY NOT NULL CHECK (id >= 1),
     nombre VARCHAR(50) NOT NULL,
-    descripcion TEXT NOT NULL,
+    descripcion TEXT NOT NULL
 );
 
 -- Creando la tabla Habilidad
@@ -136,7 +136,7 @@ CREATE TABLE ConjuntoArtefactos (
     nombre VARCHAR(50) PRIMARY KEY NOT NULL,
     descripcion TEXT NOT NULL,
 	efecto INTEGER NOT NULL CHECK (efecto >= 1),
-    magninitud_efecto FLOAT NOT NULL CHECK (magnitud_efecto != 0),
+    magnitud_efecto FLOAT NOT NULL CHECK (magnitud_efecto != 0),
     region_proveniencia VARCHAR(50) NOT NULL,
     FOREIGN KEY (efecto) REFERENCES Efecto(id),
     FOREIGN KEY (region_proveniencia) REFERENCES Region(nombre)
@@ -251,6 +251,20 @@ CREATE TABLE Personaje (
 
 ALTER TABLE Personaje
 ADD CONSTRAINT CHECK_PERSONAJE CHECK (vision IN ('Anemo', 'Pyro', 'Cryo', 'Geo', 'Dendro', 'Electro', 'Hydro', 'N/A'));
+/*
+DELIMITER $$
+CREATE TRIGGER tr_VerificarTipoArma BEFORE INSERT OR UPDATE ON Personaje
+FOR EACH ROW 
+BEGIN
+    DECLARE TipoArmaValida VARCHAR(70);
+    SELECT tipo INTO TipoArmaValida
+    FROM Arma
+    WHERE nombre = NEW.nombre_arma;
+    IF (TipoArmaValida NOT IN (SELECT tipo_arma FROM Personaje WHERE nombre = NEW.nombre)) THEN RAISE EXCEPTION 'El personaje No puede utilizar este tipo de Arma.';
+    END IF;
+END;
+$$
+*/
 
 
 -- Creando la tabla Ingiere

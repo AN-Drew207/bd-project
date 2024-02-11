@@ -1,11 +1,11 @@
-INSERT INTO Arma VALUES ('Espada de Madera', 4, 564, 'Espada Ligera', 60.5, 0, NULL, NULL, NULL, NULL, 11, 30.6),
-('Aquila Favonia', 5, 674, 'Espada Ligera', 80.5, 0, NULL, NULL, NULL, NULL, 13, 41.3),
-('Cortador de Jade Primordial', 5, 541, 'Espada Ligera', 80.2, 0, NULL, NULL, NULL, NULL, 8, 44.1),
-('Deseo Ponzoñoso', 5, 509, 'Espada Ligera', 70.5, 1, NULL, NULL, NULL, NULL, 11, 45.9),
-('Espada del Alba', 3, 401, 'Espada Ligera', 80.1, 1, NULL, NULL, NULL, NULL, 10, 46.8),
-('Rompemontañas', 5, 608, 'Espada Ligera', 80.5, 0, NULL, NULL, NULL, NULL, 12, 49.6),
-('Rugido del León', 4, 509, 'Espada Ligera', 75.2, 0, NULL, NULL, NULL, NULL, 12, 41.3),
-('Luz Lunar de Xifos', 4, 509, 'Espada Ligera', 70.2, 1, NULL, NULL, NULL, NULL, 9, 165),
+INSERT INTO Arma VALUES ('Espada de Madera', 4, 564, 'Espada Ligera', 60.5, False, NULL, NULL, NULL, NULL, 11, 30.6),
+('Aquila Favonia', 5, 674, 'Espada Ligera', 80.5, False, NULL, NULL, NULL, NULL, 13, 41.3),
+('Cortador de Jade Primordial', 5, 541, 'Espada Ligera', 80.2, False, NULL, NULL, NULL, NULL, 8, 44.1),
+('Deseo Ponzoñoso', 5, 509, 'Espada Ligera', 70.5, True, NULL, NULL, NULL, NULL, 11, 45.9),
+('Espada del Alba', 3, 401, 'Espada Ligera', 80.1, True, NULL, NULL, NULL, NULL, 10, 46.8),
+('Rompemontañas', 5, 608, 'Espada Ligera', 80.5, False, NULL, NULL, NULL, NULL, 12, 49.6),
+('Rugido del León', 4, 509, 'Espada Ligera', 75.2, False, NULL, NULL, NULL, NULL, 12, 41.3),
+('Luz Lunar de Xifos', 4, 509, 'Espada Ligera', 70.2, True, NULL, NULL, NULL, NULL, 9, 165),
 ('Argento Estelar de las Nieves', 4, 564, 'Espada Pesada', NULL, NULL, 5.6, NULL, NULL, NULL, 13, 34.4),
 ('Espada del Tiempo', 4, 509, 'Espada Pesada', NULL, NULL, 5.0, NULL, NULL, NULL, 14, 41.3),
 ('Májaira Aguamarina', 4, 509, 'Espada Pesada', NULL, NULL, 6.0, NULL, NULL, NULL, 9, 165.0),
@@ -39,7 +39,7 @@ INSERT INTO Arma VALUES ('Espada de Madera', 4, 564, 'Espada Ligera', 60.5, 0, N
 ('Memorias de Sacrificios', 4, 454, 'Catalizador', NULL, NULL, NULL, NULL, NULL, 'Defensiva', 9, 220.0),
 ('Centelleo Jadecaído', 5, 608, 'Catalizador', NULL, NULL, NULL, NULL, NULL, 'Soporte', 14, 49.6);
 
-INSERT INTO Region VALUES ('Fontaine', 'Focalors', 'De las regiones de Teyvat, Fontaine se enorgullece de ser el centro de la cultura y las artes; o en palabras de Francis, un mercader ambulante de la región, la verdadera belleza y elegancia. El periódico «El Pájaro de Vapor» es el principal periódico de la Corte de Fontaine; Mona es columnista en él, lo que sugiere que tienen escritores de todo Teyvat.', 'Hydro'), 
+INSERT INTO Region VALUES ('Fontaine', 'Focalors', 'Es una de las siete regiones de Teyvat. Es la ciudad-estado que rinde culto a Focalors, la Arconte Hydro.', 'Hydro'), 
 ('Liyue', 'Morax', 'Es una de las siete naciones de Teyvat. También es la ciudad-Estado que adora a Morax, el Arconte Geo.', 'Geo'), 
 ('Inazuma', 'Beelzebul', 'Es una de las siete naciones de Teyvat. Es una nación archipelágica que adora a Beelzebul, la Arconte Electro, quien a su vez dirige la Entidad Controladora local, el Shogunato de Inazuma.', 'Electro'),
 ('Mondstadt', 'Barbatos', 'Es una de las siete naciones de Teyvat, y es la primera en la que el Viajero empieza a buscar a su hermana perdida. Es la ciudad-estado que adora a Barbatos, el Arconte Anemo.', 'Anemo'),
@@ -151,7 +151,7 @@ CREATE TABLE Arma (
 );
 
 
-INSERT INTO Habilidades VALUES 
+INSERT INTO Habilidad VALUES 
 ('Abiogenesis: Solar Isotoma', 'Elemental', 130.4),
 ('Rite of Progeniture: Tectonic Tide', 'Definitiva', 367.2),
 ('Frozen Wilds', 'Elemental', 177.6),
@@ -159,7 +159,7 @@ INSERT INTO Habilidades VALUES
 ('Explosive Puppet', 'Elemental', 41.4),
 ('Fiery Rain', 'Definitiva', 28.1),
 ('Universal Diagnosis', 'Elemental', 79.2),
-('Holistic Revivification', 'Definitiva', 0.8),
+('Holistic Revivification', 'Definitiva', 8.0),
 ('Let the Show Begin', 'Elemental', 4.0),
 ('Shining Miracle', 'Definitiva', 18.0),
 ('Tidecaller', 'Elemental', 14.4),
@@ -806,7 +806,7 @@ INSERT INTO ConjuntoArtefactos VALUES ('Afortunado', 'Un trébol de cuatro hojas
 ('Compañía Dorada', 'Una flor orgullosamente abierta y fabricada con almejas, madreperlas y pan de oro.', 27, 20, 'Fontaine'),
 ('Llamas Albinas', 'Una flor azul, dura y artificial. Sus pétalos nunca se marchitarán y su color nunca se apagará.', 13, 25, 'Liyue'),
 ('Fulgor de Vurukasha', 'Una insignia que solían llevar los peregrinos de otros tiempos. Tiene la apariencia de una bella flor.', 14, 20, 'Sumeru'),
-('Sueño de la Ninfa', 'La historia debe llegar a su fin. Y cuando lo haga, hasta las flores más frescas se marchitarán. Sin embargo, la flor del sueño siempre mantendrá su lozanía y emanará un delicioso aroma.', 3, 0.15, 'Sumeru'),
+('Sueño de la Ninfa', 'La historia debe llegar a su fin. Y cuando lo haga, hasta las flores más frescas se marchitarán. Sin embargo, la flor del sueño siempre mantendrá su lozanía y emanará un delicioso aroma.', 3, 15, 'Sumeru'),
 ('Recuerdos del Bosque', 'Una flor dorada arrancada de la corona del Rey del Bosque....', 6, 15, 'Sumeru'),
 ('Cáscara de Sueños Opulentos', 'Un accesorio dorado con forma de flor de seis pétalos. Su belleza inmarcesible nos recuerda lo efímera que puede ser la prosperidad del mundo.', 15, 30, 'Inazuma'),
 ('Emblema del Destino', 'Cuenta la leyenda que este magnífico guardamano le fue otorgado al oni que traicionó a la Shogun.', 11, 20, 'Inazuma'),
