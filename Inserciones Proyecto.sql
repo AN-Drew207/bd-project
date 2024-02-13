@@ -100,7 +100,7 @@ INSERT INTO Comida VALUES ('Carne de Mora', 1, 'Liyue'),
 ('Tayín fuegoáureo', 3, 'Sumeru'),
 ('Para Foçalors', 3, 'Fontaine'),
 ('Cassoulet', 3, 'Fontaine'),
-('Arroz con anguila bañado en té', 3, 'Inazuma'),
+('Alegría envolvente', 3, 'Liyue'),
 ('Pollo rockero', 2, 'Liyue'),
 ('Ensalada saludable', 2, 'Mondstadt'),
 ('Fideos barba de dragón', 3, 'Liyue'),
@@ -125,30 +125,32 @@ INSERT INTO Comida VALUES ('Carne de Mora', 1, 'Liyue'),
 ('Bolitas de harina de arroz', 1, 'Liyue'),
 ('Caracolas de cristal', 3, 'Fontaine'),
 ('Estofado de carne de Sabz', 3, 'Sumeru'),
-('Onigiri', 2, 'Inazuma');
+('Onigiri', 2, 'Inazuma'),
+('Pescado salteado con mantequilla', 3, 'Mondstadt'),
+('Gel saciante', 1, 'Mondstadt'),
+('Filete a la barbacoa', 1, 'Liyue');
 
-
-CREATE TABLE Comida (
-    nombre VARCHAR(50) PRIMARY KEY NOT NULL,
-    rareza INTEGER(5) NOT NULL,
-    nombre_region VARCHAR(100) NOT NULL,
-    FOREIGN KEY (nombre_region) REFERENCES Region(nombre)
-);
-
-CREATE TABLE Arma (
-    nombre VARCHAR(50) PRIMARY KEY NOT NULL,
-    rareza INT NOT NULL,
-    ataque_base FLOAT NOT NULL,
-    tipo VARCHAR(100) NOT NULL,
-    logitud INT NOT NULL,
-    doble_filo BOOLEAN NOT NULL,
-    peso INT NOT NULL,
-    tipo_punta VARCHAR(100) NOT NULL,
-    material_cuerda VARCHAR(100) NOT NULL,
-    tipo_magia VARCHAR(100) NOT NULL,
-    segundo_efecto VARCHAR(100) NOT NULL,
-    maginitud_segundo_efecto INT NOT NULL
-);
+INSERT INTO Concede VALUES ('Carne de Mora', 16), ('Carne Frita', 16), 
+('Dango Tricolor', 14), ('Costillas con salsa secreta', 14), 
+('Cangrejo mantequilla', 15), ('Pesca extrema', 15), 
+('Tayín fuegoáureo', 14), ('Pollo rockero', 8), 
+('Ensalada saludable', 8), ('Fideos barba de dragón', 12), 
+('Arroz con anguila bañado en té', 28), ('Onigiri', 16), 
+('Estofado de carne de Sabz', 16), ('Caracolas de cristal', 28), 
+('Bolitas de harina de arroz', 14), ('Pescado seco estofado', 14), 
+('Pastelillo de luna', 30), ('Sopa de cebolla', 15), 
+('Tortilla de papas de Mondstadt', 16), ('Trucha con almendras', 14), 
+('Pizza de champiñones especial', 16), ('Pescado mandarín agridulce', 16), 
+('Brotes de bambú hervidos', 15), ('Érase una vez en Mondstadt', 10), 
+('Pollo “en vessie”', 13), ('Carne estilo Eje Celestial', 13), 
+('Tulumba', 19), ('Fish and chips', 19), 
+('Chop suey de Zhongyuan', 19), ('Carne a la jardinera', 23), 
+('Cien sabores', 8), ('Jugo de gancho de lobo', 12), 
+('Guoba de Jueyun', 13), ('Alegría envolvente', 12), 
+('Cassoulet', 30), ('Para Foçalors', 16), 
+('Biryani', 15), ('Leche de dango', 16), 
+('Estofado de perca de lomo negro', 16), ('Pescado salteado con mantequilla', 30),
+('Gel saciante', 16), ('Filete a la barbacoa', 16);
 
 
 INSERT INTO Habilidad VALUES 
@@ -257,6 +259,8 @@ INSERT INTO Personaje VALUES ('Albedo','Jefe Alquimista','Geo','Humano sintétic
 ('Elzer','Director del Gremio de Productores de Vino',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Mondstadt',NULL,NULL,NULL,NULL,NULL,NULL),
 ('Bruce','Caballero de Favonius',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Mondstadt',NULL,NULL,NULL,NULL,NULL,NULL),
 ('Blanche','Dependienta de la Boutique de Mondstadt',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Mondstadt',NULL,NULL,NULL,NULL,NULL,NULL);
+
+INSERT INTO Ingiere VALUES ('Albedo', 'Pescado salteado con mantequilla'), ('Aloy', 'Gel saciante'), ('Amber', 'Filete a la barbacoa')
 
 
 INSERT INTO AbismoAbisal VALUES (1,'2024-04-1 00:00:00'), 
@@ -781,11 +785,6 @@ INSERT INTO Incluye VALUES ('Electro Hypostasis',1,1,1,7),
 ('Anemo Hypostasis',3,12,3,9),
 ('Hydro Samachurl',3,12,3,10),
 ('Thundercraven Rifthound',3,12,3,5);
-
-INSERT INTO Concede VALUES ('')
-
-INSERT INTO Ingiere VALUES ('')
-
 
 
 -- Tablas Faltantes Concede, Ingiere, Enemigo, Aparece,Incluye
