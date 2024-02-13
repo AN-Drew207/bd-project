@@ -107,9 +107,10 @@ CREATE TABLE Region (
 );
 
 -- Creando la tabla RegionInpiradas
-CREATE TABLE RegionInpiradas (
-    nombre_region VARCHAR(50) PRIMARY KEY NOT NULL,
-    nombre_pais_real VARCHAR(50) PRIMARY KEY NOT NULL,
+CREATE TABLE RegionInspiradas (
+    nombre_region VARCHAR(50)  NOT NULL,
+    nombre_pais_real VARCHAR(50) NOT NULL,
+    PRIMARY KEY(nombre_region,nombre_pais_real),
     FOREIGN KEY (nombre_region) REFERENCES Region(nombre)
 );
 
@@ -145,54 +146,33 @@ CREATE TABLE ConjuntoArtefactos (
 -- Creando la tabla AbismoAbisal
 CREATE TABLE AbismoAbisal (
     id INTEGER PRIMARY KEY NOT NULL CHECK (id >= 1),
-    FechaFin DATE NOT NULL
+    FechaFin DATE NOT NULL,
+    CONSTRAINT unique_id UNIQUE(id)
 );
 
 -- Creando la tabla Piso
 CREATE TABLE Piso (
-	-- CORREGIR PRIMARY Y AGREGAR FOREIGNS
+	-- REVISAR UNIQUE
     id INTEGER NOT NULL CHECK (id >= 1),
     id_abismo_abisal INTEGER NOT NULL CHECK (id_abismo_abisal >= 1),
     tipo VARCHAR(100) NOT NULL,
 	prom_estrellas FLOAT NOT NULL CHECK (prom_estrellas >= 1),
 	efecto_dado INTEGER NOT NULL CHECK (efecto_dado >= 1),
 	magnitud_efecto INTEGER NOT NULL CHECK (magnitud_efecto != 0),
-    PRIMARY KEY(id,id_abismo_abisal),
+    UNIQUE(id, id_abismo_abisal),
+    PRIMARY KEY (id,id_abismo_abisal),
     FOREIGN KEY (efecto_dado) REFERENCES Efecto(id),
     FOREIGN KEY (id_abismo_abisal) REFERENCES AbismoAbisal(id)
 );
 
 -- Creando la tabla Sala
--- PDF NO TIENE NUMERO COMO PK
 CREATE TABLE Sala (
     numero INTEGER NOT NULL CHECK (numero >= 1 AND numero <=3),
     id_piso INTEGER NOT NULL CHECK (id_piso >= 1 AND id_piso <=12),
     id_abismo_abisal INTEGER NOT NULL CHECK (id_abismo_abisal >= 1),
+    UNIQUE (numero,id_piso, id_abismo_abisal),
     PRIMARY KEY(numero,id_piso,id_abismo_abisal),
-    FOREIGN KEY (id_piso) REFERENCES Piso(id),
-    FOREIGN KEY (id_abismo_abisal) REFERENCES AbismoAbisal(id)
-);
-
--- Creando la tabla Incluye
-CREATE TABLE Incluye (
-    nombre_enemigo VARCHAR(50) NOT NULL,
-    numero_sala INTEGER NOT NULL CHECK (numero_sala >= 1 AND numero_sala <=3),
-    id_piso INTEGER NOT NULL CHECK (id_piso >= 1 AND id_piso <=12),
-    id_abismo_abisal INTEGER NOT NULL CHECK (id_abismo_abisal >= 1),
-    cantidad INTEGER NOT NULL CHECK (cantidad >= 1),
-	PRIMARY KEY (nombre_enemigo,numero_sala,id_piso,id_abismo_abisal),
-    FOREIGN KEY (nombre_enemigo) REFERENCES Enemigo(nombre),
-    FOREIGN KEY (numero_sala) REFERENCES Sala(numero),
-    FOREIGN KEY (id_piso) REFERENCES Piso(id),
-    FOREIGN KEY (id_abismo_abisal) REFERENCES AbismoAbisal(id)
-);
-
--- Creando la tabla Concede
-CREATE TABLE Concede (
-    nombre_comida VARCHAR(50) NOT NULL,
-    id_efecto INTEGER PRIMARY KEY NOT NULL CHECK (id_efecto >= 1),
-    FOREIGN KEY (nombre_comida) REFERENCES Comida(nombre),
-    FOREIGN KEY (id_efecto) REFERENCES Efecto(id)
+    FOREIGN KEY (id_piso,id_abismo_abisal) REFERENCES Piso(id,id_abismo_abisal)
 );
 
 -- Creando la tabla Comida
@@ -201,6 +181,14 @@ CREATE TABLE Comida (
     rareza INTEGER NOT NULL,
     nombre_region VARCHAR(100) NOT NULL,
     FOREIGN KEY (nombre_region) REFERENCES Region(nombre)
+);
+
+-- Creando la tabla Concede
+CREATE TABLE Concede (
+    nombre_comida VARCHAR(50) NOT NULL,
+    id_efecto INTEGER PRIMARY KEY NOT NULL CHECK (id_efecto >= 1),
+    FOREIGN KEY (nombre_comida) REFERENCES Comida(nombre),
+    FOREIGN KEY (id_efecto) REFERENCES Efecto(id)
 );
 
 CREATE TABLE Enemigo (
@@ -217,6 +205,18 @@ CREATE TABLE Aparece (
     nombre_region VARCHAR(50) NOT NULL,
     FOREIGN KEY (nombre_enemigo) REFERENCES Enemigo(nombre),
     FOREIGN KEY (nombre_region) REFERENCES Region(nombre)
+);
+
+-- Creando la tabla Incluye
+CREATE TABLE Incluye (
+    nombre_enemigo VARCHAR(50) NOT NULL,
+    numero_sala INTEGER NOT NULL CHECK (numero_sala >= 1 AND numero_sala <=3),
+    id_piso INTEGER NOT NULL CHECK (id_piso >= 1 AND id_piso <=12),
+    id_abismo_abisal INTEGER NOT NULL CHECK (id_abismo_abisal >= 1),
+    cantidad INTEGER NOT NULL CHECK (cantidad >= 1),
+	PRIMARY KEY (nombre_enemigo,numero_sala,id_piso,id_abismo_abisal),
+    FOREIGN KEY (nombre_enemigo) REFERENCES Enemigo(nombre),
+    FOREIGN KEY (numero_sala,id_piso,id_abismo_abisal) REFERENCES Sala(numero,id_piso,id_abismo_abisal)
 );
 
 
@@ -251,26 +251,26 @@ CREATE TABLE Personaje (
 
 ALTER TABLE Personaje
 ADD CONSTRAINT CHECK_PERSONAJE CHECK (vision IN ('Anemo', 'Pyro', 'Cryo', 'Geo', 'Dendro', 'Electro', 'Hydro', 'N/A'));
-/*
-DELIMITER $$
-CREATE TRIGGER tr_VerificarTipoArma BEFORE INSERT OR UPDATE ON Personaje
-FOR EACH ROW 
-BEGIN
-    DECLARE TipoArmaValida VARCHAR(70);
-    SELECT tipo INTO TipoArmaValida
-    FROM Arma
-    WHERE nombre = NEW.nombre_arma;
-    IF (TipoArmaValida NOT IN (SELECT tipo_arma FROM Personaje WHERE nombre = NEW.nombre)) THEN RAISE EXCEPTION 'El personaje No puede utilizar este tipo de Arma.';
-    END IF;
-END;
-$$
-*/
+-- /*
+-- DELIMITER $$
+-- CREATE TRIGGER tr_VerificarTipoArma BEFORE INSERT OR UPDATE ON Personaje
+-- FOR EACH ROW 
+-- BEGIN
+--     DECLARE TipoArmaValida VARCHAR(70);
+--     SELECT tipo INTO TipoArmaValida
+--     FROM Arma
+--     WHERE nombre = NEW.nombre_arma;
+--     IF (TipoArmaValida NOT IN (SELECT tipo_arma FROM Personaje WHERE nombre = NEW.nombre)) THEN RAISE EXCEPTION 'El personaje No puede utilizar este tipo de Arma.';
+--     END IF;
+-- END;
+-- $$
+-- */
 
 
 -- Creando la tabla Ingiere
 CREATE TABLE Ingiere (
     nombre_personaje VARCHAR(50) NOT NULL,
-    nombre_comida VARCHAR(50) NOT NULL,
+    nombre_comida VARCHAR(50) NOT NULL
 );
 
 -- Creando la tabla Conoce
@@ -279,5 +279,10 @@ CREATE TABLE Conoce (
     nombre_personaje2 VARCHAR(50) NOT NULL,
     tipo_relacion VARCHAR(70) NOT NULL,
 	PRIMARY KEY (nombre_personaje1,nombre_personaje2),
-    FOREIGN KEY (nombre_personaje1,nombre_personaje2) REFERENCES Personaje(nombre,nombre)
+    FOREIGN KEY (nombre_personaje1) REFERENCES Personaje(nombre),
+    FOREIGN KEY (nombre_personaje2) REFERENCES Personaje(nombre)
 );
+
+
+--PARA HACER DELETE DE LAS TABLAS PARA TESTEO:
+-- DROP TABLE arma,elemento,region,regioninspiradas, habilidad, efecto,piso, sala, abismoabisal, conjuntoartefactos, comida, concede, enemigo, aparece, incluye, personaje, conoce, ingiere;
