@@ -10,6 +10,17 @@
       "username": "postgres",
       "password": "123",
       "connectionTimeout": 30
+    },
+    {
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 5432,
+      "driver": "PostgreSQL",
+      "name": "PG Local",
+      "database": "Genshing",
+      "username": "postgres",
+      "password": "p@ssw0rd",
+      "connectionTimeout": 30
     }
   ]
 }
