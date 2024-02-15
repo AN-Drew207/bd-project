@@ -828,3 +828,72 @@ INSERT INTO ConjuntoArtefactos VALUES ('Afortunado', 'Un trébol de cuatro hojas
 ('Corazón del Guerrero', 'Brocher muy sencillo hecho de flores. Es un recuerdo de la primera gran aventura.', 12, 18, 'Liyue'),
 ('Médica Itinerante', 'Un precioso ingrediente medicinal que ha perdido todas sus propiedades curativas después de tanto tiempo sin ser usado', 28, 20, 'Mondstadt'),
 ('Sombra Verde Esmeralda', 'En el pasado, esta flor floreció por todas parte. Cuando el cazador se marchó, la usó como broche.', 7, 15, 'Mondstadt');
+
+
+INSERT INTO Conoce VALUES 
+('Beidou', 'Beidou', 'Misma persona'),
+('Beidou', 'Albedo', 'Aliado'),
+('Beidou', 'Aloy', 'Aliado'),
+('Beidou', 'Amber', 'Aliado'),
+
+('Bennett', 'Bennett', 'Misma persona'),
+('Bennett', 'Albedo', 'Aliado'),
+('Bennett', 'Aloy', 'Aliado'),
+('Bennett', 'Barbara', 'Aliado'),
+
+('Candace', 'Candace', 'Misma persona'),
+('Candace', 'Albedo', 'Aliado'),
+('Candace', 'Aloy', 'Aliado'),
+('Candace', 'Baizhu', 'Aliado'),
+
+('Charlotte', 'Charlotte', 'Misma persona'),
+('Charlotte', 'Albedo', 'Aliado'),
+('Charlotte', 'Aloy', 'Aliado'),
+('Charlotte', 'Amber', 'Aliado'),
+
+('Chevreuse', 'Chevreuse', 'Misma persona'),
+('Chevreuse', 'Albedo', 'Aliado'),
+('Chevreuse', 'Aloy', 'Aliado'),
+('Chevreuse', 'Baizhu', 'Aliado'),
+
+('Chongyun', 'Chongyun', 'Misma persona'),
+('Chongyun', 'Albedo', 'Aliado'),
+('Chongyun', 'Aloy', 'Aliado'),
+('Chongyun', 'Amber', 'Aliado'),
+
+('Collei', 'Collei', 'Misma persona'),
+('Collei', 'Albedo', 'Aliado'),
+('Collei', 'Aloy', 'Aliado'),
+('Collei', 'Baizhu', 'Aliado'),
+
+('Cyno', 'Cyno', 'Misma persona'),
+('Cyno', 'Albedo', 'Aliado'),
+('Cyno', 'Aloy', 'Aliado'),
+('Cyno', 'Amber', 'Aliado'),
+
+('Dehya', 'Dehya', 'Misma persona'),
+('Dehya', 'Albedo', 'Aliado'),
+('Dehya', 'Aloy', 'Aliado'),
+('Dehya', 'Baizhu', 'Aliado'),
+
+('Diluc', 'Diluc', 'Misma persona'),
+('Diluc', 'Albedo', 'Aliado'),
+('Diluc', 'Aloy', 'Aliado'),
+('Diluc', 'Amber', 'Aliado'),
+
+('Diona', 'Diona', 'Misma persona'),
+('Diona', 'Albedo', 'Aliado'),
+('Diona', 'Aloy', 'Aliado'),
+('Diona', 'Baizhu', 'Aliado'),
+
+('Dori', 'Dori', 'Misma persona'),
+('Dori', 'Albedo', 'Aliado'),
+('Dori', 'Aloy', 'Aliado'),
+('Dori', 'Amber', 'Aliado'),
+
+('Eula', 'Eula', 'Misma persona'),
+('Eula', 'Albedo', 'Aliado'),
+('Eula', 'Aloy', 'Aliado'),
+('Eula', 'Baizhu', 'Aliado'),
+
+-- Continuar con relaciones para los demás personajes...
