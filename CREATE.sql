@@ -107,7 +107,7 @@ CREATE TABLE Region (
 );
 
 -- Creando la tabla RegionInpiradas
-CREATE TABLE RegionInspiradas (
+CREATE TABLE RegionesInspiradas (
     nombre_region VARCHAR(50)  NOT NULL,
     nombre_pais_real VARCHAR(50) NOT NULL,
     PRIMARY KEY(nombre_region,nombre_pais_real),
@@ -156,7 +156,7 @@ CREATE TABLE Piso (
     id INTEGER NOT NULL CHECK (id >= 1),
     id_abismo_abisal INTEGER NOT NULL CHECK (id_abismo_abisal >= 1),
     tipo VARCHAR(100) NOT NULL,
-	prom_estrellas FLOAT NOT NULL CHECK (prom_estrellas >= 1),
+	prom_estrellas VARCHAR(70),
 	efecto_dado INTEGER NOT NULL CHECK (efecto_dado >= 1),
 	magnitud_efecto INTEGER NOT NULL CHECK (magnitud_efecto != 0),
     UNIQUE(id, id_abismo_abisal),
@@ -185,8 +185,8 @@ CREATE TABLE Comida (
 
 -- Creando la tabla Concede
 CREATE TABLE Concede (
-    nombre_comida VARCHAR(50) NOT NULL,
-    id_efecto INTEGER PRIMARY KEY NOT NULL CHECK (id_efecto >= 1),
+    nombre_comida  VARCHAR(50) PRIMARY KEY NOT NULL,
+    id_efecto INTEGER NOT NULL CHECK (id_efecto >= 1),
     FOREIGN KEY (nombre_comida) REFERENCES Comida(nombre),
     FOREIGN KEY (id_efecto) REFERENCES Efecto(id)
 );
