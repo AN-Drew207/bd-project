@@ -234,7 +234,7 @@ CREATE TABLE Personaje (
     vel_movimiento FLOAT CHECK (vel_movimiento >= 1),
     defensa FLOAT CHECK (defensa >= 1),
     vida INTEGER CHECK (vida >= 1),
-	region_proveniencia VARCHAR(50) NOT NULL,
+	region_proveniencia VARCHAR(50),
     nombre_arma VARCHAR(50),
     efecto_secundario INTEGER CHECK (efecto_secundario >= 1),
     maginitud_segundo_efecto FLOAT,
@@ -271,9 +271,9 @@ ADD CONSTRAINT CHECK_PERSONAJE CHECK (vision IN ('Anemo', 'Pyro', 'Cryo', 'Geo',
 
 CREATE TABLE Ingiere (
     nombre_personaje VARCHAR(50) NOT NULL,
-    nombre_comida VARCHAR(50) NOT NULL
+    nombre_comida VARCHAR(50) NOT NULL,
     FOREIGN KEY (nombre_personaje) REFERENCES Personaje(nombre),
-    FOREIGN KEY (nombre_comida) REFERENCES Comida(nombre),
+    FOREIGN KEY (nombre_comida) REFERENCES Comida(nombre)
 );
 
 -- Creando la tabla Conoce
@@ -286,20 +286,20 @@ CREATE TABLE Conoce (
     FOREIGN KEY (nombre_personaje2) REFERENCES Personaje(nombre)
 );
 
-SELECT P.nombre, P.vision, P.region
-FROM personaje P
-WHERE P.rareza = 4 AND P.vision NOT IN (SELECT R.elementoOrigen 
-FROM region R
-WHERE P.region = R.nombre)
+-- SELECT P.nombre, P.vision, P.region
+-- FROM personaje P
+-- WHERE P.rareza = 4 AND P.vision NOT IN (SELECT R.elementoOrigen 
+-- FROM region R
+-- WHERE P.region = R.nombre)
 
-ORDER BY R.nombre ASC, P.nombre ASC;
+-- ORDER BY R.nombre ASC, P.nombre ASC;
 
-SELECT nombre, Tipo, rareza
-FROM Arma
-WHERE ataque_base > 600;
+-- SELECT nombre, Tipo, rareza
+-- FROM Arma
+-- WHERE ataque_base > 600;
 
-SELECT *
-FROM RegionInspiradas;
+-- SELECT *
+-- FROM RegionInspiradas;
 
 --PARA HACER DELETE DE LAS TABLAS PARA TESTEO:
 -- DROP TABLE arma,elemento,region,regioninspiradas, habilidad, efecto,piso, sala, abismoabisal, conjuntoartefactos, comida, concede, enemigo, aparece, incluye, personaje, conoce, ingiere;
