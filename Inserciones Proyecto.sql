@@ -43,17 +43,13 @@ INSERT INTO Region VALUES ('Fontaine', 'Focalors', 'Es una de las siete regiones
 ('Liyue', 'Morax', 'Es una de las siete naciones de Teyvat. También es la ciudad-Estado que adora a Morax, el Arconte Geo.', 'Geo'), 
 ('Inazuma', 'Beelzebul', 'Es una de las siete naciones de Teyvat. Es una nación archipelágica que adora a Beelzebul, la Arconte Electro, quien a su vez dirige la Entidad Controladora local, el Shogunato de Inazuma.', 'Electro'),
 ('Mondstadt', 'Barbatos', 'Es una de las siete naciones de Teyvat, y es la primera en la que el Viajero empieza a buscar a su hermana perdida. Es la ciudad-estado que adora a Barbatos, el Arconte Anemo.', 'Anemo'),
-('Sumeru', 'Reina Menor Kusanali', 'Es una de las sietes naciones de Teyvat. Es la ciudad-estado que adora a la Diosa de la Sabiduría, la Reina Menor Kusanali, la Arconte Dendro.', 'Dendro'),
-('Snezhnaya', 'Zarina', 'Es una de las siete naciones de Teyvat y una región no mostrada en Genshin Impact. Aquellos que viven en Snezhnaya adoran a la Arconte Cryo, la Zarina y también es el hogar de los Fatui.', 'Cryo'),
-('Natlan', 'Murata', 'Es una de las siete naciones de Teyvat. Es la ciudad-estado que adora a Murata, la Arconte Pyro.', 'Pyro');
+('Sumeru', 'Reina Menor Kusanali', 'Es una de las sietes naciones de Teyvat. Es la ciudad-estado que adora a la Diosa de la Sabiduría, la Reina Menor Kusanali, la Arconte Dendro.', 'Dendro');
 
 INSERT INTO RegionesInspiradas VALUES ('Fontaine', 'Francia'), 
 ('Liyue', 'China'),
 ('Inazuma', 'Japon'),
 ('Mondstadt', 'Alemania'),
-('Sumeru', 'Oriente Próximo y la Antigua India'),
-('Snezhnaya', 'Rusia'),
-('Natlan', 'América Precolombina');
+('Sumeru', 'Oriente Próximo y la Antigua India');
 
 INSERT INTO Elemento VALUES ('Anemo'), ('Pyro'), ('Cryo'), ('Geo'), ('Dendro'), ('Electro'), ('Hydro'), ('N/A');
 
@@ -223,7 +219,7 @@ INSERT INTO Habilidad VALUES
 
 
 INSERT INTO Personaje VALUES ('Albedo','Jefe Alquimista','Geo','Humano sintético','Princeps Cretaceus',5,'Espada Ligera',19,NULL,68,1029,'Mondstadt','Aquila Favonia',5, 7.2, 'Abiogenesis: Solar Isotoma','Rite of Progeniture: Tectonic Tide',NULL),
-('Aloy','La Salvadora de Otro Mundo','Cryo','Humana','Nora Fortis',5,'Arco',18,NULL,52,848, 'Natlan', 'Arco del Peñasco Oscuro',4, 7.2, 'Frozen Wilds', 'Prophecies of Dawn',NULL),
+('Aloy','La Salvadora de Otro Mundo','Cryo','Humana','Nora Fortis',5,'Arco',18,NULL,52,848, NULL, 'Arco del Peñasco Oscuro',4, 7.2, 'Frozen Wilds', 'Prophecies of Dawn',NULL),
 ('Amber','Campeona de vuelo','Pyro','Humana','Lepus',4,'Arco',18,NULL,50,793,'Mondstadt','Agitador del Relámpago',12,NULL,'Explosive Puppet','Fiery Rain',NULL),
 ('Baizhu','El Trasgresor de lo Mortal','Dendro','Humano','Lagenaria',5,'Catalizador',14,NULL,38,1039,'Liyue', 'Ágata del Peñasco Oscuro', 14, NULL, 'Universal Diagnosis','Holistic Revivification',NULL),
 ('Barbara','Ídolo Radiante','Hydro','Humana','Crater',4,'Catalizador',13,NULL,56,820,'Mondstadt','Anillo de Hakushin', 14, NULL, 'Let the Show Begin','Shining Miracle',NULL),
@@ -253,11 +249,11 @@ INSERT INTO Personaje VALUES ('Albedo','Jefe Alquimista','Geo','Humano sintétic
 ('Lisa','Bruja de las Rosas','Electro','Humana','Tempus Fugit',4,'Catalizador',19,3,48,802,'Mondstadt','Frío Eterno', 9, NULL, 'Violet Arc', 'Lightning Rose', NULL),
 ('Lynette','La Elegancia de las Sombras','Anemo',NULL,'Felis Alba',4,'Espada Ligera',19,4,59,1039,'Fontaine','Deseo Ponzoñoso', 7, NULL, 'Enigmatic Feint', 'Magic Trick: Astonishing Shift',NULL),
 ('Lyney', 'El Mago de la Fantasmagoría', 'Pyro', 'Humano', 'Felis Fuscus', 5, 'Arco', 24, NULL, 41, 857, 'Fontaine', 'Vasalla del Rey', 1, NULL, 'Bewildering Lights', 'Wondrous Trick: Miracle Parade',NULL),
-('Arlecchino','La Sota','Pyro',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Snezhnaya',NULL,NULL,NULL,NULL,NULL,NULL),
+('Arlecchino','La Sota','Pyro',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
 ('Scaramuccia','El Baladista',' Electro',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Inazuma',NULL,NULL,NULL,NULL,NULL,NULL),
-('Dottore','El Doctor',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Snezhnaya',NULL,NULL,NULL,NULL,NULL,NULL),
+('Dottore','El Doctor',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
 ('Guizhong','Diosa de la Arena',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Liyue',NULL,NULL,NULL,NULL,NULL,NULL),
-('Colombina','La Damisela', NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Snezhnaya',NULL,NULL,NULL,NULL,NULL,NULL),
+('Colombina','La Damisela', NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL, NULL,NULL,NULL,NULL,NULL,NULL,NULL),
 ('Ahangar','Herrero',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Sumeru',NULL,NULL,NULL,NULL,NULL,NULL),
 ('Fierro','Minero',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Liyue',NULL,NULL,NULL,NULL,NULL,NULL),
 ('Elzer','Director del Gremio de Productores de Vino',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Mondstadt',NULL,NULL,NULL,NULL,NULL,NULL),
