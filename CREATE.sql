@@ -286,13 +286,13 @@ CREATE TABLE Conoce (
     FOREIGN KEY (nombre_personaje2) REFERENCES Personaje(nombre)
 );
 
--- SELECT P.nombre, P.vision, P.region
--- FROM personaje P
--- WHERE P.rareza = 4 AND P.vision NOT IN (SELECT R.elementoOrigen 
--- FROM region R
--- WHERE P.region = R.nombre)
+SELECT P.nombre, P.vision, P.region_proveniencia
+FROM Personaje P, Region R
+WHERE P.rareza = 4 AND P.vision NOT IN (SELECT R.elemento_origen 
+FROM Region R
+WHERE P.region_proveniencia = R.nombre)
 
--- ORDER BY R.nombre ASC, P.nombre ASC;
+ORDER BY R.nombre ASC, P.nombre ASC;
 
 -- SELECT nombre, Tipo, rareza
 -- FROM Arma

@@ -28,7 +28,26 @@ INSERT INTO Arma VALUES ('Cortador de Jade Primordial', 5, 541, 'Espada Ligera',
 ('Lanza de Caza Real', 4, 564, 'Lanza', NULL, NULL, NULL, 'Frámea Merovingia', NULL, NULL, 12, 27.5),
 ('Púa Celestial', 5, 674, 'Lanza', NULL, NULL, NULL, 'Europea Funcional', NULL, NULL, 11, 36.7),
 ('Lanza del Duelo', 4, 454, 'Lanza', NULL, NULL, NULL, 'Inglesa', NULL, NULL, 8, 36.7),
-('La Captura', 4, 509, 'Lanza', NULL, NULL, NULL, 'Europea Funcional', NULL, NULL, 11, 45.9);
+('La Captura', 4, 509, 'Lanza', NULL, NULL, NULL, 'Europea Funcional', NULL, NULL, 11, 45.9),
+('Lanza de Espinadragón', 4, 454, 'Lanza', NULL, NULL, NULL, 'Frámea Merovingia', NULL, NULL, 13, 68.9),
+('Lanza Lítica', 4, 564, 'Lanza', NULL, NULL, NULL, 'Frámea Merovingia', NULL, NULL, 12, 27.5),
+('Agitador del Relámpago', 5, 608, 'Arco', NULL, NULL, NULL, NULL, 'Crin de Caballo', NULL, 10, 66.1),
+('Arco de Favonius', 4, 454, 'Arco', NULL, NULL, NULL, NULL, 'Lino Encerado', NULL, 11, 61.2),
+('Arco de Cuervo', 3, 448, 'Arco', NULL, NULL, NULL, NULL, 'Catgut', NULL, 9, 93.0),
+('Senda de la Cazadora', 5, 541, 'Arco', NULL, NULL, NULL, NULL, 'Algodon', NULL, 8, 44.1),
+('Arco del Peñasco Oscuro', 4, 564, 'Arco', NULL, NULL, NULL, NULL, 'Catgut', NULL, 10, 36.7),
+('Arco Real', 4, 509, 'Arco', NULL, NULL, NULL, NULL, 'Sedas', NULL, 12, 41.3),
+('Vasalla del Rey', 4, 454, 'Arco', NULL, NULL, NULL, NULL, 'crin de caballo', NULL, 12, 55.1),
+('Mensajero', 3, 448, 'Arco', NULL, NULL, NULL, NULL, 'Catgut', NULL, 10, 31.2),
+('Ágata del Peñasco Oscuro', 4, 509, 'Catalizador', NULL, NULL, NULL, NULL, NULL, 'Ofensiva', 10, 55.1),
+('Anillo de Hakushin', 4, 564, 'Catalizador', NULL, NULL, NULL, NULL, NULL, 'Soporte', 11, 30.6),
+('Estrella Errabunda', 4, 509, 'Catalizador', NULL, NULL, NULL, NULL, NULL, 'Defensiva', 9, 165.0),
+('Candado Terrenal', 5, 608, 'Catalizador', NULL, NULL, NULL, NULL, NULL, 'Ofensiva', 12, 49.6),
+('Cuentos de Dodoco', 4, 454, 'Catalizador', NULL, NULL, NULL, NULL, NULL, 'Ofensiva', 12, 55.1),
+('Frío Eterno', 4, 509, 'Catalizador', NULL, NULL, NULL, NULL, NULL, 'Ofensiva', 12, 41.3),
+('Memorias de Sacrificios', 4, 454, 'Catalizador', NULL, NULL, NULL, NULL, NULL, 'Defensiva', 9, 220.0),
+('Centelleo Jadecaído', 5, 608, 'Catalizador', NULL, NULL, NULL, NULL, NULL, 'Soporte', 14, 49.6);
+
 
 SELECT * FROM arma;
 
@@ -118,7 +137,7 @@ INSERT INTO Personaje VALUES ('Albedo','Jefe Alquimista','Geo','Humano sintétic
 ('Lynette','La Elegancia de las Sombras','Anemo',NULL,'Felis Alba',4,'Espada Ligera',19,4,59,1039,'Fontaine','Deseo Ponzoñoso', 7, NULL, 'Enigmatic Feint', 'Magic Trick: Astonishing Shift',NULL),
 ('Lyney', 'El Mago de la Fantasmagoría', 'Pyro', 'Humano', 'Felis Fuscus', 5, 'Arco', 24, NULL, 41, 857, 'Fontaine', 'Vasalla del Rey', 1, NULL, 'Bewildering Lights', 'Wondrous Trick: Miracle Parade',NULL),
 ('Arlecchino','La Sota','Pyro',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
-('Scaramuccia','El Baladista',' Electro',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Inazuma',NULL,NULL,NULL,NULL,NULL,NULL),
+('Scaramuccia','El Baladista','Electro',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Inazuma',NULL,NULL,NULL,NULL,NULL,NULL),
 ('Dottore','El Doctor',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
 ('Guizhong','Diosa de la Arena',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Liyue',NULL,NULL,NULL,NULL,NULL,NULL),
 ('Colombina','La Damisela', NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL, NULL,NULL,NULL,NULL,NULL,NULL,NULL),
@@ -129,3 +148,15 @@ INSERT INTO Personaje VALUES ('Albedo','Jefe Alquimista','Geo','Humano sintétic
 ('Blanche','Dependienta de la Boutique de Mondstadt',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Mondstadt',NULL,NULL,NULL,NULL,NULL,NULL);
 
 SELECT * FROM personaje;
+
+INSERT INTO Personaje VALUES ('Aloy','La Salvadora de Otro Mundo','Cryo','Humana','Nora Fortis',5,'Arco',18,NULL,52,848, NULL, 'Arco del Peñasco Oscuro',4, 7.2, 'Frozen Wilds', 'Prophecies of Dawn',NULL),
+('Amber','Campeona de vuelo','Pyro','Humana','Lepus',4,'Arco',18,NULL,50,793,'Mondstadt','Agitador del Relámpago',12,NULL,'Explosive Puppet','Fiery Rain',NULL),
+('Baizhu','El Trasgresor de lo Mortal','Dendro','Humano','Lagenaria',5,'Catalizador',14,NULL,38,1039,'Liyue', 'Ágata del Peñasco Oscuro', 14, NULL, 'Universal Diagnosis','Holistic Revivification',NULL),
+('Barbara','Ídolo Radiante','Hydro','Humana','Crater',4,'Catalizador',13,NULL,56,820,'Mondstadt','Anillo de Hakushin', 14, NULL, 'Let the Show Begin','Shining Miracle',NULL),
+('Beidou','Reina del Océano sin Corona','Electro','Humana','Victor Mare',4,'Espada Pesada',18,NULL,54,1094,'Liyue','Argento Estelar de las Nieves', 2, NULL,'Tidecaller','Stormbreaker',NULL),
+('Bennett','Líder de la Brigada de Benny','Pyro','Humano','Rota Calamitas',4,'Espada Ligera',16,NULL,64,1039,'Mondstadt','Cortador de Jade Primordial', 11, NULL,'Passion Overload','Fantastic Voyage',NULL),
+('Candace','Custodia de la Aldea Aaru','Hydro','Humana','Sagitta Scutum',4,'Lanza',17,NULL,57,911,'Sumeru','Alabarda', 14, NULL, 'Sacred Rite: Herons Sanctum','Sacred Rite: Wagtails Tide',NULL),
+('Charlotte','Reportera de El Pájaro de Vapor','Cryo','Humana','Hualina Veritas',4,'Catalizador',14,NULL,45,902,'Fontaine','Estrella Errabunda', 12, NULL, 'Framing: Freezing Point Composition','Still Photo: Comprehensive Confirmation',NULL),
+('Chevreuse','Capitana de la Unidad Especial de Seguridad y Vigilancia','Pyro','Humana','Sclopetum Ensiferum',4,'Lanza',16,NULL,50,1002,'Fontaine','La Captura', 14, NULL,'Short-Range Rapid Interdiction Fire','Ring of Bursting Grenades',NULL),
+('Chongyun','Desterrador del mal y los rumores sobre el mismo','Cryo','Humano','Nubis Caesor',4,'Espada Pesada',18,NULL,54,920,'Liyue','Espada del Tiempo', 12, NULL, 'Spirit Blade: Chonghuas Layered Frost','Spirit Blade: Cloud-Parting Star',NULL),
+('Collei','Guardabosques en prácticas del Bosque Avidya','Dendro','Humana','Leptailurus Cervarius',4,'Arco',16,NULL,50,820,'Sumeru','Arco de Favonius', 12, NULL, 'Floral Brush','Trump-Card Kitty',NULL);
