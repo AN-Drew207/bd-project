@@ -107,7 +107,7 @@ CREATE TABLE Region (
 );
 
 -- Creando la tabla RegionInpiradas
-CREATE TABLE RegionInspiradas (
+CREATE TABLE RegionesInspiradas (
     nombre_region VARCHAR(50)  NOT NULL,
     nombre_pais_real VARCHAR(50) NOT NULL,
     PRIMARY KEY(nombre_region,nombre_pais_real),
