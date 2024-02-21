@@ -48,6 +48,7 @@ INSERT INTO Arma VALUES ('Cortador de Jade Primordial', 5, 541, 'Espada Ligera',
 ('Memorias de Sacrificios', 4, 454, 'Catalizador', NULL, NULL, NULL, NULL, NULL, 'Defensiva', 9, 220.0),
 ('Centelleo Jadecaído', 5, 608, 'Catalizador', NULL, NULL, NULL, NULL, NULL, 'Soporte', 14, 49.6);
 
+INSERT INTO Arma VALUES ('Espada Egregia de Isshin', 4, 424, 'Espada Ligera', 70.5, True, 5.7, NULL, NULL, 'Soporte', 17, 41.35);
 
 SELECT * FROM arma;
 
