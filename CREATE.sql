@@ -84,6 +84,50 @@ CREATE TABLE Arma (
     maginitud_segundo_efecto FLOAT NOT NULL CHECK (maginitud_segundo_efecto != 0)
 );
 
+CREATE FUNCTION tr_arma_function() 
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.tipo = 'Espada ligera' THEN 
+        IF NEW.peso IS NOT NULL OR NEW.tipo_punta IS NOT NULL OR NEW.material_cuerda IS NOT NULL OR NEW.tipo_magia IS NOT NULL THEN 
+            RAISE EXCEPTION 'Atributo invalido en Arma de tipo Espada ligera.'; 
+        END IF;
+    END IF;
+
+    IF NEW.tipo = 'Espada Pesada' THEN 
+        IF NEW.longitud IS NOT NULL OR NEW.doble_filo IS NOT NULL OR NEW.tipo_punta IS NOT NULL OR NEW.material_cuerda IS NOT NULL OR NEW.tipo_magia IS NOT NULL THEN 
+            RAISE EXCEPTION 'Atributo invalido en Arma de tipo Espada Pesada.';
+        END IF;
+    END IF;
+
+    IF NEW.tipo = 'Lanza' THEN 
+        IF NEW.longitud IS NOT NULL OR NEW.doble_filo IS NOT NULL OR NEW.peso IS NOT NULL OR NEW.material_cuerda IS NOT NULL OR NEW.tipo_magia IS NOT NULL THEN
+            RAISE EXCEPTION 'Atributo invalido en Arma de tipo Lanza.';
+        END IF;
+    END IF;
+
+    IF NEW.tipo = 'Arco' THEN 
+        IF NEW.longitud IS NOT NULL OR NEW.doble_filo IS NOT NULL OR NEW.peso IS NOT NULL OR NEW.tipo_magia IS NOT NULL OR NEW.tipo_punta IS NOT NULL THEN 
+            RAISE EXCEPTION 'Atributo invalido en Arma de tipo Arco.';
+        END IF;
+    END IF;
+
+    IF NEW.tipo = 'Catalizador' THEN 
+        IF NEW.longitud IS NOT NULL OR NEW.doble_filo IS NOT NULL OR NEW.peso IS NOT NULL OR NEW.material_cuerda IS NOT NULL NEW.tipo_punta IS NOT NULL THEN
+            RAISE  EXCEPTION 'Atributo invalido en Arma de tipo Catalizador.';
+        END IF;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER tr_arma 
+BEFORE INSERT OR UPDATE ON Arma
+FOR EACH ROW
+EXECUTE FUNCTION tr_arma_function();
+
+DROP FUNCTION tr_arma_function;
+DROP TRIGGER IF EXISTS tr_arma ON arma;
+
 ALTER TABLE Arma 
 ADD CONSTRAINT CHECK_ARMA CHECK (tipo IN ('Espada Ligera', 'Espada Pesada', 'Lanza', 'Arco', 'Catalizador') AND 
 tipo_punta IN ('Alemana', 'Europea Funcional', 'Frámea Merovingia', 'Inglesa') AND
@@ -294,12 +338,12 @@ WHERE P.region_proveniencia = R.nombre)
 
 ORDER BY R.nombre ASC, P.nombre ASC;
 
--- SELECT nombre, Tipo, rareza
--- FROM Arma
--- WHERE ataque_base > 600;
+SELECT nombre, Tipo, rareza
+FROM Arma
+WHERE ataque_base > 600;
 
--- SELECT *
--- FROM RegionInspiradas;
+SELECT *
+FROM RegionInspiradas;
 
 --PARA HACER DELETE DE LAS TABLAS PARA TESTEO:
 -- DROP TABLE arma,elemento,region,regioninspiradas, habilidad, efecto,piso, sala, abismoabisal, conjuntoartefactos, comida, concede, enemigo, aparece, incluye, personaje, conoce, ingiere;
