@@ -281,7 +281,7 @@ INSERT INTO Personaje VALUES ('Albedo','Jefe Alquimista','Geo','Humano sintétic
 ('Bruce','Caballero de Favonius',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Mondstadt',NULL,NULL,NULL,NULL,NULL,NULL),
 ('Blanche','Dependienta de la Boutique de Mondstadt',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Mondstadt',NULL,NULL,NULL,NULL,NULL,NULL);
 
-INSERT INTO Ingiere VALUES INSERT INTO Ingiere VALUES ('Albedo', 'Pescado salteado con mantequilla'), ('Aloy', 'Gelatina de menta'), ('Amber', 'Filete a la barbacoa'),
+INSERT INTO Ingiere VALUES ('Albedo', 'Pescado salteado con mantequilla'), ('Aloy', 'Gelatina de menta'), ('Amber', 'Filete a la barbacoa'),
 ('Baizhu', 'Sopa de frutos de jade'), ('Barbara', 'Guisado de temporada'), ('Beidou', 'Carne Frita'), ('Bennett', 'Huevo frito de Teyvat'),
 ('Candace', 'Arroz de Aaru'), ('Charlotte', 'Fish and chips'), ('Chevreuse', 'Delito: Procesamiento Innecesario'), ('Chongyun', 'Fideos con delicias de montaña'),
 ('Collei', 'Döner kebab'), ('Cyno', 'Tahchín'), ('Dehya', 'Tayín áureo'), ('Diluc', 'Torre de Ludi'), ('Diona', 'Pescado a la parrilla de Mondstadt'),
