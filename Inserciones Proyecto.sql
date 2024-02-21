@@ -282,7 +282,14 @@ INSERT INTO Personaje VALUES
 ('Bruce','Caballero de Favonius','N/A','No Jugable',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Mondstadt',NULL,NULL,NULL,NULL,NULL,NULL),
 ('Blanche','Dependienta de la Boutique de Mondstadt','N/A','No Jugable',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Mondstadt',NULL,NULL,NULL,NULL,NULL,NULL);
 
-INSERT INTO Ingiere VALUES ('Albedo', 'Pescado salteado con mantequilla'), ('Aloy', 'Gel saciante'), ('Amber', 'Filete a la barbacoa');
+INSERT INTO Ingiere VALUES ('Albedo', 'Pescado salteado con mantequilla'), ('Aloy', 'Gelatina de menta'), ('Amber', 'Filete a la barbacoa'),
+('Baizhu', 'Sopa de frutos de jade'), ('Barbara', 'Guisado de temporada'), ('Beidou', 'Carne Frita'), ('Bennett', 'Huevo frito de Teyvat'),
+('Candace', 'Arroz de Aaru'), ('Charlotte', 'Fish and chips'), ('Chevreuse', 'Delito: Procesamiento Innecesario'), ('Chongyun', 'Fideos con delicias de montaña'),
+('Collei', 'Döner kebab'), ('Cyno', 'Tahchín'), ('Dehya', 'Tayín áureo'), ('Diluc', 'Torre de Ludi'), ('Diona', 'Pescado a la parrilla de Mondstadt'),
+('Dori', 'Pollo con mantequilla'), ('Eula', 'Pastelillo de luna'), ('Fischl', 'Plato de carnes frías'), ('Furina', 'Para Foçalors'), 
+('Gaming', 'Cerdo char siu'), ('Ganyu', 'Paz universal'), ('Gorou', 'Ramen de carne'), ('Jean', 'Pizza de champiñones'), ('Kaeya', 'Brocheta de champiñones y pollo'),
+('Kaveh', 'Fatteh'), ('Kirara', 'Comida felina revitalizante'), ('Klee', 'Tostada del pescador'), ('Lisa', 'Pasta a la boloñesa'), 
+('Lynette', 'Caracolas de cristal'), ('Lyney', 'Golosinas de frutas');
 
 INSERT INTO AbismoAbisal VALUES (1, '2024-04-1 00:00:00'),  
 (2, '2024-04-16 00:00:00'),  
