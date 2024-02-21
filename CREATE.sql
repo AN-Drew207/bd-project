@@ -87,9 +87,9 @@ CREATE TABLE Arma (
 CREATE FUNCTION tr_arma_function() 
 RETURNS TRIGGER AS $$
 BEGIN
-    IF NEW.tipo = 'Espada ligera' THEN 
+    IF NEW.tipo = 'Espada Ligera' THEN 
         IF NEW.peso IS NOT NULL OR NEW.tipo_punta IS NOT NULL OR NEW.material_cuerda IS NOT NULL OR NEW.tipo_magia IS NOT NULL THEN 
-            RAISE EXCEPTION 'Atributo invalido en Arma de tipo Espada ligera.'; 
+            RAISE EXCEPTION 'Atributo invalido en Arma de tipo Espada Ligera.'; 
         END IF;
     END IF;
 
@@ -112,7 +112,7 @@ BEGIN
     END IF;
 
     IF NEW.tipo = 'Catalizador' THEN 
-        IF NEW.longitud IS NOT NULL OR NEW.doble_filo IS NOT NULL OR NEW.peso IS NOT NULL OR NEW.material_cuerda IS NOT NULL NEW.tipo_punta IS NOT NULL THEN
+        IF NEW.longitud IS NOT NULL OR NEW.doble_filo IS NOT NULL OR NEW.peso IS NOT NULL OR NEW.material_cuerda IS NOT NULL OR NEW.tipo_punta IS NOT NULL THEN
             RAISE  EXCEPTION 'Atributo invalido en Arma de tipo Catalizador.';
         END IF;
     END IF;
