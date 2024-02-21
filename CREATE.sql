@@ -126,7 +126,7 @@ CREATE TABLE Efecto (
 CREATE TABLE Habilidad (
     nombre VARCHAR(50) PRIMARY KEY NOT NULL,
     tipo  VARCHAR(50) NOT NULL,
-    bono_atq FLOAT NOT NULL CHECK (bono_atq >= 1)
+    bono_atq FLOAT NOT NULL CHECK (bono_atq >= 25 AND bono_atq <= 1000)
 );
 
 ALTER TABLE Habilidad 
@@ -225,8 +225,8 @@ CREATE TABLE Incluye (
 CREATE TABLE Personaje (
     nombre VARCHAR(50) PRIMARY KEY NOT NULL,
     cargo VARCHAR(70) NOT NULL,
-    vision VARCHAR(70),
-    tipo VARCHAR(70) ,
+    vision VARCHAR(70) NOT NULL,
+    tipo VARCHAR(70),
     constelacion VARCHAR(70),
     rareza INTEGER CHECK (rareza = 4 OR rareza = 5 OR rareza = NULL),
     tipo_arma VARCHAR(70),
@@ -251,6 +251,9 @@ CREATE TABLE Personaje (
 
 ALTER TABLE Personaje
 ADD CONSTRAINT CHECK_PERSONAJE CHECK (vision IN ('Anemo', 'Pyro', 'Cryo', 'Geo', 'Dendro', 'Electro', 'Hydro', 'N/A'));
+
+ALTER TABLE Personaje
+ADD CONSTRAINT CHECK_PERSONAJE_TIPO CHECK (tipo IN ('Jugable', 'No Jugable'));
 -- /*
 -- DELIMITER $$
 -- CREATE TRIGGER tr_VerificarTipoArma BEFORE INSERT OR UPDATE ON Personaje
@@ -265,7 +268,6 @@ ADD CONSTRAINT CHECK_PERSONAJE CHECK (vision IN ('Anemo', 'Pyro', 'Cryo', 'Geo',
 -- END;
 -- $$
 -- */
-
 
 -- Creando la tabla Ingiere
 
@@ -302,4 +304,25 @@ ORDER BY R.nombre ASC, P.nombre ASC;
 -- FROM RegionInspiradas;
 
 --PARA HACER DELETE DE LAS TABLAS PARA TESTEO:
--- DROP TABLE arma,elemento,region,regioninspiradas, habilidad, efecto,piso, sala, abismoabisal, conjuntoartefactos, comida, concede, enemigo, aparece, incluye, personaje, conoce, ingiere;
+-- DROP TABLE arma,elemento,region,regionesinspiradas, habilidad, efecto,piso, sala, abismoabisal, conjuntoartefactos, comida, concede, enemigo, aparece, incluye, personaje, conoce, ingiere;
+
+CREATE FUNCTION verificar_tipo_efecto()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.tipo = 'No Jugable' THEN
+        IF NEW.constelacion IS NOT NULL OR  NEW.rareza IS NOT NULL OR  NEW.tipo_arma IS NOT NULL
+        OR  NEW.ataque_base IS NOT NULL OR  NEW.vel_movimiento IS NOT NULL OR  NEW.defensa IS NOT NULL 
+        OR  NEW.vida IS NOT NULL OR  NEW.nombre_arma IS NOT NULL OR  NEW.efecto_secundario IS NOT NULL
+        OR  NEW.maginitud_segundo_efecto IS NOT NULL OR  NEW.habilidad_elemental IS NOT NULL OR  NEW.habilidad_definitiva IS NOT NULL
+        OR  NEW.conjunto_artefactos IS NOT NULL THEN
+            RAISE EXCEPTION 'Los personajes No Jugables deben tener los valores ser NULL';
+        END IF;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_verificar_tipo_efecto
+BEFORE INSERT OR UPDATE ON Personaje
+FOR EACH ROW
+EXECUTE FUNCTION verificar_tipo_efecto();
