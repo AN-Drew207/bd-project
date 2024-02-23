@@ -113,7 +113,7 @@ BEGIN
 
     IF NEW.tipo = 'Catalizador' THEN 
         IF NEW.longitud IS NOT NULL OR NEW.doble_filo IS NOT NULL OR NEW.peso IS NOT NULL OR NEW.material_cuerda IS NOT NULL OR NEW.tipo_punta IS NOT NULL THEN
-            RAISE  EXCEPTION 'Atributo invalido en Arma de tipo Catalizador.';
+            RAISE EXCEPTION 'Atributo invalido en Arma de tipo Catalizador.';
         END IF;
     END IF;
     RETURN NEW;
@@ -124,6 +124,39 @@ CREATE TRIGGER tr_arma
 BEFORE INSERT OR UPDATE ON Arma
 FOR EACH ROW
 EXECUTE FUNCTION tr_arma_function();
+
+CREATE FUNCTION verificar_magnitud_efecto_arma_function()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.segundo_efecto = '%ATQ' THEN
+        IF NEW.maginitud_segundo_efecto >= 1 AND  NEW.maginitud_segundo_efecto <= 50 THEN
+            RETURN NEW;
+            ELSE
+                RAISE EXCEPTION 'ATQ tiene que estar entre 1 y 50';
+        END IF;
+    END IF;
+    IF NEW.segundo_efecto = '%Maestria Elemental' THEN
+        IF NEW.maginitud_segundo_efecto >= 40 AND  NEW.maginitud_segundo_efecto <= 600 THEN
+            RETURN NEW;
+            ELSE
+                RAISE EXCEPTION 'Maestria Elemental debe ser un numero entre 40 y 600';
+        END IF;
+    END IF;
+    IF NEW.segundo_efecto = '%Daño Elemental' THEN
+        IF NEW.maginitud_segundo_efecto >= 1 AND  NEW.maginitud_segundo_efecto <= 50 THEN
+            RETURN NEW;
+            ELSE
+                RAISE EXCEPTION 'Daño Elemental tiene que estar entre 1 y 50';
+        END IF;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE TRIGGER verificar_magnitud_efecto_arma 
+BEFORE INSERT OR UPDATE ON Arma
+FOR EACH ROW
+EXECUTE FUNCTION verificar_magnitud_efecto_arma_function();
 
 -- DROP FUNCTION tr_arma_function;
 -- DROP TRIGGER IF EXISTS tr_arma ON arma;
@@ -270,7 +303,7 @@ CREATE TABLE Personaje (
     nombre VARCHAR(50) PRIMARY KEY NOT NULL,
     cargo VARCHAR(70) NOT NULL,
     vision VARCHAR(70) NOT NULL,
-    tipo VARCHAR(70),
+    tipo VARCHAR(70) NOT NULL,
     constelacion VARCHAR(70),
     rareza INTEGER CHECK (rareza = 4 OR rareza = 5 OR rareza = NULL),
     tipo_arma VARCHAR(70),
@@ -299,7 +332,7 @@ ADD CONSTRAINT CHECK_PERSONAJE CHECK (vision IN ('Anemo', 'Pyro', 'Cryo', 'Geo',
 ALTER TABLE Personaje
 ADD CONSTRAINT CHECK_PERSONAJE_TIPO CHECK (tipo IN ('Jugable', 'No Jugable'));
 
-CREATE FUNCTION verificar_tipo_efecto()
+CREATE FUNCTION verificar_tipo_personaje_function()
 RETURNS TRIGGER AS $$
 BEGIN
     IF NEW.tipo = 'No Jugable' THEN
@@ -315,10 +348,46 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trigger_verificar_tipo_efecto
+CREATE TRIGGER verificar_tipo_personaje 
+BEFORE INSERT OR UPDATE ON Arma
+FOR EACH ROW
+EXECUTE FUNCTION verificar_tipo_personaje_function();
+
+
+CREATE FUNCTION verificar_magnitud_efecto_function()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.efecto_secundario = '%ATQ' THEN
+        IF NEW.maginitud_segundo_efecto >= 1 AND  NEW.maginitud_segundo_efecto <= 50 THEN
+            RETURN NEW;
+            ELSE
+                RAISE EXCEPTION 'ATQ tiene que estar entre 1 y 50';
+        END IF;
+    END IF;
+    IF NEW.efecto_secundario = '%Maestria Elemental' THEN
+        IF NEW.maginitud_segundo_efecto >= 40 AND  NEW.maginitud_segundo_efecto <= 600 THEN
+            RETURN NEW;
+            ELSE
+                RAISE EXCEPTION 'Maestria Elemental debe ser un numero entre 40 y 600';
+        END IF;
+    END IF;
+    IF NEW.efecto_secundario = '%Daño Elemental' THEN
+        IF NEW.maginitud_segundo_efecto >= 1 AND  NEW.maginitud_segundo_efecto <= 50 THEN
+            RETURN NEW;
+            ELSE
+                RAISE EXCEPTION 'Daño Elemental tiene que estar entre 1 y 50';
+        END IF;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE TRIGGER verificar_magnitud_efecto 
 BEFORE INSERT OR UPDATE ON Personaje
 FOR EACH ROW
-EXECUTE FUNCTION verificar_tipo_efecto();
+EXECUTE FUNCTION verificar_magnitud_efecto_function();
+
+
 
 -- /*
 -- DELIMITER $$
@@ -356,20 +425,20 @@ CREATE TABLE Ingiere (
 );
 
 
-SELECT P.nombre, P.vision, P.region_proveniencia
-FROM Personaje P, Region R
-WHERE P.rareza = 4 AND P.vision NOT IN (SELECT R.elemento_origen 
-FROM Region R
-WHERE P.region_proveniencia = R.nombre)
+-- SELECT P.nombre, P.vision, P.region_proveniencia
+-- FROM Personaje P, Region R
+-- WHERE P.rareza = 4 AND P.vision NOT IN (SELECT R.elemento_origen 
+-- FROM Region R
+-- WHERE P.region_proveniencia = R.nombre)
 
-ORDER BY R.nombre ASC, P.nombre ASC;
+-- ORDER BY R.nombre ASC, P.nombre ASC;
 
-SELECT nombre, Tipo, rareza
-FROM Arma
-WHERE ataque_base > 600;
+-- SELECT nombre, Tipo, rareza
+-- FROM Arma
+-- WHERE ataque_base > 600;
 
-SELECT *
-FROM RegionInspiradas;
+-- SELECT *
+-- FROM RegionInspiradas;
 
 --PARA HACER DELETE DE LAS TABLAS PARA TESTEO:
 -- DROP TABLE arma,elemento,region,regionesinspiradas, habilidad, efecto,piso, sala, abismoabisal, conjuntoartefactos, comida, concede, enemigo, aparece, incluye, personaje, conoce, ingiere;
