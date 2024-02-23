@@ -125,8 +125,8 @@ BEFORE INSERT OR UPDATE ON Arma
 FOR EACH ROW
 EXECUTE FUNCTION tr_arma_function();
 
---DROP FUNCTION tr_arma_function;
---DROP TRIGGER IF EXISTS tr_arma ON arma;
+-- DROP FUNCTION tr_arma_function;
+-- DROP TRIGGER IF EXISTS tr_arma ON arma;
 
 ALTER TABLE Arma 
 ADD CONSTRAINT CHECK_ARMA CHECK (tipo IN ('Espada Ligera', 'Espada Pesada', 'Lanza', 'Arco', 'Catalizador') AND 
@@ -298,67 +298,6 @@ ADD CONSTRAINT CHECK_PERSONAJE CHECK (vision IN ('Anemo', 'Pyro', 'Cryo', 'Geo',
 
 ALTER TABLE Personaje
 ADD CONSTRAINT CHECK_PERSONAJE_TIPO CHECK (tipo IN ('Jugable', 'No Jugable'));
--- /*
--- DELIMITER $$
--- CREATE TRIGGER tr_VerificarTipoArma BEFORE INSERT OR UPDATE ON Personaje
--- FOR EACH ROW 
--- BEGIN
---     DECLARE TipoArmaValida VARCHAR(70);
---     SELECT tipo INTO TipoArmaValida
---     FROM Arma
---     WHERE nombre = NEW.nombre_arma;
---     IF (TipoArmaValida NOT IN (SELECT tipo_arma FROM Personaje WHERE nombre = NEW.nombre)) THEN RAISE EXCEPTION 'El personaje No puede utilizar este tipo de Arma.';
---     END IF;
--- END;
--- $$
--- */
-
--- Creando la tabla Ingiere
-
-CREATE TABLE Ingiere (
-    nombre_personaje VARCHAR(50) NOT NULL,
-    nombre_comida VARCHAR(50) NOT NULL,
-    FOREIGN KEY (nombre_personaje) REFERENCES Personaje(nombre),
-    FOREIGN KEY (nombre_comida) REFERENCES Comida(nombre)
-);
-
--- Creando la tabla Conoce
-CREATE TABLE Conoce (
-    nombre_personaje1 VARCHAR(50) NOT NULL,
-    nombre_personaje2 VARCHAR(50) NOT NULL,
-    tipo_relacion VARCHAR(70) NOT NULL,
-	PRIMARY KEY (nombre_personaje1,nombre_personaje2),
-    FOREIGN KEY (nombre_personaje1) REFERENCES Personaje(nombre),
-    FOREIGN KEY (nombre_personaje2) REFERENCES Personaje(nombre)
-);
-
--- CONSULTAS 
-
-SELECT P.nombre, P.vision, P.region_proveniencia
-FROM Personaje P, Region R
-WHERE P.rareza = 4 AND P.vision NOT IN (SELECT R.elemento_origen 
-FROM Region R
-WHERE P.region_proveniencia = R.nombre)
-
-ORDER BY R.nombre ASC, P.nombre ASC;
-
-SELECT nombre, Tipo, rareza
-FROM Arma
-WHERE ataque_base > 600;
-
-SELECT *
-FROM RegionInspiradas;
-
-SELECT tipo_arma
-FROM (
-    SELECT tipo_arma, COUNT(DISTINCT vision) AS num_elementos
-    FROM Personaje
-    GROUP BY tipo_arma
-) AS subconsulta
-WHERE num_elementos = (SELECT COUNT(DISTINCT vision) FROM Personaje);
-
---PARA HACER DELETE DE LAS TABLAS PARA TESTEO:
--- DROP TABLE arma,elemento,region,regionesinspiradas, habilidad, efecto,piso, sala, abismoabisal, conjuntoartefactos, comida, concede, enemigo, aparece, incluye, personaje, conoce, ingiere;
 
 CREATE FUNCTION verificar_tipo_efecto()
 RETURNS TRIGGER AS $$
@@ -380,3 +319,63 @@ CREATE TRIGGER trigger_verificar_tipo_efecto
 BEFORE INSERT OR UPDATE ON Personaje
 FOR EACH ROW
 EXECUTE FUNCTION verificar_tipo_efecto();
+
+
+CREATE FUNCTION verificar_tipo_arma()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.Tipo = 'Jugable' AND NEW.tipo_arma IS NOT NULL AND EXISTS (SELECT 1 
+        FROM Arma
+        WHERE nombre = NEW.nombre_arma AND tipo = NEW.tipo_arma) THEN
+        RETURN NEW;
+        ELSE 
+            RAISE EXCEPTION 'El tipo de arma asignado no es compatible con el arma';
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_verificar_tipo_arma
+BEFORE INSERT OR UPDATE ON Personaje
+FOR EACH ROW
+EXECUTE FUNCTION verificar_tipo_arma();
+    
+
+-- Creando la tabla Conoce
+CREATE TABLE Conoce (
+    nombre_personaje1 VARCHAR(50) NOT NULL,
+    nombre_personaje2 VARCHAR(50) NOT NULL,
+    tipo_relacion VARCHAR(70) NOT NULL,
+	PRIMARY KEY (nombre_personaje1,nombre_personaje2),
+    FOREIGN KEY (nombre_personaje1) REFERENCES Personaje(nombre),
+    FOREIGN KEY (nombre_personaje2) REFERENCES Personaje(nombre)
+);
+
+-- Creando la tabla Ingiere
+
+CREATE TABLE Ingiere (
+    nombre_personaje VARCHAR(50) NOT NULL,
+    nombre_comida VARCHAR(50) NOT NULL,
+    FOREIGN KEY (nombre_personaje) REFERENCES Personaje(nombre),
+    FOREIGN KEY (nombre_comida) REFERENCES Comida(nombre)
+);
+
+
+SELECT P.nombre, P.vision, P.region_proveniencia
+FROM Personaje P, Region R
+WHERE P.rareza = 4 AND P.vision NOT IN (SELECT R.elemento_origen 
+FROM Region R
+WHERE P.region_proveniencia = R.nombre)
+
+ORDER BY R.nombre ASC, P.nombre ASC;
+
+SELECT nombre, Tipo, rareza
+FROM Arma
+WHERE ataque_base > 600;
+
+SELECT *
+FROM RegionesInspiradas;
+
+--PARA HACER DELETE DE LAS TABLAS PARA TESTEO:
+-- DROP TABLE arma,elemento,region,regionesinspiradas, habilidad, efecto,piso, sala, abismoabisal, conjuntoartefactos, comida, concede, enemigo, aparece, incluye, personaje, conoce, ingiere;
+
+
