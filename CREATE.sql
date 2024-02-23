@@ -125,8 +125,8 @@ BEFORE INSERT OR UPDATE ON Arma
 FOR EACH ROW
 EXECUTE FUNCTION tr_arma_function();
 
-DROP FUNCTION tr_arma_function;
-DROP TRIGGER IF EXISTS tr_arma ON arma;
+--DROP FUNCTION tr_arma_function;
+--DROP TRIGGER IF EXISTS tr_arma ON arma;
 
 ALTER TABLE Arma 
 ADD CONSTRAINT CHECK_ARMA CHECK (tipo IN ('Espada Ligera', 'Espada Pesada', 'Lanza', 'Arco', 'Catalizador') AND 
@@ -332,6 +332,8 @@ CREATE TABLE Conoce (
     FOREIGN KEY (nombre_personaje2) REFERENCES Personaje(nombre)
 );
 
+-- CONSULTAS 
+
 SELECT P.nombre, P.vision, P.region_proveniencia
 FROM Personaje P, Region R
 WHERE P.rareza = 4 AND P.vision NOT IN (SELECT R.elemento_origen 
@@ -347,6 +349,14 @@ WHERE ataque_base > 600;
 SELECT *
 FROM RegionInspiradas;
 
+SELECT tipo_arma
+FROM (
+    SELECT tipo_arma, COUNT(DISTINCT vision) AS num_elementos
+    FROM Personaje
+    GROUP BY tipo_arma
+) AS subconsulta
+WHERE num_elementos = (SELECT COUNT(DISTINCT vision) FROM Personaje);
+
 --PARA HACER DELETE DE LAS TABLAS PARA TESTEO:
 -- DROP TABLE arma,elemento,region,regionesinspiradas, habilidad, efecto,piso, sala, abismoabisal, conjuntoartefactos, comida, concede, enemigo, aparece, incluye, personaje, conoce, ingiere;
 
@@ -359,7 +369,7 @@ BEGIN
         OR  NEW.vida IS NOT NULL OR  NEW.nombre_arma IS NOT NULL OR  NEW.efecto_secundario IS NOT NULL
         OR  NEW.maginitud_segundo_efecto IS NOT NULL OR  NEW.habilidad_elemental IS NOT NULL OR  NEW.habilidad_definitiva IS NOT NULL
         OR  NEW.conjunto_artefactos IS NOT NULL THEN
-            RAISE EXCEPTION 'Los personajes No Jugables deben tener los valores ser NULL';
+            RAISE EXCEPTION 'Los personajes No Jugables deben tener los valores NULL';
         END IF;
     END IF;
     RETURN NEW;
