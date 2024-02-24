@@ -414,13 +414,12 @@ EXECUTE FUNCTION verificar_magnitud_efecto_function();
 CREATE FUNCTION verificar_tipo_arma()
 RETURNS TRIGGER AS $$
 BEGIN
-    IF NEW.Tipo = 'Jugable' AND NEW.tipo_arma IS NOT NULL AND EXISTS (SELECT 1 
+    IF NEW.tipo = 'Jugable' AND NEW.tipo_arma IS NOT NULL AND NOT EXISTS (SELECT 1 
         FROM Arma
         WHERE nombre = NEW.nombre_arma AND tipo = NEW.tipo_arma) THEN
-        RETURN NEW;
-        ELSE 
             RAISE EXCEPTION 'El tipo de arma asignado no es compatible con el arma';
     END IF;
+    RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
