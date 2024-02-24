@@ -66,15 +66,20 @@ Conoce(nombrePersonaje1, nombrePersonaje2, tipoRelacion)
 nombrePersonaje1 es FK de Personaje(Nombre)
 nombrePersonaje2 es FK de Personaje(Nombre) */
 
+-- Creando la tabla Efecto
+CREATE TABLE Efecto (
+    id INTEGER PRIMARY KEY NOT NULL CHECK (id >= 1),
+    nombre VARCHAR(50) NOT NULL,
+    descripcion TEXT NOT NULL
+);
 
 -- Creando la tabla Arma
--- VER RAREZA
 CREATE TABLE Arma (
     nombre VARCHAR(50) PRIMARY KEY NOT NULL,
     rareza INTEGER NOT NULL ,
     ataque_base INTEGER NOT NULL CHECK (ataque_base >= 1),
     tipo VARCHAR(100) NOT NULL,
-    logitud FLOAT CHECK (logitud >= 1 OR logitud = NULL),
+    longitud FLOAT CHECK (longitud >= 1 OR longitud = NULL),
     doble_filo BOOLEAN,
     peso FLOAT CHECK (peso >= 1 OR peso = NULL),
     tipo_punta VARCHAR(100),
@@ -127,28 +132,28 @@ EXECUTE FUNCTION tr_arma_function();
 
 CREATE FUNCTION verificar_magnitud_efecto_arma_function()
 RETURNS TRIGGER AS $$
+DECLARE
+    efecto_nombre VARCHAR(50);
 BEGIN
-    IF NEW.segundo_efecto = '%ATQ' THEN
-        IF NEW.maginitud_segundo_efecto >= 1 AND  NEW.maginitud_segundo_efecto <= 50 THEN
-            RETURN NEW;
-            ELSE
+    SELECT nombre INTO efecto_nombre
+        FROM efecto
+        WHERE id = NEW.segundo_efecto;
+    IF efecto_nombre = '%ATQ' THEN
+        IF NEW.maginitud_segundo_efecto < 1 OR  NEW.maginitud_segundo_efecto > 50 THEN
                 RAISE EXCEPTION 'ATQ tiene que estar entre 1 y 50';
         END IF;
     END IF;
-    IF NEW.segundo_efecto = '%Maestria Elemental' THEN
-        IF NEW.maginitud_segundo_efecto >= 40 AND  NEW.maginitud_segundo_efecto <= 600 THEN
-            RETURN NEW;
-            ELSE
+    IF efecto_nombre = '%Maestria Elemental' THEN
+        IF NEW.maginitud_segundo_efecto < 40 OR  NEW.maginitud_segundo_efecto > 600 THEN
                 RAISE EXCEPTION 'Maestria Elemental debe ser un numero entre 40 y 600';
         END IF;
     END IF;
-    IF NEW.segundo_efecto = '%Daño Elemental' THEN
-        IF NEW.maginitud_segundo_efecto >= 1 AND  NEW.maginitud_segundo_efecto <= 50 THEN
-            RETURN NEW;
-            ELSE
+    IF efecto_nombre = '%Daño Elemental' THEN
+        IF NEW.maginitud_segundo_efecto < 1 OR  NEW.maginitud_segundo_efecto > 50 THEN
                 RAISE EXCEPTION 'Daño Elemental tiene que estar entre 1 y 50';
         END IF;
     END IF;
+    RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -191,15 +196,8 @@ CREATE TABLE RegionesInspiradas (
     FOREIGN KEY (nombre_region) REFERENCES Region(nombre)
 );
 
--- Creando la tabla Efecto
-CREATE TABLE Efecto (
-    id INTEGER PRIMARY KEY NOT NULL CHECK (id >= 1),
-    nombre VARCHAR(50) NOT NULL,
-    descripcion TEXT NOT NULL
-);
 
 -- Creando la tabla Habilidad
--- INSERTS SON DE 4 CAMPOS
 CREATE TABLE Habilidad (
     nombre VARCHAR(50) PRIMARY KEY NOT NULL,
     tipo  VARCHAR(50) NOT NULL,
@@ -341,7 +339,7 @@ BEGIN
         OR  NEW.vida IS NOT NULL OR  NEW.nombre_arma IS NOT NULL OR  NEW.efecto_secundario IS NOT NULL
         OR  NEW.maginitud_segundo_efecto IS NOT NULL OR  NEW.habilidad_elemental IS NOT NULL OR  NEW.habilidad_definitiva IS NOT NULL
         OR  NEW.conjunto_artefactos IS NOT NULL THEN
-            RAISE EXCEPTION 'Los personajes No Jugables deben tener los valores ser NULL';
+            RAISE EXCEPTION 'Los personajes No Jugables deben tener los valores NULL';
         END IF;
     END IF;
     RETURN NEW;
@@ -356,28 +354,28 @@ EXECUTE FUNCTION verificar_tipo_personaje_function();
 
 CREATE FUNCTION verificar_magnitud_efecto_function()
 RETURNS TRIGGER AS $$
+DECLARE
+    efecto_nombre VARCHAR(50);
 BEGIN
-    IF NEW.efecto_secundario = '%ATQ' THEN
-        IF NEW.maginitud_segundo_efecto >= 1 AND  NEW.maginitud_segundo_efecto <= 50 THEN
-            RETURN NEW;
-            ELSE
+  SELECT nombre INTO efecto_nombre
+        FROM efecto
+        WHERE id = NEW.efecto_secundario;
+    IF efecto_nombre = '%ATQ' THEN
+        IF NEW.maginitud_segundo_efecto < 1 OR  NEW.maginitud_segundo_efecto > 50 THEN
                 RAISE EXCEPTION 'ATQ tiene que estar entre 1 y 50';
         END IF;
     END IF;
-    IF NEW.efecto_secundario = '%Maestria Elemental' THEN
-        IF NEW.maginitud_segundo_efecto >= 40 AND  NEW.maginitud_segundo_efecto <= 600 THEN
-            RETURN NEW;
-            ELSE
+    IF efecto_nombre = '%Maestria Elemental' THEN
+        IF NEW.maginitud_segundo_efecto < 40 OR  NEW.maginitud_segundo_efecto > 600 THEN
                 RAISE EXCEPTION 'Maestria Elemental debe ser un numero entre 40 y 600';
         END IF;
     END IF;
-    IF NEW.efecto_secundario = '%Daño Elemental' THEN
-        IF NEW.maginitud_segundo_efecto >= 1 AND  NEW.maginitud_segundo_efecto <= 50 THEN
-            RETURN NEW;
-            ELSE
+    IF efecto_nombre = '%Daño Elemental' THEN
+        IF NEW.maginitud_segundo_efecto < 1 OR  NEW.maginitud_segundo_efecto > 50 THEN
                 RAISE EXCEPTION 'Daño Elemental tiene que estar entre 1 y 50';
         END IF;
     END IF;
+    RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -389,21 +387,25 @@ EXECUTE FUNCTION verificar_magnitud_efecto_function();
 
 
 
--- /*
--- DELIMITER $$
--- CREATE TRIGGER tr_VerificarTipoArma BEFORE INSERT OR UPDATE ON Personaje
--- FOR EACH ROW 
--- BEGIN
---     DECLARE TipoArmaValida VARCHAR(70);
---     SELECT tipo INTO TipoArmaValida
---     FROM Arma
---     WHERE nombre = NEW.nombre_arma;
---     IF (TipoArmaValida NOT IN (SELECT tipo_arma FROM Personaje WHERE nombre = NEW.nombre)) THEN RAISE EXCEPTION 'El personaje No puede utilizar este tipo de Arma.';
---     END IF;
--- END;
--- $$
--- */
 
+CREATE FUNCTION verificar_tipo_arma()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.Tipo = 'Jugable' AND NEW.tipo_arma IS NOT NULL AND EXISTS (SELECT 1 
+        FROM Arma
+        WHERE nombre = NEW.nombre_arma AND tipo = NEW.tipo_arma) THEN
+        RETURN NEW;
+        ELSE 
+            RAISE EXCEPTION 'El tipo de arma asignado no es compatible con el arma';
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_verificar_tipo_arma
+BEFORE INSERT OR UPDATE ON Personaje
+FOR EACH ROW
+EXECUTE FUNCTION verificar_tipo_arma();
+    
 
 -- Creando la tabla Conoce
 CREATE TABLE Conoce (
@@ -437,8 +439,8 @@ CREATE TABLE Ingiere (
 -- FROM Arma
 -- WHERE ataque_base > 600;
 
--- SELECT *
--- FROM RegionInspiradas;
+SELECT *
+FROM RegionesInspiradas;
 
 --PARA HACER DELETE DE LAS TABLAS PARA TESTEO:
 -- DROP TABLE arma,elemento,region,regionesinspiradas, habilidad, efecto,piso, sala, abismoabisal, conjuntoartefactos, comida, concede, enemigo, aparece, incluye, personaje, conoce, ingiere;
