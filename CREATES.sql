@@ -179,6 +179,7 @@ CREATE TABLE Elemento (
 ALTER TABLE Elemento 
 ADD CONSTRAINT CHECK_NOMBRE CHECK (nombre IN ('Anemo', 'Pyro', 'Cryo', 'Geo', 'Dendro', 'Electro', 'Hydro', 'N/A'));
 
+
 -- Creando la tabla Region
 CREATE TABLE Region (
     nombre VARCHAR(50) PRIMARY KEY NOT NULL,
@@ -239,6 +240,26 @@ CREATE TABLE Piso (
     FOREIGN KEY (efecto_dado) REFERENCES Efecto(id),
     FOREIGN KEY (id_abismo_abisal) REFERENCES AbismoAbisal(id)
 );
+
+ALTER TABLE Piso
+ADD CONSTRAINT CHECK_PISO_TIPO CHECK (tipo IN ('Regular', 'Cambiante'));
+
+CREATE FUNCTION verificar_tipo_piso_function()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.tipo = 'Regular' THEN
+        IF NEW.prom_estrellas IS NOT NULL THEN
+            RAISE EXCEPTION 'Los pisos regulares no tienen promedio de estrellas';
+        END IF;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER verificar_tipo_piso 
+BEFORE INSERT OR UPDATE ON Piso
+FOR EACH ROW
+EXECUTE FUNCTION verificar_tipo_piso_function();
 
 -- Creando la tabla Sala
 CREATE TABLE Sala (
