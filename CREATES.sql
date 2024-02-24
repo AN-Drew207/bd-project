@@ -279,6 +279,8 @@ CREATE TABLE Comida (
     FOREIGN KEY (nombre_region) REFERENCES Region(nombre)
 );
 
+SELECT * FROM comida;
+
 -- Creando la tabla Concede
 CREATE TABLE Concede (
     nombre_comida  VARCHAR(50) PRIMARY KEY NOT NULL,
@@ -462,6 +464,15 @@ CREATE TABLE Ingiere (
 
 SELECT *
 FROM RegionesInspiradas;
+
+SELECT DISTINCT(P.nombre)
+FROM personaje P
+JOIN Conoce C1 ON C1.nombre_personaje1 = P.nombre
+JOIN Conoce C2 ON C2.nombre_personaje2 = P.nombre
+JOIN Ingiere I1 ON I1.nombre_personaje = C1.nombre_personaje1
+JOIN Ingiere I2 ON I2.nombre_personaje = C2.nombre_personaje2
+WHERE C1.tipo_relacion = 'Enemistad' AND I1.nombre_comida = I2.nombre_comida AND P.nombre <> C2.nombre_personaje1;
+
 
 --PARA HACER DELETE DE LAS TABLAS PARA TESTEO:
 -- DROP TABLE arma,elemento,region,regionesinspiradas, habilidad, efecto,piso, sala, abismoabisal, conjuntoartefactos, comida, concede, enemigo, aparece, incluye, personaje, conoce, ingiere;
