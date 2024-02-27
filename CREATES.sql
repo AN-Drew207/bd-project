@@ -179,6 +179,7 @@ CREATE TABLE Elemento (
 ALTER TABLE Elemento 
 ADD CONSTRAINT CHECK_NOMBRE CHECK (nombre IN ('Anemo', 'Pyro', 'Cryo', 'Geo', 'Dendro', 'Electro', 'Hydro', 'N/A'));
 
+
 -- Creando la tabla Region
 CREATE TABLE Region (
     nombre VARCHAR(50) PRIMARY KEY NOT NULL,
@@ -239,6 +240,26 @@ CREATE TABLE Piso (
     FOREIGN KEY (efecto_dado) REFERENCES Efecto(id),
     FOREIGN KEY (id_abismo_abisal) REFERENCES AbismoAbisal(id)
 );
+
+ALTER TABLE Piso
+ADD CONSTRAINT CHECK_PISO_TIPO CHECK (tipo IN ('Regular', 'Cambiante'));
+
+CREATE FUNCTION verificar_tipo_piso_function()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.tipo = 'Regular' THEN
+        IF NEW.prom_estrellas IS NOT NULL THEN
+            RAISE EXCEPTION 'Los pisos regulares no tienen promedio de estrellas';
+        END IF;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER verificar_tipo_piso 
+BEFORE INSERT OR UPDATE ON Piso
+FOR EACH ROW
+EXECUTE FUNCTION verificar_tipo_piso_function();
 
 -- Creando la tabla Sala
 CREATE TABLE Sala (
@@ -393,13 +414,12 @@ EXECUTE FUNCTION verificar_magnitud_efecto_function();
 CREATE FUNCTION verificar_tipo_arma()
 RETURNS TRIGGER AS $$
 BEGIN
-    IF NEW.tipo = 'Jugable' AND NEW.tipo_arma IS NOT NULL AND EXISTS (SELECT 1 
+    IF NEW.tipo = 'Jugable' AND NEW.tipo_arma IS NOT NULL AND NOT EXISTS (SELECT 1 
         FROM Arma
         WHERE nombre = NEW.nombre_arma AND tipo = NEW.tipo_arma) THEN
-        RETURN NEW;
-        ELSE 
             RAISE EXCEPTION 'El tipo de arma asignado no es compatible con el arma';
     END IF;
+    RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -427,31 +447,6 @@ CREATE TABLE Ingiere (
     FOREIGN KEY (nombre_personaje) REFERENCES Personaje(nombre),
     FOREIGN KEY (nombre_comida) REFERENCES Comida(nombre)
 );
-
-
--- SELECT P.nombre, P.vision, P.region_proveniencia
--- FROM Personaje P, Region R
--- WHERE P.rareza = 4 AND P.vision NOT IN (SELECT R.elemento_origen 
--- FROM Region R
--- WHERE P.region_proveniencia = R.nombre)
-
--- ORDER BY R.nombre ASC, P.nombre ASC;
-
--- SELECT nombre, Tipo, rareza
--- FROM Arma
--- WHERE ataque_base > 600;
-
-SELECT *
-FROM RegionesInspiradas;
-
-SELECT DISTINCT(P.nombre)
-FROM personaje P
-JOIN Conoce C1 ON C1.nombre_personaje1 = P.nombre
-JOIN Conoce C2 ON C2.nombre_personaje2 = P.nombre
-JOIN Ingiere I1 ON I1.nombre_personaje = C1.nombre_personaje1
-JOIN Ingiere I2 ON I2.nombre_personaje = C2.nombre_personaje2
-WHERE C1.tipo_relacion = 'Enemistad' AND I1.nombre_comida = I2.nombre_comida AND P.nombre <> C2.nombre_personaje1;
-
 
 --PARA HACER DELETE DE LAS TABLAS PARA TESTEO:
 -- DROP TABLE arma,elemento,region,regionesinspiradas, habilidad, efecto,piso, sala, abismoabisal, conjuntoartefactos, comida, concede, enemigo, aparece, incluye, personaje, conoce, ingiere;
