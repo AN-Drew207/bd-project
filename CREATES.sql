@@ -347,11 +347,13 @@ CREATE TABLE Personaje (
     FOREIGN KEY (conjunto_artefactos) REFERENCES ConjuntoArtefactos(nombre)	
 );
 
-ALTER TABLE Personaje
-ADD CONSTRAINT CHECK_PERSONAJE CHECK (vision IN ('Anemo', 'Pyro', 'Cryo', 'Geo', 'Dendro', 'Electro', 'Hydro', 'N/A'));
+SELECT * FROM personaje;
 
 ALTER TABLE Personaje
-ADD CONSTRAINT CHECK_PERSONAJE_TIPO CHECK (tipo IN ('Jugable', 'No Jugable'));
+ADD CONSTRAINT CHECK_PERSONAJE CHECK (vision IN ('Anemo', 'Pyro', 'Cryo', 'Geo', 'Dendro', 'Electro', 'Hydro', 'N/A') AND tipo IN ('Jugable', 'No Jugable'));
+
+--ALTER TABLE Personaje
+--ADD CONSTRAINT CHECK_PERSONAJE_TIPO CHECK (tipo IN ('Jugable', 'No Jugable'));
 
 CREATE FUNCTION verificar_tipo_personaje_function()
 RETURNS TRIGGER AS $$
