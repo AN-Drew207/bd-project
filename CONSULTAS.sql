@@ -23,6 +23,12 @@ WHERE tipo_relacion = 'Enemistad' AND I1.nombre_comida = I2.nombre_comida;
 
 -- Consulta 4
 
+SELECT nombre_enemigo FROM aparece WHERE nombre_region = 'Fontaine' AND nombre_enemigo IN (SELECT nombre_enemigo FROM incluye i WHERE numero_sala = 2 AND id_piso = 12 AND id_abismo_abisal = ((SELECT id from abismoabisal
+where FechaFin=(
+SELECT max(FechaFin)
+FROM abismoabisal
+))));
+
 
 -- Consulta 5
 SELECT nombre, Tipo, rareza
