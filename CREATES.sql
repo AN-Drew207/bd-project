@@ -77,47 +77,47 @@ CREATE TABLE Efecto (
 CREATE TABLE Arma (
     nombre VARCHAR(50) PRIMARY KEY NOT NULL,
     rareza INTEGER NOT NULL ,
-    ataque_base INTEGER NOT NULL CHECK (ataque_base >= 1),
+    AtaqueBase INTEGER NOT NULL CHECK (AtaqueBase >= 1),
     tipo VARCHAR(100) NOT NULL,
     longitud FLOAT CHECK (longitud >= 1 OR longitud = NULL),
-    doble_filo BOOLEAN,
+    DobleFilo BOOLEAN,
     peso FLOAT CHECK (peso >= 1 OR peso = NULL),
-    tipo_punta VARCHAR(100),
-    material_cuerda VARCHAR(100),
-    tipo_magia VARCHAR(100),
-    segundo_efecto INTEGER NOT NULL CHECK (segundo_efecto >= 1),
-    maginitud_segundo_efecto FLOAT NOT NULL CHECK (maginitud_segundo_efecto != 0)
+    tipoPunta VARCHAR(100),
+    materialCuerda VARCHAR(100),
+    tipoMagia VARCHAR(100),
+    segundoEfecto INTEGER NOT NULL CHECK (segundoEfecto >= 1),
+    magnitudSegundoEfecto FLOAT NOT NULL CHECK (magnitudSegundoEfecto != 0)
 );
 
 CREATE FUNCTION tr_arma_function() 
 RETURNS TRIGGER AS $$
 BEGIN
     IF NEW.tipo = 'Espada Ligera' THEN 
-        IF NEW.peso IS NOT NULL OR NEW.tipo_punta IS NOT NULL OR NEW.material_cuerda IS NOT NULL OR NEW.tipo_magia IS NOT NULL THEN 
+        IF NEW.peso IS NOT NULL OR NEW.tipoPunta IS NOT NULL OR NEW.materialCuerda IS NOT NULL OR NEW.tipoMagia IS NOT NULL THEN 
             RAISE EXCEPTION 'Atributo invalido en Arma de tipo Espada Ligera.'; 
         END IF;
     END IF;
 
     IF NEW.tipo = 'Espada Pesada' THEN 
-        IF NEW.longitud IS NOT NULL OR NEW.doble_filo IS NOT NULL OR NEW.tipo_punta IS NOT NULL OR NEW.material_cuerda IS NOT NULL OR NEW.tipo_magia IS NOT NULL THEN 
+        IF NEW.longitud IS NOT NULL OR NEW.DobleFilo IS NOT NULL OR NEW.tipoPunta IS NOT NULL OR NEW.materialCuerda IS NOT NULL OR NEW.tipoMagia IS NOT NULL THEN 
             RAISE EXCEPTION 'Atributo invalido en Arma de tipo Espada Pesada.';
         END IF;
     END IF;
 
     IF NEW.tipo = 'Lanza' THEN 
-        IF NEW.longitud IS NOT NULL OR NEW.doble_filo IS NOT NULL OR NEW.peso IS NOT NULL OR NEW.material_cuerda IS NOT NULL OR NEW.tipo_magia IS NOT NULL THEN
+        IF NEW.longitud IS NOT NULL OR NEW.DobleFilo IS NOT NULL OR NEW.peso IS NOT NULL OR NEW.materialCuerda IS NOT NULL OR NEW.tipoMagia IS NOT NULL THEN
             RAISE EXCEPTION 'Atributo invalido en Arma de tipo Lanza.';
         END IF;
     END IF;
 
     IF NEW.tipo = 'Arco' THEN 
-        IF NEW.longitud IS NOT NULL OR NEW.doble_filo IS NOT NULL OR NEW.peso IS NOT NULL OR NEW.tipo_magia IS NOT NULL OR NEW.tipo_punta IS NOT NULL THEN 
+        IF NEW.longitud IS NOT NULL OR NEW.DobleFilo IS NOT NULL OR NEW.peso IS NOT NULL OR NEW.tipoMagia IS NOT NULL OR NEW.tipoPunta IS NOT NULL THEN 
             RAISE EXCEPTION 'Atributo invalido en Arma de tipo Arco.';
         END IF;
     END IF;
 
     IF NEW.tipo = 'Catalizador' THEN 
-        IF NEW.longitud IS NOT NULL OR NEW.doble_filo IS NOT NULL OR NEW.peso IS NOT NULL OR NEW.material_cuerda IS NOT NULL OR NEW.tipo_punta IS NOT NULL THEN
+        IF NEW.longitud IS NOT NULL OR NEW.DobleFilo IS NOT NULL OR NEW.peso IS NOT NULL OR NEW.materialCuerda IS NOT NULL OR NEW.tipoPunta IS NOT NULL THEN
             RAISE EXCEPTION 'Atributo invalido en Arma de tipo Catalizador.';
         END IF;
     END IF;
@@ -130,26 +130,26 @@ BEFORE INSERT OR UPDATE ON Arma
 FOR EACH ROW
 EXECUTE FUNCTION tr_arma_function();
 
-CREATE FUNCTION verificar_magnitud_efecto_arma_function()
+CREATE FUNCTION verificar_magnitudEfecto_arma_function()
 RETURNS TRIGGER AS $$
 DECLARE
     efecto_nombre VARCHAR(50);
 BEGIN
     SELECT nombre INTO efecto_nombre
         FROM efecto
-        WHERE id = NEW.segundo_efecto;
+        WHERE id = NEW.segundoEfecto;
     IF efecto_nombre = '%ATQ' THEN
-        IF NEW.maginitud_segundo_efecto < 1 OR  NEW.maginitud_segundo_efecto > 50 THEN
+        IF NEW.magnitudSegundoEfecto < 1 OR  NEW.magnitudSegundoEfecto > 50 THEN
                 RAISE EXCEPTION 'ATQ tiene que estar entre 1 y 50';
         END IF;
     END IF;
     IF efecto_nombre = '%Maestria Elemental' THEN
-        IF NEW.maginitud_segundo_efecto < 40 OR  NEW.maginitud_segundo_efecto > 600 THEN
+        IF NEW.magnitudSegundoEfecto < 40 OR  NEW.magnitudSegundoEfecto > 600 THEN
                 RAISE EXCEPTION 'Maestria Elemental debe ser un numero entre 40 y 600';
         END IF;
     END IF;
     IF efecto_nombre = '%Daño Elemental' THEN
-        IF NEW.maginitud_segundo_efecto < 1 OR  NEW.maginitud_segundo_efecto > 50 THEN
+        IF NEW.magnitudSegundoEfecto < 1 OR  NEW.magnitudSegundoEfecto > 50 THEN
                 RAISE EXCEPTION 'Daño Elemental tiene que estar entre 1 y 50';
         END IF;
     END IF;
@@ -158,18 +158,18 @@ END;
 $$ LANGUAGE plpgsql;
 
 
-CREATE TRIGGER verificar_magnitud_efecto_arma 
+CREATE TRIGGER verificar_magnitudEfecto_arma 
 BEFORE INSERT OR UPDATE ON Arma
 FOR EACH ROW
-EXECUTE FUNCTION verificar_magnitud_efecto_arma_function();
+EXECUTE FUNCTION verificar_magnitudEfecto_arma_function();
 
 -- DROP FUNCTION tr_arma_function;
 -- DROP TRIGGER IF EXISTS tr_arma ON arma;
 
 ALTER TABLE Arma 
 ADD CONSTRAINT CHECK_ARMA CHECK (tipo IN ('Espada Ligera', 'Espada Pesada', 'Lanza', 'Arco', 'Catalizador') AND 
-tipo_punta IN ('Alemana', 'Europea Funcional', 'Frámea Merovingia', 'Inglesa') AND
-tipo_magia IN ('Ofensiva', 'Defensiva', 'Soporte'));
+tipoPunta IN ('Alemana', 'Europea Funcional', 'Frámea Merovingia', 'Inglesa') AND
+tipoMagia IN ('Ofensiva', 'Defensiva', 'Soporte'));
 
 -- Creando la tabla Elemento
 CREATE TABLE Elemento (
@@ -185,16 +185,16 @@ CREATE TABLE Region (
     nombre VARCHAR(50) PRIMARY KEY NOT NULL,
     arconte VARCHAR(100) NOT NULL,
     descripcion TEXT NOT NULL,
-    elemento_origen VARCHAR(20) NOT NULL,
-    FOREIGN KEY (elemento_origen) REFERENCES Elemento(nombre)
+    elementoOrigen VARCHAR(20) NOT NULL,
+    FOREIGN KEY (elementoOrigen) REFERENCES Elemento(nombre)
 );
 
 -- Creando la tabla RegionInpiradas
 CREATE TABLE RegionesInspiradas (
-    nombre_region VARCHAR(50)  NOT NULL,
-    nombre_pais_real VARCHAR(50) NOT NULL,
-    PRIMARY KEY(nombre_region,nombre_pais_real),
-    FOREIGN KEY (nombre_region) REFERENCES Region(nombre)
+    nombreRegion VARCHAR(50)  NOT NULL,
+    nombrePaisReal VARCHAR(50) NOT NULL,
+    PRIMARY KEY(nombreRegion,nombrePaisReal),
+    FOREIGN KEY (nombreRegion) REFERENCES Region(nombre)
 );
 
 
@@ -202,7 +202,7 @@ CREATE TABLE RegionesInspiradas (
 CREATE TABLE Habilidad (
     nombre VARCHAR(50) PRIMARY KEY NOT NULL,
     tipo  VARCHAR(50) NOT NULL,
-    bono_atq FLOAT NOT NULL CHECK (bono_atq >= 25 AND bono_atq <= 1000)
+    bonoATQ FLOAT NOT NULL CHECK (bonoATQ >= 25 AND bonoATQ <= 1000)
 );
 
 ALTER TABLE Habilidad 
@@ -213,10 +213,10 @@ CREATE TABLE ConjuntoArtefactos (
     nombre VARCHAR(50) PRIMARY KEY NOT NULL,
     descripcion TEXT NOT NULL,
 	efecto INTEGER NOT NULL CHECK (efecto >= 1),
-    magnitud_efecto FLOAT NOT NULL CHECK (magnitud_efecto != 0),
-    region_proveniencia VARCHAR(50) NOT NULL,
+    magnitudEfecto FLOAT NOT NULL CHECK (magnitudEfecto != 0),
+    regionProveniencia VARCHAR(50) NOT NULL,
     FOREIGN KEY (efecto) REFERENCES Efecto(id),
-    FOREIGN KEY (region_proveniencia) REFERENCES Region(nombre)
+    FOREIGN KEY (regionProveniencia) REFERENCES Region(nombre)
 );
 
 -- Creando la tabla AbismoAbisal
@@ -230,15 +230,15 @@ CREATE TABLE AbismoAbisal (
 CREATE TABLE Piso (
 	-- REVISAR UNIQUE
     id INTEGER NOT NULL CHECK (id >= 1),
-    id_abismo_abisal INTEGER NOT NULL CHECK (id_abismo_abisal >= 1),
+    idAbismoAbisal INTEGER NOT NULL CHECK (idAbismoAbisal >= 1),
     tipo VARCHAR(100) NOT NULL,
-	prom_estrellas VARCHAR(70),
-	efecto_dado INTEGER NOT NULL CHECK (efecto_dado >= 1),
-	magnitud_efecto INTEGER NOT NULL CHECK (magnitud_efecto != 0),
-    UNIQUE(id, id_abismo_abisal),
-    PRIMARY KEY (id,id_abismo_abisal),
-    FOREIGN KEY (efecto_dado) REFERENCES Efecto(id),
-    FOREIGN KEY (id_abismo_abisal) REFERENCES AbismoAbisal(id)
+	promEstrellas VARCHAR(70),
+	efectoDado INTEGER NOT NULL CHECK (efectoDado >= 1),
+	magnitudEfecto INTEGER NOT NULL CHECK (magnitudEfecto != 0),
+    UNIQUE(id, idAbismoAbisal),
+    PRIMARY KEY (id,idAbismoAbisal),
+    FOREIGN KEY (efectoDado) REFERENCES Efecto(id),
+    FOREIGN KEY (idAbismoAbisal) REFERENCES AbismoAbisal(id)
 );
 
 ALTER TABLE Piso
@@ -248,7 +248,7 @@ CREATE FUNCTION verificar_tipo_piso_function()
 RETURNS TRIGGER AS $$
 BEGIN
     IF NEW.tipo = 'Regular' THEN
-        IF NEW.prom_estrellas IS NOT NULL THEN
+        IF NEW.promEstrellas IS NOT NULL THEN
             RAISE EXCEPTION 'Los pisos regulares no tienen promedio de estrellas';
         END IF;
     END IF;
@@ -264,57 +264,55 @@ EXECUTE FUNCTION verificar_tipo_piso_function();
 -- Creando la tabla Sala
 CREATE TABLE Sala (
     numero INTEGER NOT NULL CHECK (numero >= 1 AND numero <=3),
-    id_piso INTEGER NOT NULL CHECK (id_piso >= 1 AND id_piso <=12),
-    id_abismo_abisal INTEGER NOT NULL CHECK (id_abismo_abisal >= 1),
-    UNIQUE (numero,id_piso, id_abismo_abisal),
-    PRIMARY KEY(numero,id_piso,id_abismo_abisal),
-    FOREIGN KEY (id_piso,id_abismo_abisal) REFERENCES Piso(id,id_abismo_abisal)
+    idPiso INTEGER NOT NULL CHECK (idPiso >= 1 AND idPiso <=12),
+    idAbismoAbisal INTEGER NOT NULL CHECK (idAbismoAbisal >= 1),
+    UNIQUE (numero,idPiso, idAbismoAbisal),
+    PRIMARY KEY(numero,idPiso,idAbismoAbisal),
+    FOREIGN KEY (idPiso,idAbismoAbisal) REFERENCES Piso(id,idAbismoAbisal)
 );
 
 -- Creando la tabla Comida
 CREATE TABLE Comida (
     nombre VARCHAR(50) PRIMARY KEY NOT NULL,
     rareza INTEGER NOT NULL,
-    nombre_region VARCHAR(100) NOT NULL,
-    FOREIGN KEY (nombre_region) REFERENCES Region(nombre)
+    nombreRegion VARCHAR(100) NOT NULL,
+    FOREIGN KEY (nombreRegion) REFERENCES Region(nombre)
 );
-
-SELECT * FROM comida;
 
 -- Creando la tabla Concede
 CREATE TABLE Concede (
-    nombre_comida  VARCHAR(50) PRIMARY KEY NOT NULL,
-    id_efecto INTEGER NOT NULL CHECK (id_efecto >= 1),
-    FOREIGN KEY (nombre_comida) REFERENCES Comida(nombre),
-    FOREIGN KEY (id_efecto) REFERENCES Efecto(id)
+    nombreComida  VARCHAR(50) PRIMARY KEY NOT NULL,
+    idEfecto INTEGER NOT NULL CHECK (idEfecto >= 1),
+    FOREIGN KEY (nombreComida) REFERENCES Comida(nombre),
+    FOREIGN KEY (idEfecto) REFERENCES Efecto(id)
 );
 
 CREATE TABLE Enemigo (
     nombre VARCHAR(50) PRIMARY KEY NOT NULL,
     tipo VARCHAR(70) NOT NULL,
     vida INTEGER NOT NULL,
-    tiempo_aparicion INTEGER NOT NULL,
-    elemento_imbuimiento VARCHAR(50) NOT NULL,
-    FOREIGN KEY (elemento_imbuimiento) REFERENCES Elemento(nombre)
+    tiempoAparicion INTEGER NOT NULL,
+    elementoImbuimiento VARCHAR(50) NOT NULL,
+    FOREIGN KEY (elementoImbuimiento) REFERENCES Elemento(nombre)
 );
 
 CREATE TABLE Aparece (
-    nombre_enemigo VARCHAR(50) PRIMARY KEY NOT NULL,
-    nombre_region VARCHAR(50) NOT NULL,
-    FOREIGN KEY (nombre_enemigo) REFERENCES Enemigo(nombre),
-    FOREIGN KEY (nombre_region) REFERENCES Region(nombre)
+    nombreEnemigo VARCHAR(50) PRIMARY KEY NOT NULL,
+    nombreRegion VARCHAR(50) NOT NULL,
+    FOREIGN KEY (nombreEnemigo) REFERENCES Enemigo(nombre),
+    FOREIGN KEY (nombreRegion) REFERENCES Region(nombre)
 );
 
 -- Creando la tabla Incluye
 CREATE TABLE Incluye (
-    nombre_enemigo VARCHAR(50) NOT NULL,
-    numero_sala INTEGER NOT NULL CHECK (numero_sala >= 1 AND numero_sala <=3),
-    id_piso INTEGER NOT NULL CHECK (id_piso >= 1 AND id_piso <=12),
-    id_abismo_abisal INTEGER NOT NULL CHECK (id_abismo_abisal >= 1),
+    nombreEnemigo VARCHAR(50) NOT NULL,
+    numeroSala INTEGER NOT NULL CHECK (numeroSala >= 1 AND numeroSala <=3),
+    idPiso INTEGER NOT NULL CHECK (idPiso >= 1 AND idPiso <=12),
+    idAbismoAbisal INTEGER NOT NULL CHECK (idAbismoAbisal >= 1),
     cantidad INTEGER NOT NULL CHECK (cantidad >= 1),
-	PRIMARY KEY (nombre_enemigo,numero_sala,id_piso,id_abismo_abisal),
-    FOREIGN KEY (nombre_enemigo) REFERENCES Enemigo(nombre),
-    FOREIGN KEY (numero_sala,id_piso,id_abismo_abisal) REFERENCES Sala(numero,id_piso,id_abismo_abisal)
+	PRIMARY KEY (nombreEnemigo,numeroSala,idPiso,idAbismoAbisal),
+    FOREIGN KEY (nombreEnemigo) REFERENCES Enemigo(nombre),
+    FOREIGN KEY (numeroSala,idPiso,idAbismoAbisal) REFERENCES Sala(numero,idPiso,idAbismoAbisal)
 );
 
 
@@ -327,24 +325,24 @@ CREATE TABLE Personaje (
     tipo VARCHAR(70) NOT NULL,
     constelacion VARCHAR(70),
     rareza INTEGER CHECK (rareza = 4 OR rareza = 5 OR rareza = NULL),
-    tipo_arma VARCHAR(70),
-    ataque_base FLOAT CHECK (ataque_base >= 1),
-    vel_movimiento FLOAT CHECK (vel_movimiento >= 1),
+    tipoArma VARCHAR(70),
+    AtaqueBase FLOAT CHECK (AtaqueBase >= 1),
+    velMovimiento FLOAT CHECK (velMovimiento >= 1),
     defensa FLOAT CHECK (defensa >= 1),
     vida INTEGER CHECK (vida >= 1),
-	region_proveniencia VARCHAR(50),
-    nombre_arma VARCHAR(50),
-    efecto_secundario INTEGER CHECK (efecto_secundario >= 1),
-    maginitud_segundo_efecto FLOAT,
-    habilidad_elemental VARCHAR(50),
-    habilidad_definitiva VARCHAR(50),
-    conjunto_artefactos VARCHAR(50),
-    FOREIGN KEY (region_proveniencia) REFERENCES Region(nombre),
-    FOREIGN KEY (nombre_arma) REFERENCES Arma(nombre),
-    FOREIGN KEY (efecto_secundario) REFERENCES Efecto(id),
-    FOREIGN KEY (habilidad_elemental) REFERENCES Habilidad(nombre),	
-    FOREIGN KEY (habilidad_definitiva) REFERENCES Habilidad(nombre),	
-    FOREIGN KEY (conjunto_artefactos) REFERENCES ConjuntoArtefactos(nombre)	
+	regionProveniencia VARCHAR(50),
+    nombreArma VARCHAR(50),
+    efectoSecundario INTEGER CHECK (efectoSecundario >= 1),
+    magnitudSegundoEfecto FLOAT,
+    habilidadElemental VARCHAR(50),
+    habilidadDefinitiva VARCHAR(50),
+    conjuntoArtefactos VARCHAR(50),
+    FOREIGN KEY (regionProveniencia) REFERENCES Region(nombre),
+    FOREIGN KEY (nombreArma) REFERENCES Arma(nombre),
+    FOREIGN KEY (efectoSecundario) REFERENCES Efecto(id),
+    FOREIGN KEY (habilidadElemental) REFERENCES Habilidad(nombre),	
+    FOREIGN KEY (habilidadDefinitiva) REFERENCES Habilidad(nombre),	
+    FOREIGN KEY (conjuntoArtefactos) REFERENCES ConjuntoArtefactos(nombre)	
 );
 
 SELECT * FROM personaje;
@@ -359,11 +357,11 @@ CREATE FUNCTION verificar_tipo_personaje_function()
 RETURNS TRIGGER AS $$
 BEGIN
     IF NEW.tipo = 'No Jugable' THEN
-        IF NEW.constelacion IS NOT NULL OR  NEW.rareza IS NOT NULL OR  NEW.tipo_arma IS NOT NULL
-        OR  NEW.ataque_base IS NOT NULL OR  NEW.vel_movimiento IS NOT NULL OR  NEW.defensa IS NOT NULL 
-        OR  NEW.vida IS NOT NULL OR  NEW.nombre_arma IS NOT NULL OR  NEW.efecto_secundario IS NOT NULL
-        OR  NEW.maginitud_segundo_efecto IS NOT NULL OR  NEW.habilidad_elemental IS NOT NULL OR  NEW.habilidad_definitiva IS NOT NULL
-        OR  NEW.conjunto_artefactos IS NOT NULL THEN
+        IF NEW.constelacion IS NOT NULL OR  NEW.rareza IS NOT NULL OR  NEW.tipoArma IS NOT NULL
+        OR  NEW.AtaqueBase IS NOT NULL OR  NEW.velMovimiento IS NOT NULL OR  NEW.defensa IS NOT NULL 
+        OR  NEW.vida IS NOT NULL OR  NEW.nombreArma IS NOT NULL OR  NEW.efectoSecundario IS NOT NULL
+        OR  NEW.magnitudSegundoEfecto IS NOT NULL OR  NEW.habilidadElemental IS NOT NULL OR  NEW.habilidadDefinitiva IS NOT NULL
+        OR  NEW.conjuntoArtefactos IS NOT NULL THEN
             RAISE EXCEPTION 'Los personajes No Jugables deben tener los valores NULL';
         END IF;
     END IF;
@@ -377,26 +375,26 @@ FOR EACH ROW
 EXECUTE FUNCTION verificar_tipo_personaje_function();
 
 
-CREATE FUNCTION verificar_magnitud_efecto_function()
+CREATE FUNCTION verificar_magnitudEfecto_function()
 RETURNS TRIGGER AS $$
 DECLARE
     efecto_nombre VARCHAR(50);
 BEGIN
   SELECT nombre INTO efecto_nombre
         FROM efecto
-        WHERE id = NEW.efecto_secundario;
+        WHERE id = NEW.efectoSecundario;
     IF efecto_nombre = '%ATQ' THEN
-        IF NEW.maginitud_segundo_efecto < 1 OR  NEW.maginitud_segundo_efecto > 50 THEN
+        IF NEW.magnitudSegundoEfecto < 1 OR  NEW.magnitudSegundoEfecto > 50 THEN
                 RAISE EXCEPTION 'ATQ tiene que estar entre 1 y 50';
         END IF;
     END IF;
     IF efecto_nombre = '%Maestria Elemental' THEN
-        IF NEW.maginitud_segundo_efecto < 40 OR  NEW.maginitud_segundo_efecto > 600 THEN
+        IF NEW.magnitudSegundoEfecto < 40 OR  NEW.magnitudSegundoEfecto > 600 THEN
                 RAISE EXCEPTION 'Maestria Elemental debe ser un numero entre 40 y 600';
         END IF;
     END IF;
     IF efecto_nombre = '%Daño Elemental' THEN
-        IF NEW.maginitud_segundo_efecto < 1 OR  NEW.maginitud_segundo_efecto > 50 THEN
+        IF NEW.magnitudSegundoEfecto < 1 OR  NEW.magnitudSegundoEfecto > 50 THEN
                 RAISE EXCEPTION 'Daño Elemental tiene que estar entre 1 y 50';
         END IF;
     END IF;
@@ -405,49 +403,49 @@ END;
 $$ LANGUAGE plpgsql;
 
 
-CREATE TRIGGER verificar_magnitud_efecto 
+CREATE TRIGGER verificar_magnitudEfecto 
 BEFORE INSERT OR UPDATE ON Personaje
 FOR EACH ROW
-EXECUTE FUNCTION verificar_magnitud_efecto_function();
+EXECUTE FUNCTION verificar_magnitudEfecto_function();
 
 
 
 
-CREATE FUNCTION verificar_tipo_arma()
+CREATE FUNCTION verificar_tipoArma()
 RETURNS TRIGGER AS $$
 BEGIN
-    IF NEW.tipo = 'Jugable' AND NEW.tipo_arma IS NOT NULL AND NOT EXISTS (SELECT 1 
+    IF NEW.tipo = 'Jugable' AND NEW.tipoArma IS NOT NULL AND NOT EXISTS (SELECT 1 
         FROM Arma
-        WHERE nombre = NEW.nombre_arma AND tipo = NEW.tipo_arma) THEN
+        WHERE nombre = NEW.nombreArma AND tipo = NEW.tipoArma) THEN
             RAISE EXCEPTION 'El tipo de arma asignado no es compatible con el arma';
     END IF;
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trigger_verificar_tipo_arma
+CREATE TRIGGER trigger_verificar_tipoArma
 BEFORE INSERT OR UPDATE ON Personaje
 FOR EACH ROW
-EXECUTE FUNCTION verificar_tipo_arma();
+EXECUTE FUNCTION verificar_tipoArma();
     
 
 -- Creando la tabla Conoce
 CREATE TABLE Conoce (
-    nombre_personaje1 VARCHAR(50) NOT NULL,
-    nombre_personaje2 VARCHAR(50) NOT NULL,
-    tipo_relacion VARCHAR(70) NOT NULL,
-	PRIMARY KEY (nombre_personaje1,nombre_personaje2),
-    FOREIGN KEY (nombre_personaje1) REFERENCES Personaje(nombre),
-    FOREIGN KEY (nombre_personaje2) REFERENCES Personaje(nombre)
+    nombrePersonaje1 VARCHAR(50) NOT NULL,
+    nombrePersonaje2 VARCHAR(50) NOT NULL,
+    tipoRelacion VARCHAR(70) NOT NULL,
+	PRIMARY KEY (nombrePersonaje1,nombrePersonaje2),
+    FOREIGN KEY (nombrePersonaje1) REFERENCES Personaje(nombre),
+    FOREIGN KEY (nombrePersonaje2) REFERENCES Personaje(nombre)
 );
 
 -- Creando la tabla Ingiere
 
 CREATE TABLE Ingiere (
-    nombre_personaje VARCHAR(50) NOT NULL,
-    nombre_comida VARCHAR(50) NOT NULL,
-    FOREIGN KEY (nombre_personaje) REFERENCES Personaje(nombre),
-    FOREIGN KEY (nombre_comida) REFERENCES Comida(nombre)
+    nombrePersonaje VARCHAR(50) NOT NULL,
+    nombreComida VARCHAR(50) NOT NULL,
+    FOREIGN KEY (nombrePersonaje) REFERENCES Personaje(nombre),
+    FOREIGN KEY (nombreComida) REFERENCES Comida(nombre)
 );
 
 --PARA HACER DELETE DE LAS TABLAS PARA TESTEO:

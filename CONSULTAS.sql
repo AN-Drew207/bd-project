@@ -1,29 +1,29 @@
 -- Consulta 1
-SELECT P.nombre, P.vision, P.region_proveniencia
+SELECT P.nombre, P.vision, P.regionProveniencia
 FROM Personaje P
-JOIN Region R ON R.nombre = P.region_proveniencia
-WHERE P.rareza = 4 AND P.vision <> R.elemento_origen
+JOIN Region R ON R.nombre = P.regionProveniencia
+WHERE P.rareza = 4 AND P.vision <> R.elementoOrigen
 ORDER BY P.nombre ASC, R.nombre ASC;
 
 -- Consulta 2
 SELECT DISTINCT tipo
 FROM Arma a
-WHERE NOT EXISTS (SELECT 1 FROM Elemento e WHERE NOT EXISTS(
+WHERE NOT EXISTS
+(SELECT 1 FROM Elemento e WHERE e.nombre != 'N/A' AND NOT EXISTS(
     SELECT 1 FROM Personaje p WHERE 
-    p.tipo_arma = a.tipo
+    p.tipoArma = a.tipo
     AND p.vision = e.nombre
 ));
 
 -- Consulta 3
-SELECT nombre_personaje1
+SELECT nombrePersonaje1
 FROM conoce 
-JOIN Ingiere I1 ON I1.nombre_personaje = nombre_personaje1
-JOIN Ingiere I2 ON I2.nombre_personaje = nombre_personaje2
-WHERE tipo_relacion = 'Enemistad' AND I1.nombre_comida = I2.nombre_comida;
+JOIN Ingiere I1 ON I1.nombrePersonaje = nombrePersonaje1
+JOIN Ingiere I2 ON I2.nombrePersonaje = nombrePersonaje2
+WHERE tipoRelacion = 'Enemistad' AND I1.nombreComida = I2.nombreComida;
 
 -- Consulta 4
-
-SELECT nombre_enemigo FROM aparece WHERE nombre_region = 'Fontaine' AND nombre_enemigo IN (SELECT nombre_enemigo FROM incluye i WHERE numero_sala = 2 AND id_piso = 12 AND id_abismo_abisal = ((SELECT id from abismoabisal
+SELECT nombreEnemigo FROM aparece WHERE nombreRegion = 'Fontaine' AND nombreEnemigo IN (SELECT nombreEnemigo FROM incluye i WHERE numeroSala = 2 AND idPiso = 12 AND idAbismoAbisal = ((SELECT id from abismoabisal
 where FechaFin=(
 SELECT max(FechaFin)
 FROM abismoabisal
@@ -33,9 +33,51 @@ FROM abismoabisal
 -- Consulta 5
 SELECT nombre, Tipo, rareza
 FROM Arma
-WHERE ataque_base > 600;
+WHERE AtaqueBase > 600;
 
 -- Consulta 6
 SELECT *
 FROM RegionesInspiradas;
+
+-- Consulta 7
+-- Listar los nombres de los personajes que tienen una amistad con al menos un personaje con efecto secundario %Daño Critico y que su magnitud sea mayor a 10
+-- Esta consulta fue elaborada ya que la tabla efectos no es tan usada y aprovechando la relacion conoce entre personajes, podemos encontrar
+-- los personajes con amigos que tengan el efecto secundario '%Daño Critico' mayor que 10
+SELECT nombre 
+FROM Personaje
+WHERE nombre IN 
+    (SELECT nombrePersonaje1 FROM conoce
+    WHERE tipoRelacion = 'Amistad'
+    AND nombrePersonaje2 IN
+        (SELECT nombre FROM Personaje 
+        WHERE efectoSecundario = (SELECT id FROM Efecto WHERE nombre = '%Daño Critico') 
+        AND magnitudSegundoEfecto > 10)) 
+OR nombre IN 
+    (SELECT nombrePersonaje2 FROM conoce
+    WHERE tipoRelacion = 'Amistad'
+    AND nombrePersonaje1 IN
+        (SELECT nombre FROM Personaje 
+        WHERE efectoSecundario = (SELECT id FROM Efecto WHERE nombre = '%Daño Critico')
+        AND magnitudSegundoEfecto > 10));
+
+-- Consulta 8
+-- Listar los nombres de los personajes que tienen una amistad con al menos un personaje con efecto secundario %Daño Critico y que su magnitud sea mayor a 10
+-- Esta consulta fue elaborada ya que la tabla efectos no es tan usada y aprovechando la relacion conoce entre personajes, podemos encontrar
+-- los personajes con amigos que tengan el efecto secundario '%Daño Critico' mayor que 10
+SELECT nombre 
+FROM Personaje
+WHERE nombre IN 
+    (SELECT nombrePersonaje1 FROM conoce
+    WHERE tipoRelacion = 'Amistad'
+    AND nombrePersonaje2 IN
+        (SELECT nombre FROM Personaje 
+        WHERE efectoSecundario = (SELECT id FROM Efecto WHERE nombre = '%Daño Critico') 
+        AND magnitudSegundoEfecto > 10)) 
+OR nombre IN 
+    (SELECT nombrePersonaje2 FROM conoce
+    WHERE tipoRelacion = 'Amistad'
+    AND nombrePersonaje1 IN
+        (SELECT nombre FROM Personaje 
+        WHERE efectoSecundario = (SELECT id FROM Efecto WHERE nombre = '%Daño Critico')
+        AND magnitudSegundoEfecto > 10));
 
