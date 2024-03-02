@@ -91,7 +91,8 @@ CREATE TABLE Arma (
     materialCuerda VARCHAR(100),
     tipoMagia VARCHAR(100),
     segundoEfecto INTEGER NOT NULL CHECK (segundoEfecto >= 1),
-    magnitudSegundoEfecto FLOAT NOT NULL CHECK (magnitudSegundoEfecto != 0)
+    magnitudSegundoEfecto FLOAT NOT NULL CHECK (magnitudSegundoEfecto != 0),
+    FOREIGN KEY (segundoEfecto) REFERENCES Efecto(id)
 );
 
 -- Restriccion Avanzada 3
@@ -208,6 +209,56 @@ CREATE TABLE Region (
     FOREIGN KEY (elementoOrigen) REFERENCES Elemento(nombre)
 );
 
+-- Creando la tabla Comida
+
+CREATE TABLE Comida (
+    nombre VARCHAR(50) PRIMARY KEY NOT NULL,
+    rareza INTEGER NOT NULL,
+    nombreRegion VARCHAR(100) NOT NULL,
+    FOREIGN KEY (nombreRegion) REFERENCES Region(nombre)
+);
+
+-- Creando la tabla Concede
+
+CREATE TABLE Concede (
+    nombreComida  VARCHAR(50) PRIMARY KEY NOT NULL,
+    idEfecto INTEGER NOT NULL CHECK (idEfecto >= 1),
+    FOREIGN KEY (nombreComida) REFERENCES Comida(nombre),
+    FOREIGN KEY (idEfecto) REFERENCES Efecto(id)
+);
+
+-- Creando la tabla ConjuntoArtefactos
+
+CREATE TABLE ConjuntoArtefactos (
+    nombre VARCHAR(50) PRIMARY KEY NOT NULL,
+    descripcion TEXT NOT NULL,
+	efecto INTEGER NOT NULL CHECK (efecto >= 1),
+    magnitudEfecto FLOAT NOT NULL CHECK (magnitudEfecto != 0),
+    regionProveniencia VARCHAR(50) NOT NULL,
+    FOREIGN KEY (efecto) REFERENCES Efecto(id),
+    FOREIGN KEY (regionProveniencia) REFERENCES Region(nombre)
+);
+
+-- Creando la tabla Enemigo
+
+CREATE TABLE Enemigo (
+    nombre VARCHAR(50) PRIMARY KEY NOT NULL,
+    tipo VARCHAR(70) NOT NULL,
+    vida INTEGER NOT NULL,
+    tiempoAparicion INTEGER NOT NULL,
+    elementoImbuimiento VARCHAR(50) NOT NULL,
+    FOREIGN KEY (elementoImbuimiento) REFERENCES Elemento(nombre)
+);
+
+-- Creando la tabla Aparece
+
+CREATE TABLE Aparece (
+    nombreEnemigo VARCHAR(50) PRIMARY KEY NOT NULL,
+    nombreRegion VARCHAR(50) NOT NULL,
+    FOREIGN KEY (nombreEnemigo) REFERENCES Enemigo(nombre),
+    FOREIGN KEY (nombreRegion) REFERENCES Region(nombre)
+);
+
 -- Creando la tabla RegionInpiradas
 
 CREATE TABLE RegionesInspiradas (
@@ -216,7 +267,6 @@ CREATE TABLE RegionesInspiradas (
     PRIMARY KEY(nombreRegion,nombrePaisReal),
     FOREIGN KEY (nombreRegion) REFERENCES Region(nombre)
 );
-
 
 -- Creando la tabla Habilidad
 
@@ -231,18 +281,6 @@ CREATE TABLE Habilidad (
 
 ALTER TABLE Habilidad 
 ADD CONSTRAINT CHECK_TIPO CHECK (tipo IN ('Definitiva', 'Elemental'));
-
--- Creando la tabla ConjuntoArtefactos
-
-CREATE TABLE ConjuntoArtefactos (
-    nombre VARCHAR(50) PRIMARY KEY NOT NULL,
-    descripcion TEXT NOT NULL,
-	efecto INTEGER NOT NULL CHECK (efecto >= 1),
-    magnitudEfecto FLOAT NOT NULL CHECK (magnitudEfecto != 0),
-    regionProveniencia VARCHAR(50) NOT NULL,
-    FOREIGN KEY (efecto) REFERENCES Efecto(id),
-    FOREIGN KEY (regionProveniencia) REFERENCES Region(nombre)
-);
 
 -- Creando la tabla AbismoAbisal
 
@@ -299,43 +337,6 @@ CREATE TABLE Sala (
     FOREIGN KEY (idPiso,idAbismoAbisal) REFERENCES Piso(id,idAbismoAbisal)
 );
 
--- Creando la tabla Comida
-
-CREATE TABLE Comida (
-    nombre VARCHAR(50) PRIMARY KEY NOT NULL,
-    rareza INTEGER NOT NULL,
-    nombreRegion VARCHAR(100) NOT NULL,
-    FOREIGN KEY (nombreRegion) REFERENCES Region(nombre)
-);
-
--- Creando la tabla Concede
-
-CREATE TABLE Concede (
-    nombreComida  VARCHAR(50) PRIMARY KEY NOT NULL,
-    idEfecto INTEGER NOT NULL CHECK (idEfecto >= 1),
-    FOREIGN KEY (nombreComida) REFERENCES Comida(nombre),
-    FOREIGN KEY (idEfecto) REFERENCES Efecto(id)
-);
-
--- Creando la tabla Enemigo
-
-CREATE TABLE Enemigo (
-    nombre VARCHAR(50) PRIMARY KEY NOT NULL,
-    tipo VARCHAR(70) NOT NULL,
-    vida INTEGER NOT NULL,
-    tiempoAparicion INTEGER NOT NULL,
-    elementoImbuimiento VARCHAR(50) NOT NULL,
-    FOREIGN KEY (elementoImbuimiento) REFERENCES Elemento(nombre)
-);
-
--- Creando la tabla Aparece
-
-CREATE TABLE Aparece (
-    nombreEnemigo VARCHAR(50) PRIMARY KEY NOT NULL,
-    nombreRegion VARCHAR(50) NOT NULL,
-    FOREIGN KEY (nombreEnemigo) REFERENCES Enemigo(nombre),
-    FOREIGN KEY (nombreRegion) REFERENCES Region(nombre)
-);
 
 -- Creando la tabla Incluye
 
