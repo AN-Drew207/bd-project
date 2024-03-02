@@ -1,4 +1,7 @@
-/* Personaje(Nombre, Cargo, Vision, tipo, Constelación, Rareza, TipoArma, AtaqueBase,
+/* 
+***MODELO RELACIONAL***
+
+Personaje(Nombre, Cargo, Vision, tipo, Constelación, Rareza, TipoArma, AtaqueBase,
 VelMovimiento, Defensa, Vida, regionProveniencia, nombreArma, efectoSecundario,
 magnitudEfectoSecundario, habilidadElemental, habilidadDefinitiva, conjuntoArtefactos)
 regionProveniencia es FK de región(nombre)
@@ -67,6 +70,7 @@ nombrePersonaje1 es FK de Personaje(Nombre)
 nombrePersonaje2 es FK de Personaje(Nombre) */
 
 -- Creando la tabla Efecto
+
 CREATE TABLE Efecto (
     id INTEGER PRIMARY KEY NOT NULL CHECK (id >= 1),
     nombre VARCHAR(50) NOT NULL,
@@ -74,6 +78,7 @@ CREATE TABLE Efecto (
 );
 
 -- Creando la tabla Arma
+
 CREATE TABLE Arma (
     nombre VARCHAR(50) PRIMARY KEY NOT NULL,
     rareza INTEGER NOT NULL ,
@@ -88,6 +93,9 @@ CREATE TABLE Arma (
     segundoEfecto INTEGER NOT NULL CHECK (segundoEfecto >= 1),
     magnitudSegundoEfecto FLOAT NOT NULL CHECK (magnitudSegundoEfecto != 0)
 );
+
+-- Restriccion Avanzada 3
+-- La herencia de las armas y cada uno de sus 5 tipos
 
 CREATE FUNCTION tr_arma_function() 
 RETURNS TRIGGER AS $$
@@ -130,6 +138,8 @@ BEFORE INSERT OR UPDATE ON Arma
 FOR EACH ROW
 EXECUTE FUNCTION tr_arma_function();
 
+-- Restriccion Simple 5 en Arma
+
 CREATE FUNCTION verificar_magnitudEfecto_arma_function()
 RETURNS TRIGGER AS $$
 DECLARE
@@ -166,21 +176,30 @@ EXECUTE FUNCTION verificar_magnitudEfecto_arma_function();
 -- DROP FUNCTION tr_arma_function;
 -- DROP TRIGGER IF EXISTS tr_arma ON arma;
 
+-- Restriccion Simple 3
+-- Cumplir las restricciones de las armas, especificadas entre paréntesis en la Fase I.
+
 ALTER TABLE Arma 
 ADD CONSTRAINT CHECK_ARMA CHECK (tipo IN ('Espada Ligera', 'Espada Pesada', 'Lanza', 'Arco', 'Catalizador') AND 
 tipoPunta IN ('Alemana', 'Europea Funcional', 'Frámea Merovingia', 'Inglesa') AND
 tipoMagia IN ('Ofensiva', 'Defensiva', 'Soporte'));
 
 -- Creando la tabla Elemento
+
 CREATE TABLE Elemento (
     nombre VARCHAR(50) PRIMARY KEY NOT NULL 
 );
+
+-- Restriccion Simple 1
+-- Los elementos admitidos son los típicos del juego ( ‘Anemo’, ‘Pyro’, ‘Cryo’, ‘Geo’, ‘Dendro’, ‘Electro’, ‘Hydro’), 
+-- en caso del embuimiento de enemigos (que suelen no estarlo por defecto), se puede aceptar el “elemento” ‘N/A también.
 
 ALTER TABLE Elemento 
 ADD CONSTRAINT CHECK_NOMBRE CHECK (nombre IN ('Anemo', 'Pyro', 'Cryo', 'Geo', 'Dendro', 'Electro', 'Hydro', 'N/A'));
 
 
 -- Creando la tabla Region
+
 CREATE TABLE Region (
     nombre VARCHAR(50) PRIMARY KEY NOT NULL,
     arconte VARCHAR(100) NOT NULL,
@@ -190,6 +209,7 @@ CREATE TABLE Region (
 );
 
 -- Creando la tabla RegionInpiradas
+
 CREATE TABLE RegionesInspiradas (
     nombreRegion VARCHAR(50)  NOT NULL,
     nombrePaisReal VARCHAR(50) NOT NULL,
@@ -199,15 +219,20 @@ CREATE TABLE RegionesInspiradas (
 
 
 -- Creando la tabla Habilidad
+
 CREATE TABLE Habilidad (
     nombre VARCHAR(50) PRIMARY KEY NOT NULL,
     tipo  VARCHAR(50) NOT NULL,
     bonoATQ FLOAT NOT NULL CHECK (bonoATQ >= 25 AND bonoATQ <= 1000)
 );
 
+-- Restriccion Simple 4
+-- Cumplir las restricciones de las habilidades, especificadas entre paréntesis en la Fase I.
+
 ALTER TABLE Habilidad 
 ADD CONSTRAINT CHECK_TIPO CHECK (tipo IN ('Definitiva', 'Elemental'));
 
+-- Creando la tabla ConjuntoArtefactos
 
 CREATE TABLE ConjuntoArtefactos (
     nombre VARCHAR(50) PRIMARY KEY NOT NULL,
@@ -220,6 +245,7 @@ CREATE TABLE ConjuntoArtefactos (
 );
 
 -- Creando la tabla AbismoAbisal
+
 CREATE TABLE AbismoAbisal (
     id INTEGER PRIMARY KEY NOT NULL CHECK (id >= 1),
     FechaFin DATE NOT NULL,
@@ -227,6 +253,7 @@ CREATE TABLE AbismoAbisal (
 );
 
 -- Creando la tabla Piso
+
 CREATE TABLE Piso (
 	-- REVISAR UNIQUE
     id INTEGER NOT NULL CHECK (id >= 1),
@@ -262,6 +289,7 @@ FOR EACH ROW
 EXECUTE FUNCTION verificar_tipo_piso_function();
 
 -- Creando la tabla Sala
+
 CREATE TABLE Sala (
     numero INTEGER NOT NULL CHECK (numero >= 1 AND numero <=3),
     idPiso INTEGER NOT NULL CHECK (idPiso >= 1 AND idPiso <=12),
@@ -272,6 +300,7 @@ CREATE TABLE Sala (
 );
 
 -- Creando la tabla Comida
+
 CREATE TABLE Comida (
     nombre VARCHAR(50) PRIMARY KEY NOT NULL,
     rareza INTEGER NOT NULL,
@@ -280,12 +309,15 @@ CREATE TABLE Comida (
 );
 
 -- Creando la tabla Concede
+
 CREATE TABLE Concede (
     nombreComida  VARCHAR(50) PRIMARY KEY NOT NULL,
     idEfecto INTEGER NOT NULL CHECK (idEfecto >= 1),
     FOREIGN KEY (nombreComida) REFERENCES Comida(nombre),
     FOREIGN KEY (idEfecto) REFERENCES Efecto(id)
 );
+
+-- Creando la tabla Enemigo
 
 CREATE TABLE Enemigo (
     nombre VARCHAR(50) PRIMARY KEY NOT NULL,
@@ -296,6 +328,8 @@ CREATE TABLE Enemigo (
     FOREIGN KEY (elementoImbuimiento) REFERENCES Elemento(nombre)
 );
 
+-- Creando la tabla Aparece
+
 CREATE TABLE Aparece (
     nombreEnemigo VARCHAR(50) PRIMARY KEY NOT NULL,
     nombreRegion VARCHAR(50) NOT NULL,
@@ -304,6 +338,7 @@ CREATE TABLE Aparece (
 );
 
 -- Creando la tabla Incluye
+
 CREATE TABLE Incluye (
     nombreEnemigo VARCHAR(50) NOT NULL,
     numeroSala INTEGER NOT NULL CHECK (numeroSala >= 1 AND numeroSala <=3),
@@ -318,6 +353,7 @@ CREATE TABLE Incluye (
 
 -- Creando la tabla Personaje con checks en las variables de rareza, vida, defensa, velocidad de movimiento y ataque base
 -- que se refieren a que los valores numericos no pueden ser menores a 1, aparte que la rareza va de 4 o 5 estrellas y puede ser null
+
 CREATE TABLE Personaje (
     nombre VARCHAR(50) PRIMARY KEY NOT NULL,
     cargo VARCHAR(70) NOT NULL,
@@ -345,13 +381,13 @@ CREATE TABLE Personaje (
     FOREIGN KEY (conjuntoArtefactos) REFERENCES ConjuntoArtefactos(nombre)	
 );
 
-SELECT * FROM personaje;
+-- Visiones admitidas en Personaje
 
 ALTER TABLE Personaje
 ADD CONSTRAINT CHECK_PERSONAJE CHECK (vision IN ('Anemo', 'Pyro', 'Cryo', 'Geo', 'Dendro', 'Electro', 'Hydro', 'N/A') AND tipo IN ('Jugable', 'No Jugable'));
 
---ALTER TABLE Personaje
---ADD CONSTRAINT CHECK_PERSONAJE_TIPO CHECK (tipo IN ('Jugable', 'No Jugable'));
+-- Restriccion Avanzada 2
+-- La herencia de personajes no jugables y jugables
 
 CREATE FUNCTION verificar_tipo_personaje_function()
 RETURNS TRIGGER AS $$
@@ -374,6 +410,7 @@ BEFORE INSERT OR UPDATE ON Arma
 FOR EACH ROW
 EXECUTE FUNCTION verificar_tipo_personaje_function();
 
+-- Restriccion Simple 5 en Personaje
 
 CREATE FUNCTION verificar_magnitudEfecto_function()
 RETURNS TRIGGER AS $$
@@ -409,7 +446,9 @@ FOR EACH ROW
 EXECUTE FUNCTION verificar_magnitudEfecto_function();
 
 
-
+-- Restriccion Avanzada 1
+-- Que antes de insertar o actualizar un personaje jugable, se verifique 
+-- si el arma que tiene asignada posee un mismo tipo de arma que las que él puede usar. 
 
 CREATE FUNCTION verificar_tipoArma()
 RETURNS TRIGGER AS $$
@@ -430,6 +469,7 @@ EXECUTE FUNCTION verificar_tipoArma();
     
 
 -- Creando la tabla Conoce
+
 CREATE TABLE Conoce (
     nombrePersonaje1 VARCHAR(50) NOT NULL,
     nombrePersonaje2 VARCHAR(50) NOT NULL,

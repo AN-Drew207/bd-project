@@ -1,4 +1,9 @@
 -- Consulta 1
+-- Consultar el nombre, elemento y región de todos los personajes de 4 estrellas que poseen 
+-- un elemento distinto al elemento que representa su región de proveniencia, 
+-- ordenado por el nombre de las regiones, 
+-- de forma ascendente y por el nombre de los personajes, de forma ascendente también.
+
 SELECT P.nombre, P.vision, P.regionProveniencia
 FROM Personaje P
 JOIN Region R ON R.nombre = P.regionProveniencia
@@ -6,6 +11,8 @@ WHERE P.rareza = 4 AND P.vision <> R.elementoOrigen
 ORDER BY P.nombre ASC, R.nombre ASC;
 
 -- Consulta 2
+-- Consultar cuáles son los tipos de armas que tienen por lo menos un portador de cada elemento
+
 SELECT DISTINCT tipo
 FROM Arma a
 WHERE NOT EXISTS
@@ -16,6 +23,9 @@ WHERE NOT EXISTS
 ));
 
 -- Consulta 3
+-- Consultar cuáles son los personajes que poseen una relación de enemistad 
+-- con otro personaje que ingiere la misma comida que él
+
 SELECT nombrePersonaje1
 FROM conoce 
 JOIN Ingiere I1 ON I1.nombrePersonaje = nombrePersonaje1
@@ -23,6 +33,9 @@ JOIN Ingiere I2 ON I2.nombrePersonaje = nombrePersonaje2
 WHERE tipoRelacion = 'Enemistad' AND I1.nombreComida = I2.nombreComida;
 
 -- Consulta 4
+-- Consultar cuáles son los enemigos de Fontaine que 
+-- actualmente están “disponibles” para pelear en la segunda sala del piso 12 del abismo
+
 SELECT nombreEnemigo FROM aparece WHERE nombreRegion = 'Fontaine' AND nombreEnemigo IN (SELECT nombreEnemigo FROM incluye i WHERE numeroSala = 2 AND idPiso = 12 AND idAbismoAbisal = ((SELECT id from abismoabisal
 where FechaFin=(
 SELECT max(FechaFin)
@@ -31,11 +44,15 @@ FROM abismoabisal
 
 
 -- Consulta 5
+--Consultar el nombre, tipo y rareza de las armas que tienen un ataque base mayor a 600
+
 SELECT nombre, Tipo, rareza
 FROM Arma
 WHERE AtaqueBase > 600;
 
 -- Consulta 6
+-- Consultar cuáles son todos los países en los que están inspiradas cada una de las naciones registradas
+
 SELECT *
 FROM RegionesInspiradas;
 
@@ -43,6 +60,7 @@ FROM RegionesInspiradas;
 -- Listar los nombres de los personajes que tienen una amistad con al menos un personaje con efecto secundario %Daño Critico y que su magnitud sea mayor a 10
 -- Esta consulta fue elaborada ya que la tabla efectos no es tan usada y aprovechando la relacion conoce entre personajes, podemos encontrar
 -- los personajes con amigos que tengan el efecto secundario '%Daño Critico' mayor que 10
+
 SELECT nombre 
 FROM Personaje
 WHERE nombre IN 
