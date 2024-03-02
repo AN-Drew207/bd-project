@@ -1,3 +1,5 @@
+-- Insertando Efectos
+
 INSERT INTO Efecto VALUES (1, '%Daño Pyro', 'Inflige daño de Fuego'), 
 (2, '%Daño Electro', 'Inflige daño Electrico'), 
 (3, '%Daño Hydro', 'Inflige daño Acuatico'),
@@ -28,6 +30,8 @@ INSERT INTO Efecto VALUES (1, '%Daño Pyro', 'Inflige daño de Fuego'),
 (28, '%Curacion', 'Curacion'),
 (29, 'N/A', 'Sin Efecto'),
 (30, '%Protec. Escudo', 'Porcentaje de proteccion');
+
+-- Insertando Armas
 
 INSERT INTO Arma VALUES ('Espada de Madera', 4, 564, 'Espada Ligera', 60.5, False, NULL, NULL, NULL, NULL, 11, 30.6),
 ('Aquila Favonia', 5, 674, 'Espada Ligera', 80.5, False, NULL, NULL, NULL, NULL, 13, 41.3),
@@ -70,7 +74,11 @@ INSERT INTO Arma VALUES ('Espada de Madera', 4, 564, 'Espada Ligera', 60.5, Fals
 ('Memorias de Sacrificios', 4, 454, 'Catalizador', NULL, NULL, NULL, NULL, NULL, 'Defensiva', 9, 220.0),
 ('Centelleo Jadecaído', 5, 608, 'Catalizador', NULL, NULL, NULL, NULL, NULL, 'Soporte', 14, 49.6);
 
+-- Insertando Elementos
+
 INSERT INTO Elemento VALUES ('Anemo'), ('Pyro'), ('Cryo'), ('Geo'), ('Dendro'), ('Electro'), ('Hydro'), ('N/A');
+
+-- Insertando Regiones
 
 INSERT INTO Region VALUES ('Fontaine', 'Focalors', 'Es una de las siete regiones de Teyvat. Es la ciudad-estado que rinde culto a Focalors, la Arconte Hydro.', 'Hydro'), 
 ('Liyue', 'Morax', 'Es una de las siete naciones de Teyvat. También es la ciudad-Estado que adora a Morax, el Arconte Geo.', 'Geo'), 
@@ -78,11 +86,15 @@ INSERT INTO Region VALUES ('Fontaine', 'Focalors', 'Es una de las siete regiones
 ('Mondstadt', 'Barbatos', 'Es una de las siete naciones de Teyvat, y es la primera en la que el Viajero empieza a buscar a su hermana perdida. Es la ciudad-estado que adora a Barbatos, el Arconte Anemo.', 'Anemo'),
 ('Sumeru', 'Reina Menor Kusanali', 'Es una de las sietes naciones de Teyvat. Es la ciudad-estado que adora a la Diosa de la Sabiduría, la Reina Menor Kusanali, la Arconte Dendro.', 'Dendro');
 
+-- Insertando Regiones Inspiradas
+
 INSERT INTO RegionesInspiradas VALUES ('Fontaine', 'Francia'), 
 ('Liyue', 'China'),
 ('Inazuma', 'Japon'),
 ('Mondstadt', 'Alemania'),
 ('Sumeru', 'Oriente Próximo y la Antigua India');
+
+-- Insertando Comidas
 
 INSERT INTO Comida VALUES ('Pescado salteado con mantequilla', 3, 'Mondstadt'),
 ('Carne Frita', 1, 'Liyue'),
@@ -128,6 +140,8 @@ INSERT INTO Comida VALUES ('Pescado salteado con mantequilla', 3, 'Mondstadt'),
 ('Caracolas de cristal', 3, 'Fontaine'),
 ('Pasta a la boloñesa', 2, 'Mondstadt');
 
+-- Insertando efectos que conceden las Comidas
+
 INSERT INTO Concede VALUES ('Pescado salteado con mantequilla', 30), 
 ('Carne Frita', 16), 
 ('Gelatina de menta', 16), 
@@ -170,6 +184,7 @@ INSERT INTO Concede VALUES ('Pescado salteado con mantequilla', 30),
 ('Comida felina revitalizante', 16), 
 ('Pasta a la boloñesa', 14);
 
+-- Insertando Habilidades
 
 INSERT INTO Habilidad VALUES 
 ('Abiogenesis: Solar Isotoma', 'Elemental', 130.4),
@@ -235,6 +250,7 @@ INSERT INTO Habilidad VALUES
 ('Bewildering Lights', 'Elemental', 167.2),
 ('Wondrous Trick: Miracle Parade', 'Definitiva', 154.0);
 
+-- Insertando Personajes
 
 INSERT INTO Personaje VALUES 
 ('TEST','Jefe Alquimista','Electro','Jugable','Princeps Cretaceus',5,'Espada Ligera',19,NULL,68,1029,'Mondstadt','Aquila Favonia',5, 7.2, 'Abiogenesis: Solar Isotoma','Rite of Progeniture: Tectonic Tide',NULL),
@@ -280,6 +296,8 @@ INSERT INTO Personaje VALUES
 ('Bruce','Caballero de Favonius','N/A','No Jugable',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Mondstadt',NULL,NULL,NULL,NULL,NULL,NULL),
 ('Blanche','Dependienta de la Boutique de Mondstadt','N/A','No Jugable',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Mondstadt',NULL,NULL,NULL,NULL,NULL,NULL);
 
+-- Insertando comidas que Ingieren Personajes
+
 INSERT INTO Ingiere VALUES ('Albedo', 'Pescado salteado con mantequilla'), ('Aloy', 'Gelatina de menta'), ('Amber', 'Filete a la barbacoa'),
 ('Baizhu', 'Sopa de frutos de jade'), ('Barbara', 'Guisado de temporada'), ('Beidou', 'Carne Frita'), ('Bennett', 'Huevo frito de Teyvat'),
 ('Candace', 'Arroz de Aaru'), ('Charlotte', 'Fish and chips'), ('Chevreuse', 'Delito: Procesamiento Innecesario'), ('Chongyun', 'Fideos con delicias de montaña'),
@@ -289,12 +307,14 @@ INSERT INTO Ingiere VALUES ('Albedo', 'Pescado salteado con mantequilla'), ('Alo
 ('Kaveh', 'Fatteh'), ('Kirara', 'Comida felina revitalizante'), ('Klee', 'Tostada del pescador'), ('Lisa', 'Pasta a la boloñesa'), 
 ('Lynette', 'Caracolas de cristal'), ('Lyney', 'Golosinas de frutas');
 
+-- Insertando Abismos
+
 INSERT INTO AbismoAbisal VALUES (1, '2024-04-1 00:00:00'),  
 (2, '2024-04-16 00:00:00'),  
 (3, '2024-05-1 00:00:00');
 
--- id,  idAbismo,  tipo,  promEstrellas,  efecto,  magnitud
--- QUEDAN PENDIENTES EFECTO Y MAGNITUD
+-- Insertando Pisos del Abismo
+
 INSERT INTO Piso VALUES (1, 1, 'Regular', NULL, 14, 1), 
 (1, 2, 'Regular', NULL, 2, 2), 
 (1, 3, 'Regular', NULL, 1, 3), 
@@ -332,7 +352,8 @@ INSERT INTO Piso VALUES (1, 1, 'Regular', NULL, 14, 1),
 (12, 2, 'Cambiante', '2.50 estrellas', 20, 15), 
 (12, 3, 'Cambiante', '3.90 estrellas', 21, 16);
 
--- Preguntar como deberían funcionar las salas
+-- Insertando Salas
+
 INSERT INTO Sala VALUES (1,1,1),
 (1,1,2),
 (1,1,3),
@@ -442,6 +463,8 @@ INSERT INTO Sala VALUES (1,1,1),
 (3,12,2),
 (3,12,3);
 
+-- Insertando Enemigos
+
 INSERT INTO Enemigo VALUES ('Fatui Pyro Agent', 'Enemigo de élite', 365, 300, 'Pyro'),
 ('Treasure Hoarders: Crusher', 'Enemigo Normal', 146, 60, 'N/A'),
 ('Hydro Hypostasis', 'Jefe', 656, 600, 'Hydro'),
@@ -484,7 +507,8 @@ INSERT INTO Enemigo VALUES ('Fatui Pyro Agent', 'Enemigo de élite', 365, 300, '
 ('Pyro Hilichurl Shooter', 'Enemigo Normal', 58, 90, 'Pyro');
 
 
--- PREGUNTAR 
+-- Insertando en Incluye
+
 INSERT INTO Incluye VALUES ('Electro Hypostasis', 1, 1, 1, 7), 
 ('Hydro Samachurl', 1, 1, 1, 3), 
 ('Cryo Samachurl', 1, 1, 1, 1), 
@@ -917,8 +941,7 @@ INSERT INTO Incluye VALUES ('Electro Hypostasis', 1, 1, 1, 7),
 ('Hydro Samachurl', 3, 12, 3, 10), 
 ('Thundercraven Rifthound', 3, 12, 3, 5);
 
-
--- Tablas Faltantes Concede, Ingiere, Enemigo, Aparece,Incluye
+-- Insertando Conjunto de Artefactos
 
 INSERT INTO ConjuntoArtefactos VALUES ('Afortunado', 'Un trébol de cuatro hojas que crece en la naturaleza. Fue arrancado porque se decía que traía suerte', 15, 100, 'Liyue'),
 ('Instructor', 'Cuando el instructor llevaba puesto este broche, significaba que ese día no había entrenamiento.', 9, 8, 'Mondstadt'),
@@ -960,7 +983,8 @@ INSERT INTO ConjuntoArtefactos VALUES ('Afortunado', 'Un trébol de cuatro hojas
 ('Médica Itinerante', 'Un precioso ingrediente medicinal que ha perdido todas sus propiedades curativas después de tanto tiempo sin ser usado', 28, 20, 'Mondstadt'),
 ('Sombra Verde Esmeralda', 'En el pasado, esta flor floreció por todas parte. Cuando el cazador se marchó, la usó como broche.', 7, 15, 'Mondstadt');
 
--- Añadiendo relaciones de personajes
+-- Insertando relaciones de personajes
+
 INSERT INTO Conoce VALUES 
 ('Jean', 'Amber', 'Amistad'),
 ('Kaeya', 'Amber', 'Amistad'),
@@ -1044,6 +1068,8 @@ INSERT INTO Conoce VALUES
 ('Elzer', 'Elzer', 'Misma persona'),
 ('Bruce', 'Bruce', 'Misma persona'),
 ('Blanche', 'Blanche', 'Misma persona');
+
+-- Insertando Aparece
 
 INSERT INTO Aparece VALUES 
 ('Fatui Pyro Agent', 'Inazuma'),

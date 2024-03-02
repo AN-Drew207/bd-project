@@ -93,8 +93,8 @@ GROUP BY I.idabismoabisal
 ORDER BY I.idabismoabisal;
 
 
+-- Función TierSSS
 
--- Función TierSSS 
 CREATE FUNCTION TierSSS(elemento VARCHAR)
 RETURNS VOID AS $$
 DECLARE
